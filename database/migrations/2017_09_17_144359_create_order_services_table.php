@@ -21,8 +21,8 @@ class CreateOrderServicesTable extends Migration
             $table->string('p_const');
             $table->string('s_exec');
             $table->date('dt_prox_manut');
-            $table->flot('valor_total');
-            $table->flot('valor_desconto');
+            $table->float('valor_total');
+            $table->float('valor_desconto');
             $table->boolean('status');
             $table->integer('id_tipo_ordem_servico')->unsigned();
             $table->integer('id_cliente')->unsigned();
