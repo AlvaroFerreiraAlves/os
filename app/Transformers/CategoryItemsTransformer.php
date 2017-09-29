@@ -3,22 +3,22 @@
 namespace App\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use App\Entities\ServiceOrderService;
+use App\Entities\CategoryItems;
 
 /**
- * Class ServiceOrderServiceTransformer
+ * Class CategoryItemsTransformer
  * @package namespace App\Transformers;
  */
-class ServiceOrderServiceTransformer extends TransformerAbstract
+class CategoryItemsTransformer extends TransformerAbstract
 {
 
     /**
-     * Transform the \ServiceOrderService entity
-     * @param \ServiceOrderService $model
+     * Transform the \CategoryItems entity
+     * @param \CategoryItems $model
      *
      * @return array
      */
-    public function transform(ServiceOrderService $model)
+    public function transform(CategoryItems $model)
     {
         return [
             'id'         => (int) $model->id,

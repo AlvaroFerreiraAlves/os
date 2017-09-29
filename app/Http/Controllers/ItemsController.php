@@ -7,26 +7,26 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\ServiceCreateRequest;
-use App\Http\Requests\ServiceUpdateRequest;
-use App\Repositories\ServiceRepository;
-use App\Validators\ServiceValidator;
+use App\Http\Requests\ItemCreateRequest;
+use App\Http\Requests\ItemUpdateRequest;
+use App\Repositories\ItemRepository;
+use App\Validators\ItemValidator;
 
 
-class ServicesController extends Controller
+class ItemsController extends Controller
 {
 
     /**
-     * @var ServiceRepository
+     * @var ItemRepository
      */
     protected $repository;
 
     /**
-     * @var ServiceValidator
+     * @var ItemValidator
      */
     protected $validator;
 
-    public function __construct(ServiceRepository $repository, ServiceValidator $validator)
+    public function __construct(ItemRepository $repository, ItemValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -41,37 +41,37 @@ class ServicesController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $services = $this->repository->all();
+        $items = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $services,
+                'data' => $items,
             ]);
         }
 
-        return view('services.index', compact('services'));
+        return view('items.index', compact('items'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  ServiceCreateRequest $request
+     * @param  ItemCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(ServiceCreateRequest $request)
+    public function store(ItemCreateRequest $request)
     {
 
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $service = $this->repository->create($request->all());
+            $item = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Service created.',
-                'data'    => $service->toArray(),
+                'message' => 'Item created.',
+                'data'    => $item->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -102,16 +102,16 @@ class ServicesController extends Controller
      */
     public function show($id)
     {
-        $service = $this->repository->find($id);
+        $item = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $service,
+                'data' => $item,
             ]);
         }
 
-        return view('services.show', compact('service'));
+        return view('items.show', compact('item'));
     }
 
 
@@ -125,32 +125,32 @@ class ServicesController extends Controller
     public function edit($id)
     {
 
-        $service = $this->repository->find($id);
+        $item = $this->repository->find($id);
 
-        return view('services.edit', compact('service'));
+        return view('items.edit', compact('item'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  ServiceUpdateRequest $request
+     * @param  ItemUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      */
-    public function update(ServiceUpdateRequest $request, $id)
+    public function update(ItemUpdateRequest $request, $id)
     {
 
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $service = $this->repository->update($request->all(), $id);
+            $item = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Service updated.',
-                'data'    => $service->toArray(),
+                'message' => 'Item updated.',
+                'data'    => $item->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -188,11 +188,11 @@ class ServicesController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Service deleted.',
+                'message' => 'Item deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Service deleted.');
+        return redirect()->back()->with('message', 'Item deleted.');
     }
 }

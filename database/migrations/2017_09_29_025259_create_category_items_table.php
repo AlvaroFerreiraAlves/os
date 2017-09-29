@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypeOrderServicesTable extends Migration
+class CreateCategoryItemsTable extends Migration
 {
 
 	/**
@@ -13,9 +13,8 @@ class CreateTypeOrderServicesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('type_order_services', function(Blueprint $table) {
+		Schema::create('category_items', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('nome');
             $table->string('descricao');
             $table->boolean('status');
 
@@ -30,7 +29,7 @@ class CreateTypeOrderServicesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('type_order_services');
+		Schema::drop('category_items');
 	}
 
 }

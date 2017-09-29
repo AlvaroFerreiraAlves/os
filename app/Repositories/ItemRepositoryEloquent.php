@@ -4,15 +4,15 @@ namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\ServiceOrderServiceRepository;
-use App\Entities\ServiceOrderService;
-use App\Validators\ServiceOrderServiceValidator;
+use App\Repositories\ItemRepository;
+use App\Entities\Item;
+use App\Validators\ItemValidator;
 
 /**
- * Class ServiceOrderServiceRepositoryEloquent
+ * Class ItemRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class ServiceOrderServiceRepositoryEloquent extends BaseRepository implements ServiceOrderServiceRepository
+class ItemRepositoryEloquent extends BaseRepository implements ItemRepository
 {
     /**
      * Specify Model class name
@@ -21,7 +21,7 @@ class ServiceOrderServiceRepositoryEloquent extends BaseRepository implements Se
      */
     public function model()
     {
-        return ServiceOrderService::class;
+        return Item::class;
     }
 
     /**
@@ -32,7 +32,7 @@ class ServiceOrderServiceRepositoryEloquent extends BaseRepository implements Se
     public function validator()
     {
 
-        return ServiceOrderServiceValidator::class;
+        return ItemValidator::class;
     }
 
 

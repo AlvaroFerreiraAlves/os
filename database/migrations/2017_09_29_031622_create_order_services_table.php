@@ -46,7 +46,6 @@ class CreateOrderServicesTable extends Migration
                 ->onDelete('cascade');
 
 
-
             $table->timestamps();
 		});
 	}

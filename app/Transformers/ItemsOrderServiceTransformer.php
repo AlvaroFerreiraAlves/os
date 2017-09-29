@@ -3,22 +3,22 @@
 namespace App\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use App\Entities\Service;
+use App\Entities\ItemsOrderService;
 
 /**
- * Class ServiceTransformer
+ * Class ItemsOrderServiceTransformer
  * @package namespace App\Transformers;
  */
-class ServiceTransformer extends TransformerAbstract
+class ItemsOrderServiceTransformer extends TransformerAbstract
 {
 
     /**
-     * Transform the \Service entity
-     * @param \Service $model
+     * Transform the \ItemsOrderService entity
+     * @param \ItemsOrderService $model
      *
      * @return array
      */
-    public function transform(Service $model)
+    public function transform(ItemsOrderService $model)
     {
         return [
             'id'         => (int) $model->id,

@@ -4,15 +4,15 @@ namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\serviceRepository;
-use App\Entities\Service;
-use App\Validators\ServiceValidator;
+use App\Repositories\CategoryItemsRepository;
+use App\Entities\CategoryItems;
+use App\Validators\CategoryItemsValidator;
 
 /**
- * Class ServiceRepositoryEloquent
+ * Class CategoryItemsRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class ServiceRepositoryEloquent extends BaseRepository implements ServiceRepository
+class CategoryItemsRepositoryEloquent extends BaseRepository implements CategoryItemsRepository
 {
     /**
      * Specify Model class name
@@ -21,7 +21,7 @@ class ServiceRepositoryEloquent extends BaseRepository implements ServiceReposit
      */
     public function model()
     {
-        return Service::class;
+        return CategoryItems::class;
     }
 
     /**
@@ -32,7 +32,7 @@ class ServiceRepositoryEloquent extends BaseRepository implements ServiceReposit
     public function validator()
     {
 
-        return ServiceValidator::class;
+        return CategoryItemsValidator::class;
     }
 
 

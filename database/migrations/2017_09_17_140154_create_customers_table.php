@@ -23,6 +23,7 @@ class CreateCustomersTable extends Migration
             $table->string('telefone');
             $table->string('celular');
             $table->boolean('status');
+            $table->boolean('tipo_cliente');
 
             $table->timestamps();
 		});

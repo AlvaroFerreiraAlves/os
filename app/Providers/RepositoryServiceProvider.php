@@ -28,10 +28,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(\App\Repositories\UserTypeUserRepository::class, \App\Repositories\UserTypeUserRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\CustomerRepository::class, \App\Repositories\CustomerRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\CompanyRepository::class, \App\Repositories\CompanyRepositoryEloquent::class);
-        $this->app->bind(\App\Repositories\ServiceRepository::class, \App\Repositories\ServiceRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\CategoryItemsRepository::class, \App\Repositories\CategoryItemsRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\ItemRepository::class, \App\Repositories\ItemRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\TypeOrderServiceRepository::class, \App\Repositories\TypeOrderServiceRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\OrderServiceRepository::class, \App\Repositories\OrderServiceRepositoryEloquent::class);
-        $this->app->bind(\App\Repositories\ServiceOrderServiceRepository::class, \App\Repositories\ServiceOrderServiceRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\ItemsOrderServiceRepository::class, \App\Repositories\ItemsOrderServiceRepositoryEloquent::class);
         //:end-bindings:
     }
 }

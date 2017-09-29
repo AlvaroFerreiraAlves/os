@@ -2,15 +2,15 @@
 
 namespace App\Presenters;
 
-use App\Transformers\ServiceTransformer;
+use App\Transformers\ItemsOrderServiceTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
 /**
- * Class ServicePresenter
+ * Class ItemsOrderServicePresenter
  *
  * @package namespace App\Presenters;
  */
-class ServicePresenter extends FractalPresenter
+class ItemsOrderServicePresenter extends FractalPresenter
 {
     /**
      * Transformer
@@ -19,6 +19,6 @@ class ServicePresenter extends FractalPresenter
      */
     public function getTransformer()
     {
-        return new ServiceTransformer();
+        return new ItemsOrderServiceTransformer();
     }
 }

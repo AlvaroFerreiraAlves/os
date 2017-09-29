@@ -7,26 +7,26 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\ServiceOrderServiceCreateRequest;
-use App\Http\Requests\ServiceOrderServiceUpdateRequest;
-use App\Repositories\ServiceOrderServiceRepository;
-use App\Validators\ServiceOrderServiceValidator;
+use App\Http\Requests\CategoryItemsCreateRequest;
+use App\Http\Requests\CategoryItemsUpdateRequest;
+use App\Repositories\CategoryItemsRepository;
+use App\Validators\CategoryItemsValidator;
 
 
-class ServiceOrderServicesController extends Controller
+class CategoryItemsController extends Controller
 {
 
     /**
-     * @var ServiceOrderServiceRepository
+     * @var CategoryItemsRepository
      */
     protected $repository;
 
     /**
-     * @var ServiceOrderServiceValidator
+     * @var CategoryItemsValidator
      */
     protected $validator;
 
-    public function __construct(ServiceOrderServiceRepository $repository, ServiceOrderServiceValidator $validator)
+    public function __construct(CategoryItemsRepository $repository, CategoryItemsValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -41,37 +41,37 @@ class ServiceOrderServicesController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $serviceOrderServices = $this->repository->all();
+        $categoryItems = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $serviceOrderServices,
+                'data' => $categoryItems,
             ]);
         }
 
-        return view('serviceOrderServices.index', compact('serviceOrderServices'));
+        return view('categoryItems.index', compact('categoryItems'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  ServiceOrderServiceCreateRequest $request
+     * @param  CategoryItemsCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(ServiceOrderServiceCreateRequest $request)
+    public function store(CategoryItemsCreateRequest $request)
     {
 
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $serviceOrderService = $this->repository->create($request->all());
+            $categoryItem = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'ServiceOrderService created.',
-                'data'    => $serviceOrderService->toArray(),
+                'message' => 'CategoryItems created.',
+                'data'    => $categoryItem->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -102,16 +102,16 @@ class ServiceOrderServicesController extends Controller
      */
     public function show($id)
     {
-        $serviceOrderService = $this->repository->find($id);
+        $categoryItem = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $serviceOrderService,
+                'data' => $categoryItem,
             ]);
         }
 
-        return view('serviceOrderServices.show', compact('serviceOrderService'));
+        return view('categoryItems.show', compact('categoryItem'));
     }
 
 
@@ -125,32 +125,32 @@ class ServiceOrderServicesController extends Controller
     public function edit($id)
     {
 
-        $serviceOrderService = $this->repository->find($id);
+        $categoryItem = $this->repository->find($id);
 
-        return view('serviceOrderServices.edit', compact('serviceOrderService'));
+        return view('categoryItems.edit', compact('categoryItem'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  ServiceOrderServiceUpdateRequest $request
+     * @param  CategoryItemsUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      */
-    public function update(ServiceOrderServiceUpdateRequest $request, $id)
+    public function update(CategoryItemsUpdateRequest $request, $id)
     {
 
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $serviceOrderService = $this->repository->update($request->all(), $id);
+            $categoryItem = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'ServiceOrderService updated.',
-                'data'    => $serviceOrderService->toArray(),
+                'message' => 'CategoryItems updated.',
+                'data'    => $categoryItem->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -188,11 +188,11 @@ class ServiceOrderServicesController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'ServiceOrderService deleted.',
+                'message' => 'CategoryItems deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'ServiceOrderService deleted.');
+        return redirect()->back()->with('message', 'CategoryItems deleted.');
     }
 }
