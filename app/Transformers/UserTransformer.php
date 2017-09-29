@@ -3,7 +3,7 @@
 namespace App\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use App\Entities\User;
+use App\User;
 
 /**
  * Class UserTransformer
