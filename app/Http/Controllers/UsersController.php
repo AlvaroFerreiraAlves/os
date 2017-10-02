@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\UserType;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -50,7 +51,7 @@ class UsersController extends Controller
             ]);
         }
 
-        return view('users.index', compact('users'));
+        return $users;
     }
 
     /**
@@ -126,8 +127,10 @@ class UsersController extends Controller
     {
 
         $user = $this->repository->find($id);
+        $tipoUsuario = UserType::all();
+        $userTypeUser =  $user->tipoUsuario;
 
-        return view('users.edit', compact('user'));
+        return view('auth.register', compact('user','tipoUsuario','userTypeUser'));
     }
 
 
@@ -139,7 +142,7 @@ class UsersController extends Controller
      *
      * @return Response
      */
-    public function update(UserUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
         try {
@@ -147,6 +150,10 @@ class UsersController extends Controller
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
             $user = $this->repository->update($request->all(), $id);
+
+            $dataform = $request['tipousuario'];
+
+            $user->tipoUsuario()->sync($dataform);
 
             $response = [
                 'message' => 'User updated.',
