@@ -16,6 +16,7 @@ class CreateCustomersTable extends Migration
 		Schema::create('customers', function(Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
+            $table->boolean('tipo_cliente');
             $table->string('cnpj_cpf');
             $table->string('ie');
             $table->string('endereco');
@@ -23,7 +24,6 @@ class CreateCustomersTable extends Migration
             $table->string('telefone');
             $table->string('celular');
             $table->boolean('status');
-            $table->boolean('tipo_cliente');
 
             $table->timestamps();
 		});

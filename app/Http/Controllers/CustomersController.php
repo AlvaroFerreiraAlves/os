@@ -60,7 +60,7 @@ class CustomersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CustomerCreateRequest $request)
+    public function store(Request $request)
     {
 
         try {
@@ -194,5 +194,9 @@ class CustomersController extends Controller
         }
 
         return redirect()->back()->with('message', 'Customer deleted.');
+    }
+
+    public function showFormCustomer(){
+        return view('customers.create-edit');
     }
 }

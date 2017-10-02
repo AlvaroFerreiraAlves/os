@@ -10,6 +10,8 @@ class Customer extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'nome','tipo_cliente','cnpj_cpf','ie','endereco','cep','telefone','celular','status'
+    ];
 
 }
