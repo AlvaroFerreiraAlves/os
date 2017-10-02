@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+   // protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -53,7 +53,7 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'telefone' => '(77)99999-3333',
             'telefone' => 'required|celular_com_ddd',
-            'cpf' => 'required|cpf',
+            'cpf' => 'required|cpf|unique:users',
         ]);
     }
 
@@ -65,7 +65,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user =  User::create([
             'name' => $data['name'],
             'cpf' => $data['cpf'],
             'email' => $data['email'],
@@ -74,5 +74,10 @@ class RegisterController extends Controller
             'telefone' => $data['telefone'],
             'status' => $data['status'],
         ]);
+
+        $dataform = $data['tipousuario'];
+
+        $user->tipoUsuario()->sync($dataform);
+        return $user;
     }
 }

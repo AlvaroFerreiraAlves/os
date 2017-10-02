@@ -7,26 +7,26 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\UserTypesCreateRequest;
-use App\Http\Requests\UserTypesUpdateRequest;
-use App\Repositories\UserTypesRepository;
-use App\Validators\UserTypesValidator;
+use App\Http\Requests\UserTypeCreateRequest;
+use App\Http\Requests\UserTypeUpdateRequest;
+use App\Repositories\UserTypeRepository;
+use App\Validators\UserTypeValidator;
 
 
 class UserTypesController extends Controller
 {
 
     /**
-     * @var UserTypesRepository
+     * @var UserTypeRepository
      */
     protected $repository;
 
     /**
-     * @var UserTypesValidator
+     * @var UserTypeValidator
      */
     protected $validator;
 
-    public function __construct(UserTypesRepository $repository, UserTypesValidator $validator)
+    public function __construct(UserTypeRepository $repository, UserTypeValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -50,17 +50,17 @@ class UserTypesController extends Controller
             ]);
         }
 
-        return view('userTypes.index', compact('userTypes'));
+        return $userTypes;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  UserTypesCreateRequest $request
+     * @param  UserTypeCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(UserTypesCreateRequest $request)
+    public function store(UserTypeCreateRequest $request)
     {
 
         try {
@@ -70,7 +70,7 @@ class UserTypesController extends Controller
             $userType = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'UserTypes created.',
+                'message' => 'UserType created.',
                 'data'    => $userType->toArray(),
             ];
 
@@ -134,12 +134,12 @@ class UserTypesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UserTypesUpdateRequest $request
+     * @param  UserTypeUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      */
-    public function update(UserTypesUpdateRequest $request, $id)
+    public function update(UserTypeUpdateRequest $request, $id)
     {
 
         try {
@@ -149,7 +149,7 @@ class UserTypesController extends Controller
             $userType = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'UserTypes updated.',
+                'message' => 'UserType updated.',
                 'data'    => $userType->toArray(),
             ];
 
@@ -188,11 +188,11 @@ class UserTypesController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'UserTypes deleted.',
+                'message' => 'UserType deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'UserTypes deleted.');
+        return redirect()->back()->with('message', 'UserType deleted.');
     }
 }
