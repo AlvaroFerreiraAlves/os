@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Customer;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -125,9 +126,9 @@ class CustomersController extends Controller
     public function edit($id)
     {
 
-        $customer = $this->repository->find($id);
+        $customers = $this->repository->find($id);
 
-        return view('customers.edit', compact('customer'));
+        return view('customers.create-edit', compact('customers'));
     }
 
 
@@ -139,38 +140,19 @@ class CustomersController extends Controller
      *
      * @return Response
      */
-    public function update(CustomerUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
-            $customer = $this->repository->update($request->all(), $id);
-
-            $response = [
-                'message' => 'Customer updated.',
-                'data'    => $customer->toArray(),
-            ];
-
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        if($request['tipo_cliente'] == 0) {
+            $this->validate($request, $this->validator->rules);
+            $customer = $this->repository->update($request->all(),$id);
+        }else{
+            $this->validate($request, $this->validator->rulesCnpj);
+            $customer = Customer::find($id);
+            $customer = $customer->update($request->all());
         }
+        return redirect()->back();
+
     }
 
 

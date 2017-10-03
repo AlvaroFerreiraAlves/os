@@ -8,8 +8,14 @@ use \Prettus\Validator\LaravelValidator;
 class CustomerValidator extends LaravelValidator
 {
 
-    protected $rules = [
-        ValidatorInterface::RULE_CREATE => [],
-        ValidatorInterface::RULE_UPDATE => [],
+    public $rules = [
+        'cnpj_cpf' => 'cpf'
    ];
+
+
+    public $rulesCnpj = [
+        'cnpj_cpf' => 'cnpj'
+    ];
+
+
 }

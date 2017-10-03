@@ -14,4 +14,5 @@ class Customer extends Model implements Transformable
         'nome','tipo_cliente','cnpj_cpf','ie','endereco','cep','telefone','celular','status'
     ];
 
+
 }

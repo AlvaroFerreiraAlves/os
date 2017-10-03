@@ -25,5 +25,6 @@ Route::put('usuario/{id}/update', 'UsersController@update');
 Route::get('customer/form-register', 'CustomersController@showFormCustomer');
 Route::post('customer/store', 'CustomersController@store');
 Route::get('customer/{id}/edit', 'CustomersController@edit');
+Route::put('customer/{id}/update', 'CustomersController@update');
 
 
