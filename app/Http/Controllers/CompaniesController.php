@@ -60,7 +60,7 @@ class CompaniesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CompanyCreateRequest $request)
+    public function store(Request $request)
     {
 
         try {
@@ -125,9 +125,9 @@ class CompaniesController extends Controller
     public function edit($id)
     {
 
-        $company = $this->repository->find($id);
+        $companies = $this->repository->find($id);
 
-        return view('companies.edit', compact('company'));
+        return view('companies.create-edit', compact('companies'));
     }
 
 
@@ -139,7 +139,7 @@ class CompaniesController extends Controller
      *
      * @return Response
      */
-    public function update(CompanyUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
         try {
@@ -194,5 +194,9 @@ class CompaniesController extends Controller
         }
 
         return redirect()->back()->with('message', 'Company deleted.');
+    }
+
+    public function showFormCustomer(){
+        return view('companies.create-edit');
     }
 }

@@ -10,6 +10,8 @@ class Company extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'razao_social','cnpj','endereco','email','telefone','celular','status'
+    ];
 
 }

@@ -60,7 +60,7 @@ class CategoryItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryItemsCreateRequest $request)
+    public function store(Request $request)
     {
 
         try {
@@ -125,9 +125,9 @@ class CategoryItemsController extends Controller
     public function edit($id)
     {
 
-        $categoryItem = $this->repository->find($id);
+        $categories = $this->repository->find($id);
 
-        return view('categoryItems.edit', compact('categoryItem'));
+        return view('category_items.create-edit', compact('categories'));
     }
 
 
@@ -139,7 +139,7 @@ class CategoryItemsController extends Controller
      *
      * @return Response
      */
-    public function update(CategoryItemsUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
         try {
@@ -194,5 +194,9 @@ class CategoryItemsController extends Controller
         }
 
         return redirect()->back()->with('message', 'CategoryItems deleted.');
+    }
+
+    public function showFormCustomer(){
+        return view('category_items.create-edit');
     }
 }

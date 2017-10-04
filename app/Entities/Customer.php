@@ -11,7 +11,7 @@ class Customer extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = [
-        'nome','tipo_cliente','cnpj_cpf','ie','endereco','cep','telefone','celular','status'
+        'nome','tipo_cliente','cnpj_cpf','endereco','cep','telefone','celular','status'
     ];
 
 

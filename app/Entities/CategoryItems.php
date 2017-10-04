@@ -10,6 +10,8 @@ class CategoryItems extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'descricao','status'
+    ];
 
 }

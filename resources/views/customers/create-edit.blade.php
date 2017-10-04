@@ -45,6 +45,7 @@
                                 <label class="col-md-4 control-label" for="tipo_cliente">Tipo de pessoa:</label>
                                 <div class="col-md-4">
                                     <select id="tipo_cliente" name="tipo_cliente" class="form-control">
+                                        @if(isset($customers))
                                         <option value="0"
 
                                                 @if($customers->tipo_cliente == 0)
@@ -57,6 +58,10 @@
                                                 selected
                                                 @endif
                                         >Jurídica</option>
+                                            @else
+                                                <option value="0">Física</option>
+                                                <option value="1">Jurídica</option>
+                                            @endif
                                     </select>
                                 </div>
                             </div>
@@ -70,14 +75,6 @@
                                 </div>
                             </div>
 
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="ie">IE:</label>
-                                <div class="col-md-4">
-                                    <input id="ie" name="ie" type="text" placeholder="" class="form-control input-md" value="{{$customers->ie or old('ie') }}" required="">
-
-                                </div>
-                            </div>
 
                             <!-- Text input-->
                             <div class="form-group">
