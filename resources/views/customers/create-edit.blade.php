@@ -34,7 +34,7 @@
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="nome">Nome:</label>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <input id="nome" name="nome" type="text" placeholder="" class="form-control input-md" value="{{$customers->nome or old('nome') }}" required="">
 
                                 </div>
@@ -43,7 +43,7 @@
                             <!-- Select Basic -->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="tipo_cliente">Tipo de pessoa:</label>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <select id="tipo_cliente" name="tipo_cliente" class="form-control">
                                         <option value="0"
 
@@ -64,7 +64,7 @@
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="cnpj_cpf">CNPJ/CPF:</label>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <input id="cnpj_cpf" name="cnpj_cpf" type="text" placeholder="" class="form-control input-md" value="{{$customers->cnpj_cpf or old('cnpj_cpf') }}" required="">
 
                                 </div>
@@ -73,7 +73,7 @@
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="ie">IE:</label>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <input id="ie" name="ie" type="text" placeholder="" class="form-control input-md" value="{{$customers->ie or old('ie') }}" required="">
 
                                 </div>
@@ -82,7 +82,7 @@
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="endereco">Endereço:</label>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <input id="endereco" name="endereco" type="text" placeholder="" class="form-control input-md" value="{{$customers->endereco or old('endereco') }}" required="">
 
                                 </div>
