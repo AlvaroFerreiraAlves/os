@@ -17,8 +17,7 @@ class CreateCustomersTable extends Migration
             $table->increments('id');
             $table->string('nome');
             $table->boolean('tipo_cliente');
-            $table->string('cnpj_cpf');
-            $table->string('ie');
+            $table->string('cnpj_cpf')->unique();
             $table->string('endereco');
             $table->string('cep');
             $table->string('telefone');

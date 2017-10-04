@@ -10,6 +10,8 @@ class Item extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'nome','descricao','valor','status','id_categoria_item'
+    ];
 
 }

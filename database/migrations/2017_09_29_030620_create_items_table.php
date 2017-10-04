@@ -18,7 +18,7 @@ class CreateItemsTable extends Migration
             $table->string('nome');
             $table->string('descricao');
             $table->float('valor');
-            $table->integer('periodicidade');
+           // $table->integer('periodicidade');
             $table->boolean('status');
             $table->integer('id_categoria_item')->unsigned();
 

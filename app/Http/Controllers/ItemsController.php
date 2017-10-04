@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\CategoryItems;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -60,7 +61,7 @@ class ItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(ItemCreateRequest $request)
+    public function store(Request $request)
     {
 
         try {
@@ -124,10 +125,11 @@ class ItemsController extends Controller
      */
     public function edit($id)
     {
+        $categorias = CategoryItems::all();
 
         $item = $this->repository->find($id);
 
-        return view('items.edit', compact('item'));
+        return view('items.create-edit', compact('item','categorias'));
     }
 
 
@@ -139,7 +141,7 @@ class ItemsController extends Controller
      *
      * @return Response
      */
-    public function update(ItemUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
         try {
@@ -194,5 +196,10 @@ class ItemsController extends Controller
         }
 
         return redirect()->back()->with('message', 'Item deleted.');
+    }
+
+    public function showFormItems(){
+        $categorias = CategoryItems::all();
+        return view('items.create-edit',compact('categorias'));
     }
 }
