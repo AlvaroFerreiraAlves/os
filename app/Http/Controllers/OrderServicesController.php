@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Customer;
+use App\Entities\Item;
+use App\Entities\TypeOrderService;
+use App\Entities\UserTypeUser;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -197,6 +202,14 @@ class OrderServicesController extends Controller
     }
 
     public function showFormOrder(){
-        return view('order_services.create-edit');
+
+        $customers = Customer::all();
+        $user = User::all();
+        $usersTypeUser = UserTypeUser::all();
+        $typeOrder = TypeOrderService::all();
+        $items = Item::all();
+
+
+        return view('order_services.create-edit',compact('customers','usersTypeUser','user','typeOrder','items'));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\TypeOrderService;
 use App\Entities\UserType;
 use Illuminate\Http\Request;
 
@@ -129,8 +130,9 @@ class UsersController extends Controller
         $user = $this->repository->find($id);
         $tipoUsuario = UserType::all();
         $userTypeUser =  $user->tipoUsuario;
+        $typeOrder = TypeOrderService::all();
 
-        return view('auth.register', compact('user','tipoUsuario','userTypeUser'));
+        return view('auth.register', compact('user','tipoUsuario','userTypeUser','typeOrder'));
     }
 
 
