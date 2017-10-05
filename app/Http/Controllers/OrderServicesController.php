@@ -195,4 +195,8 @@ class OrderServicesController extends Controller
 
         return redirect()->back()->with('message', 'OrderService deleted.');
     }
+
+    public function showFormOrder(){
+        return view('order_services.create-edit');
+    }
 }
