@@ -33,6 +33,9 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <button type="button" id="addcliente" class="btn btn-success" data-toggle="modal" data-target="#mymodalcliente">
+                                        Add
+                                    </button>
                                 </div>
 
                                 <!-- Select Basic -->
@@ -127,6 +130,36 @@
                                 </div>
                                 <hr>
 
+
+
+
+                                <hr>
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="dt_prox_manut">Próxima
+                                        manutenção:</label>
+                                    <div class="col-md-4">
+                                        <input id="dt_prox_manut" name="dt_prox_manut" type="date" placeholder=""
+                                               class="form-control input-md">
+
+                                    </div>
+                                </div>
+
+                                <!-- Textarea -->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="obs">Obs. gerais:</label>
+                                    <div class="col-md-4">
+                                        <textarea class="form-control" id="obs" name="obs"></textarea>
+                                    </div>
+                                </div>
+
+
+                            </fieldset>
+                        </form>
+                            <hr>
+
+                            <form class="form-horizontal" action="">
+
                                 <!-- Select Basic -->
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="servico_produto">Serviços /
@@ -134,7 +167,7 @@
                                     <div class="col-md-3">
                                         <select id="servico_produto" name="servico_produto" class="form-control">
                                             @foreach($items as $i)
-                                            <option value="{{$i->id}}">{{$i->nome}}</option>
+                                                <option value="{{$i->id}}">{{$i->nome}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -175,7 +208,6 @@
                                     </div>
                                 </div>
                                 <hr>
-
                                 <div class="table-responsive">
                                     <table class="table table-hover">
                                         <th>XXX</th>
@@ -202,29 +234,7 @@
                                     <button id="aplicar" name="aplicar" class="btn btn-primary">Aplicar</button>
                                 </div>
 
-                                <hr>
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="dt_prox_manut">Próxima
-                                        manutenção:</label>
-                                    <div class="col-md-4">
-                                        <input id="dt_prox_manut" name="dt_prox_manut" type="text" placeholder=""
-                                               class="form-control input-md">
-
-                                    </div>
-                                </div>
-
-                                <!-- Textarea -->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="obs">Obs. gerais:</label>
-                                    <div class="col-md-4">
-                                        <textarea class="form-control" id="obs" name="obs"></textarea>
-                                    </div>
-                                </div>
-
-
-                            </fieldset>
-                        </form>
+                            </form>
 
 
                     </div>
@@ -240,6 +250,71 @@
                 <div class="modal-header">
                     <!-- Form Name -->
                     Post
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="formulario">
+                        {{ csrf_field() }}
+                        <fieldset>
+
+                            <!-- Form Name -->
+                            <legend>Form Name</legend>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="nome">nome:</label>
+                                <div class="col-md-4">
+                                    <input id="nome" name="nome" type="text" placeholder=""
+                                           class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+
+                            <!-- Textarea -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="descricao">Descrição:</label>
+                                <div class="col-md-4">
+                                    <textarea class="form-control" id="descricao" name="descricao"></textarea>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="status" id="status" value="1">
+
+                        {{-- <!-- Button -->
+                         <div class="form-group">
+                             <label class="col-md-4 control-label" for="salvar"></label>
+                             <div class="col-md-4">
+                                 <input type="button" id="salvar" name="salvar" class="btn btn-primary" value="Salvar">
+                             </div>
+                         </div>--}}
+
+                        <!-- Button -->
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="salvar"></label>
+                                <div class="col-md-4">
+                                    <input type="button" id="salvar" name="salvar" class="btn btn-primary"
+                                           value="Salvar">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="mymodalcliente">servicop
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- Form Name -->
+                    Cliente
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" id="formulario">
