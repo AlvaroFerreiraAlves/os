@@ -138,7 +138,10 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <button id="additem" name="additem" class="btn btn-success">+</button>
+                                    <button type="button" id="add" class="btn btn-success" data-toggle="modal" data-target="#mymodal">
+                                        Add
+                                    </button>
+
 
                                 </div>
 
@@ -227,6 +230,71 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="mymodal">servicop
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- Form Name -->
+                    Post
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="formulario">
+                        {{ csrf_field() }}
+                        <fieldset>
+
+                            <!-- Form Name -->
+                            <legend>Form Name</legend>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="nome">nome:</label>
+                                <div class="col-md-4">
+                                    <input id="nome" name="nome" type="text" placeholder=""
+                                           class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+
+                            <!-- Textarea -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="descricao">Descrição:</label>
+                                <div class="col-md-4">
+                                    <textarea class="form-control" id="descricao" name="descricao"></textarea>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="status" id="status" value="1">
+
+                        {{-- <!-- Button -->
+                         <div class="form-group">
+                             <label class="col-md-4 control-label" for="salvar"></label>
+                             <div class="col-md-4">
+                                 <input type="button" id="salvar" name="salvar" class="btn btn-primary" value="Salvar">
+                             </div>
+                         </div>--}}
+
+                        <!-- Button -->
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="salvar"></label>
+                                <div class="col-md-4">
+                                    <input type="button" id="salvar" name="salvar" class="btn btn-primary"
+                                           value="Salvar">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+
         </div>
     </div>
 
