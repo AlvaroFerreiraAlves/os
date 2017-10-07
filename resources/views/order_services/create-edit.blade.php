@@ -158,7 +158,8 @@
                         </form>
                             <hr>
 
-                            <form class="form-horizontal" action="">
+                            <form class="form-horizontal" id="formservico">
+                                {{csrf_field()}}
 
                                 <!-- Select Basic -->
                                 <div class="form-group">
@@ -201,12 +202,13 @@
 
                                 <!-- Button -->
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="adicionar"></label>
+                                    <label class="col-md-4 control-label" for="addservico"></label>
                                     <div class="col-md-4">
-                                        <button id="adicionar" name="adicionar" class="btn btn-primary">adicionar
-                                        </button>
+                                        <input type="button" id="addservico" name="addservico" class="btn btn-primary"
+                                               value="Salvar">
                                     </div>
                                 </div>
+                            </form>
                                 <hr>
                                 <div class="table-responsive">
                                     <table class="table table-hover">
@@ -234,7 +236,7 @@
                                     <button id="aplicar" name="aplicar" class="btn btn-primary">Aplicar</button>
                                 </div>
 
-                            </form>
+
 
 
                     </div>
@@ -244,7 +246,7 @@
     </div>
 
 
-    <div class="modal fade" id="mymodal">servicop
+    <div class="modal fade" id="mymodal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

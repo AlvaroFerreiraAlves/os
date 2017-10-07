@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Session;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\OrderServiceCreateRequest;
@@ -212,4 +213,14 @@ class OrderServicesController extends Controller
 
         return view('order_services.create-edit',compact('customers','usersTypeUser','user','typeOrder','items'));
     }
+
+    public function addService(Request $request){
+        session_start();
+
+        $_SESSION['servico'][] = $request->all();
+        $servicos = $_SESSION['servico'];
+        return $servicos;
+
+    }
+
 }

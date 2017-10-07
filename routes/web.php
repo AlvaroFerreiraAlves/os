@@ -43,5 +43,6 @@ Route::get('items/{id}/edit', 'ItemsController@edit');
 Route::put('items/{id}/update', 'ItemsController@update');
 
 Route::get('order/form-register', 'OrderServicesController@showFormOrder');
+Route::post('order/add-service', 'OrderServicesController@addService');
 
 
