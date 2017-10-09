@@ -159,7 +159,7 @@
                             <hr>
 
                             <form class="form-horizontal" id="formservico">
-                                {{csrf_field()}}
+                             {{--   {{csrf_field()}}--}}
 
                                 <!-- Select Basic -->
                                 <div class="form-group">
@@ -210,6 +210,7 @@
                                 </div>
                             </form>
                                 <hr>
+                            <div id="tbl-servicos">
                                 <div class="table-responsive">
                                     <table class="table table-hover">
                                         <th>XXX</th>
@@ -219,13 +220,12 @@
 
                                         <!-- On cells (`td` or `th`) -->
                                         <tr>
-                                            <td>...</td>
-                                            <td>...</td>
-                                            <td>...</td>
-                                            <td>...</td>
+                                   {{--         <td>{{dd($servicos)}}</td>--}}
+
                                         </tr>
                                     </table>
                                 </div>
+                            </div>
                                 <!-- Text input-->
                                 <div class="form-group">
                                     <label class="col-md-1 control-label" for="desconto">Desconto:</label>

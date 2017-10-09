@@ -10,12 +10,12 @@ $(document).ready(function (){
             contentType: false,
             data: form,
             timeout: 8000,
-           /* success: function () {
-                $("#load").load(location.href+" #load>*","",function() {
-                    alert( "Servico cadastrado com sucesso." )});
-                $('#formulario')[0].reset();
-                $('#mymodal').modal('hide');
-            }*/
+            success: function () {
+                $("#tbl-servicos").load(location.href+" #tbl-servicos>*","",function() {
+                    /*alert( "Servico cadastrado com sucesso." )*/});
+           /*     $('#formulario')[0].reset();
+                $('#mymodal').modal('hide');*/
+            }
 
         });
     });

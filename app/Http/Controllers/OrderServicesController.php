@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Session;
+use PhpParser\Node\Expr\Array_;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\OrderServiceCreateRequest;
@@ -21,6 +22,7 @@ use App\Validators\OrderServiceValidator;
 
 class OrderServicesController extends Controller
 {
+    public $services = 0;
 
     /**
      * @var OrderServiceRepository
@@ -35,7 +37,8 @@ class OrderServicesController extends Controller
     public function __construct(OrderServiceRepository $repository, OrderServiceValidator $validator)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
+        $this->validator = $validator;
+
     }
 
 
@@ -77,7 +80,7 @@ class OrderServicesController extends Controller
 
             $response = [
                 'message' => 'OrderService created.',
-                'data'    => $orderService->toArray(),
+                'data' => $orderService->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -89,7 +92,7 @@ class OrderServicesController extends Controller
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'error'   => true,
+                    'error' => true,
                     'message' => $e->getMessageBag()
                 ]);
             }
@@ -141,7 +144,7 @@ class OrderServicesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  OrderServiceUpdateRequest $request
-     * @param  string            $id
+     * @param  string $id
      *
      * @return Response
      */
@@ -156,7 +159,7 @@ class OrderServicesController extends Controller
 
             $response = [
                 'message' => 'OrderService updated.',
-                'data'    => $orderService->toArray(),
+                'data' => $orderService->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -170,7 +173,7 @@ class OrderServicesController extends Controller
             if ($request->wantsJson()) {
 
                 return response()->json([
-                    'error'   => true,
+                    'error' => true,
                     'message' => $e->getMessageBag()
                 ]);
             }
@@ -202,24 +205,25 @@ class OrderServicesController extends Controller
         return redirect()->back()->with('message', 'OrderService deleted.');
     }
 
-    public function showFormOrder(){
+    public function showFormOrder()
+    {
+
 
         $customers = Customer::all();
         $user = User::all();
         $usersTypeUser = UserTypeUser::all();
         $typeOrder = TypeOrderService::all();
         $items = Item::all();
+        $this->services = 33;
+        $servico = $this->services;
+return $servico;
+        //return view('order_services.create-edit', compact('customers', 'usersTypeUser', 'user', 'typeOrder', 'items'));
 
-
-        return view('order_services.create-edit',compact('customers','usersTypeUser','user','typeOrder','items'));
     }
 
-    public function addService(Request $request){
-        session_start();
-
-        $_SESSION['servico'][] = $request->all();
-        $servicos = $_SESSION['servico'];
-        return $servicos;
+    public function addService(Request $request)
+    {
+        $this->services = 33;
 
     }
 
