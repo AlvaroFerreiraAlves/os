@@ -205,26 +205,34 @@ class OrderServicesController extends Controller
         return redirect()->back()->with('message', 'OrderService deleted.');
     }
 
-    public function showFormOrder()
+    public function showFormOrder($id=1)
     {
+        session_start();
+            if(!$id==null) {
+                $_SESSION['itens'][] = Item::find($id);
+                $item = $_SESSION['itens'];
+            }else{
+
+            }
+            $customers = Customer::all();
+            $user = User::all();
+            $usersTypeUser  = UserTypeUser::all();
+            $typeOrder  = TypeOrderService::all();
+            $items  = Item::all();
+         /*foreach ($item as $i){
+             echo $i->nome;
+         }*/
+
+         return view('order_services.create-edit', compact('item','customers','user','usersTypeUser','typeOrder','items'));
 
 
-        $customers = Customer::all();
-        $user = User::all();
-        $usersTypeUser = UserTypeUser::all();
-        $typeOrder = TypeOrderService::all();
-        $items = Item::all();
-        $this->services = 33;
-        $servico = $this->services;
-return $servico;
-        //return view('order_services.create-edit', compact('customers', 'usersTypeUser', 'user', 'typeOrder', 'items'));
 
     }
 
     public function addService(Request $request)
     {
-        $this->services = 33;
-
+        $id = $request->input('servico_produto');
+        $this->showFormOrder($id);
     }
 
 }

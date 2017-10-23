@@ -11,10 +11,8 @@ $(document).ready(function (){
             data: form,
             timeout: 8000,
             success: function () {
-                $("#tbl-servicos").load(location.href+" #tbl-servicos>*","",function() {
-                    /*alert( "Servico cadastrado com sucesso." )*/});
-           /*     $('#formulario')[0].reset();
-                $('#mymodal').modal('hide');*/
+                $("#load").load(location.href+" #load>*","",function() {
+                    alert( "Servico cadastrado com sucesso." )});
             }
 
         });

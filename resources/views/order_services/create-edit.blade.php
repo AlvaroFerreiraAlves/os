@@ -33,7 +33,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <button type="button" id="addcliente" class="btn btn-success" data-toggle="modal" data-target="#mymodalcliente">
+                                    <button type="button" id="addcliente" class="btn btn-success" data-toggle="modal"
+                                            data-target="#mymodalcliente">
                                         Add
                                     </button>
                                 </div>
@@ -61,8 +62,8 @@
                                     <div class="col-md-5">
                                         <select id="tipo_ordem_servico" name="tipo_ordem_servico" class="form-control">
                                             @foreach($typeOrder as $to)
-                                            <option value="{{$to->id}}">{{$to->descricao}}</option>
-                                                @endforeach
+                                                <option value="{{$to->id}}">{{$to->descricao}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -131,8 +132,6 @@
                                 <hr>
 
 
-
-
                                 <hr>
                                 <!-- Text input-->
                                 <div class="form-group">
@@ -156,93 +155,122 @@
 
                             </fieldset>
                         </form>
-                            <hr>
+                        <hr>
 
-                            <form class="form-horizontal" id="formservico">
-                             {{--   {{csrf_field()}}--}}
+                        <form class="form-horizontal" id="formservico">
+                        {{--   {{csrf_field()}}--}}
 
-                                <!-- Select Basic -->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="servico_produto">Serviços /
-                                        Produtos:</label>
-                                    <div class="col-md-3">
-                                        <select id="servico_produto" name="servico_produto" class="form-control">
-                                            @foreach($items as $i)
-                                                <option value="{{$i->id}}">{{$i->nome}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <button type="button" id="add" class="btn btn-success" data-toggle="modal" data-target="#mymodal">
-                                        Add
-                                    </button>
-
-
+                        <!-- Select Basic -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="servico_produto">Serviços /
+                                    Produtos:</label>
+                                <div class="col-md-3">
+                                    <select id="servico_produto" name="servico_produto" class="form-control">
+                                        @foreach($items as $i)
+                                            <option value="{{$i->id}}">{{$i->nome}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
+                                <button type="button" id="add" class="btn btn-success" data-toggle="modal"
+                                        data-target="#mymodal">
+                                    Add
+                                </button>
 
 
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="valor">Valor:</label>
-                                    <div class="col-md-2">
-                                        <input id="valor" name="valor" type="number" step="0.1" placeholder=""
-                                               class="form-control input-md">
+                            </div>
 
-                                    </div>
-                                </div>
 
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="qtd">Quantidade:</label>
-                                    <div class="col-md-2">
-                                        <input id="qtd" name="qtd" type="number" placeholder=""
-                                               class="form-control input-md">
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="valor">Valor:</label>
+                                <div class="col-md-2">
+                                    <input id="valor" name="valor" type="number" step="0.1" placeholder=""
+                                           class="form-control input-md">
 
-                                    </div>
-                                </div>
-
-                                <!-- Button -->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="addservico"></label>
-                                    <div class="col-md-4">
-                                        <input type="button" id="addservico" name="addservico" class="btn btn-primary"
-                                               value="Salvar">
-                                    </div>
-                                </div>
-                            </form>
-                                <hr>
-                            <div id="tbl-servicos">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <th>XXX</th>
-                                        <th>XXX</th>
-                                        <th>XXX</th>
-                                        <th>XXX</th>
-
-                                        <!-- On cells (`td` or `th`) -->
-                                        <tr>
-                                   {{--         <td>{{dd($servicos)}}</td>--}}
-
-                                        </tr>
-                                    </table>
                                 </div>
                             </div>
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-1 control-label" for="desconto">Desconto:</label>
-                                    <div class="col-md-2">
-                                        <input id="desconto" name="desconto" type="number" step="0.1" placeholder=""
-                                               class="form-control input-md">
-                                    </div>
-                                    <button id="aplicar" name="aplicar" class="btn btn-primary">Aplicar</button>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="qtd">Quantidade:</label>
+                                <div class="col-md-2">
+                                    <input id="qtd" name="qtd" type="number" placeholder=""
+                                           class="form-control input-md">
+
                                 </div>
+                            </div>
+
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="addservico"></label>
+                                <div class="col-md-4">
+                                    <input type="button" id="addservico" name="addservico" class="btn btn-primary"
+                                           value="Salvar">
+                                </div>
+                            </div>
+                        </form>
+                        <hr>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="servico_produto">Serviços /
+                                    Produtos:</label>
+                                <div class="col-md-3">
+                                    <div id="laod">
+                                    <select id="servico_produto" name="servico_produto" class="form-control">
+                                        @foreach($item as $i)
+                                            <option value="{{$i->id}}">{{$i->nome}}</option>
+                                        @endforeach
+                                    </select>
+                                    </div>
+                                </div>
+                                <button type="button" id="add" class="btn btn-success" data-toggle="modal"
+                                        data-target="#mymodal">
+                                    Add
+                                </button>
+
+
+                            </div>
+
+                      {{--  <div class="table-responsive">
+                            <table class="table table-hover">
+                                <th>XXX</th>
+                                <th>XXX</th>
 
 
 
+                            <div id="load">
+                                @if(is_null($item))
+
+                                    @else
+                                @forelse($item as $i)
+                                    <tr>
+                                        <td>{{$i->nome}}</td>
+                                        <td>{{$i->valor}}</td>
+                                    </tr>
+                                @empty
+                                    <p>No users</p>
+                            @endforelse
+                                    @endif
+                            </div>
+
+                        </table>--}}
 
                     </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" for="desconto">Desconto:</label>
+                        <div class="col-md-2">
+                            <input id="desconto" name="desconto" type="number" step="0.1" placeholder=""
+                                   class="form-control input-md">
+                        </div>
+                        <button id="aplicar" name="aplicar" class="btn btn-primary">Aplicar</button>
+                    </div>
+
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 
