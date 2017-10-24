@@ -208,30 +208,23 @@ class OrderServicesController extends Controller
     public function showFormOrder($id=1)
     {
         session_start();
-            if(!$id==null) {
-                $_SESSION['itens'][] = Item::find($id);
-                $item = $_SESSION['itens'];
-            }else{
+       $itens = Item::all();
 
-            }
-            $customers = Customer::all();
-            $user = User::all();
-            $usersTypeUser  = UserTypeUser::all();
-            $typeOrder  = TypeOrderService::all();
-            $items  = Item::all();
-         /*foreach ($item as $i){
-             echo $i->nome;
-         }*/
+       if($id == null){
+           $prodService[0] = '';
+       }else{
+           $listItem = Item::find($id);
+           $_SESSION['itens'][] = $listItem;
+           $prodService = $_SESSION['itens'];
+         //  $prodService = array_filter($prodService);
+       }
 
-         return view('order_services.create-edit', compact('item','customers','user','usersTypeUser','typeOrder','items'));
-
-
-
+       return view('order_services.create-edit', compact('itens','prodService'));
     }
 
     public function addService(Request $request)
     {
-        $id = $request->input('servico_produto');
+        $id = $request->input('itens');
         $this->showFormOrder($id);
     }
 
