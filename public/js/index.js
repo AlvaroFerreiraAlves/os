@@ -1,8 +1,8 @@
 $(document).ready(function (){
-    $("#addservico").click(function (){
-        var form = new FormData($("#formservico")[0]);
+    $("#salvar").click(function (){
+        var form = new FormData($("#formulario")[0]);
         $.ajax({
-            url: 'add-service',
+            url: 'addservice',
             type: 'post',
             dataType: 'json',
             cache: false,
@@ -13,6 +13,8 @@ $(document).ready(function (){
             success: function () {
                 $("#load").load(location.href+" #load>*","",function() {
                     alert( "Servico cadastrado com sucesso." )});
+                $('#formulario')[0].reset();
+
             }
 
         });

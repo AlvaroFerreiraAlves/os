@@ -18,19 +18,5 @@ class Item extends Model implements Transformable
     ];
 
 
-    public static function addItem(Request $request){
-        session_start();
-
-        $_SESSION['servicos'][] = $request->all();
-        $services = $_SESSION['servicos'];
-        self::listItem($services);
-    }
-
-    public static function listItem(array $sevices){
-        $items = $sevices;
-        return $items;
-
-    }
-
 
 }

@@ -82,6 +82,9 @@
                     Laravel
                 </div>
 
+                <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+                <script>$('.title').append('teste teste')</script>
+
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>

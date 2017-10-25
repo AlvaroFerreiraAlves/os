@@ -42,7 +42,7 @@ Route::post('items/store', 'ItemsController@store');
 Route::get('items/{id}/edit', 'ItemsController@edit');
 Route::put('items/{id}/update', 'ItemsController@update');
 
-Route::get('order/form-register', 'OrderServicesController@showFormOrder');
-Route::post('order/add-service', 'OrderServicesController@addService');
+Route::get('order/formregister', 'OrderServicesController@showFormOrder');
+Route::post('order/addservice', 'OrderServicesController@addService');
 
 

@@ -22,7 +22,7 @@ use App\Validators\OrderServiceValidator;
 
 class OrderServicesController extends Controller
 {
-    public $services = 0;
+
 
     /**
      * @var OrderServiceRepository
@@ -205,27 +205,23 @@ class OrderServicesController extends Controller
         return redirect()->back()->with('message', 'OrderService deleted.');
     }
 
-    public function showFormOrder($id=1)
+    public function showFormOrder($id = null)
     {
         session_start();
-       $itens = Item::all();
+        $itens = Item::all();
+        $listItem = Item::find($id);
+        $_SESSION['itens'][] = $listItem;
+        $prodService = $_SESSION['itens'];
+        $prodService = array_filter($prodService);
 
-       if($id == null){
-           $prodService[0] = '';
-       }else{
-           $listItem = Item::find($id);
-           $_SESSION['itens'][] = $listItem;
-           $prodService = $_SESSION['itens'];
-         //  $prodService = array_filter($prodService);
-       }
-
-       return view('order_services.create-edit', compact('itens','prodService'));
+        return view('order_services.create-edit', compact('itens', 'prodService'));
     }
 
     public function addService(Request $request)
     {
         $id = $request->input('itens');
         $this->showFormOrder($id);
+
     }
 
 }

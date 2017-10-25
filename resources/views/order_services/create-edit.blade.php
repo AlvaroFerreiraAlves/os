@@ -8,48 +8,53 @@
                 <div class="panel-heading">Login</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" id="formulario">
+                        {{ csrf_field() }}
                         <fieldset>
 
                             <!-- Form Name -->
                             <legend>Form Name</legend>
 
-                            <!-- Select Basic -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="itens">itens:</label>
-                                <div class="col-md-4">
-                                    <select id="itens" name="itens" class="form-control">
-                                        @foreach($itens as $i)
-                                        <option value="{{$i->id}}">{{$i->nome}}</option>
-                                            @endforeach
 
-                                    </select>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="itens">Serviços:</label>
+                                <div class="col-md-4">
+
+                                        <select id="itens" name="itens" class="form-control">
+                                            @foreach($itens as $i)
+                                                <option value="{{$i->id}}">{{$i->nome}}</option>
+                                            @endforeach
+                                        </select>
+
                                 </div>
                             </div>
 
+
+
+
+                        <!-- Button -->
                             <!-- Button -->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="add"></label>
+                                <label class="col-md-4 control-label" for="salvar"></label>
                                 <div class="col-md-4">
-                                    <button id="add" type="button" name="add" class="btn btn-primary">add</button>
+                                    <input type="button" id="salvar" name="salvar" class="btn btn-primary"
+                                           value="Salvar">
                                 </div>
                             </div>
                         </fieldset>
                     </form>
+
                     <!-- Select Basic -->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="table">table</label>
+                        <label class="col-md-4 control-label" for="servicos">Serviços:</label>
                         <div class="col-md-4">
-                            <select id="table" name="table" class="form-control">
-
-                                @foreach($prodService as $ps)
-                                    @if($ps==null)
-
-                                    @else
+                            <div id="load">
+                                <select id="servicos" name="servicos" class="form-control">
+                                    @foreach($prodService as $ps)
                                         <option value="{{$ps->id}}">{{$ps->nome}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
 
