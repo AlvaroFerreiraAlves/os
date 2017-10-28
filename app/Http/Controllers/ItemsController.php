@@ -51,7 +51,7 @@ class ItemsController extends Controller
             ]);
         }
 
-        return view('items.index', compact('items'));
+        return $items;
     }
 
     /**

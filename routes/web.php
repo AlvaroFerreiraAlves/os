@@ -46,3 +46,4 @@ Route::get('order/formregister', 'OrderServicesController@showFormOrder');
 Route::post('order/addservice', 'OrderServicesController@addService');
 
 
+

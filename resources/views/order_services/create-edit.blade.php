@@ -20,11 +20,11 @@
                                 <label class="col-md-4 control-label" for="itens">Serviços:</label>
                                 <div class="col-md-4">
 
-                                        <select id="itens" name="itens" class="form-control">
-                                            @foreach($itens as $i)
-                                                <option value="{{$i->id}}">{{$i->nome}}</option>
-                                            @endforeach
-                                        </select>
+                                    <select id="itens" name="itens" class="form-control">
+                                        @foreach($itens as $i)
+                                            <option value="{{$i->id}}">{{$i->nome}}</option>
+                                        @endforeach
+                                    </select>
 
                                 </div>
                             </div>
@@ -32,7 +32,7 @@
 
 
 
-                        <!-- Button -->
+                            <!-- Button -->
                             <!-- Button -->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="salvar"></label>
@@ -45,7 +45,7 @@
                     </form>
 
                     <!-- Select Basic -->
-                    <div class="form-group">
+                  {{--  <div class="form-group">
                         <label class="col-md-4 control-label" for="servicos">Serviços:</label>
                         <div class="col-md-4">
                             <div id="load">
@@ -56,7 +56,25 @@
                                 </select>
                             </div>
                         </div>
+                    </div>--}}
+                    <div id="load">
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>id</th>
+                            <th>nome</th>
+                        </tr>
+                        @foreach($prodService as $ps)
+                        <tr>
+
+                            <td>{{$ps->id}}</td>
+                            <td>{{$ps->nome}}</td>
+
+                        </tr>
+                            @endforeach
+                    </table>
                     </div>
+
 
 
                 </div>
