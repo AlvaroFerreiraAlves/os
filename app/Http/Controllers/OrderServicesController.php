@@ -24,6 +24,7 @@ class OrderServicesController extends Controller
 {
 
 
+
     /**
      * @var OrderServiceRepository
      */
@@ -205,14 +206,12 @@ class OrderServicesController extends Controller
         return redirect()->back()->with('message', 'OrderService deleted.');
     }
 
-    public function showFormOrder($id = null)
+    public function showFormOrder()
     {
         session_start();
+
         $itens = Item::all();
-        $listItem = Item::find($id);
-        $_SESSION['itens'][] = $listItem;
-        $prodService = $_SESSION['itens'];
-        $prodService = array_filter($prodService);
+        $prodService = Item::listItem();
 
         return view('order_services.create-edit', compact('itens', 'prodService'));
     }
@@ -220,8 +219,10 @@ class OrderServicesController extends Controller
     public function addService(Request $request)
     {
         $id = $request->input('itens');
-        $this->showFormOrder($id);
+         $item = Item::addItem($id);
 
+         return $item;
     }
+
 
 }
