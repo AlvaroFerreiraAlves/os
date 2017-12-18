@@ -8,13 +8,19 @@
             cache: false,
             processData: false,
             contentType: false,
-            data: form
-
+            data: form,
+            success: function (data) {
+                console.log(data);
+                product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.nome + '</td><td>' + data.valor + '</td>';
+                $('#products-list').append(product);
+            }
         });
+
     });
 
-    $("#salvar").click(function (){
-       $("#load").load(" #load");
-    });
 
+
+    function loadTable() {
+        $("#load").load(" #load");
+    }
 

@@ -11,10 +11,8 @@
                     <form class="form-horizontal" id="formulario">
                         {{ csrf_field() }}
                         <fieldset>
-
                             <!-- Form Name -->
                             <legend>Form Name</legend>
-
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="itens">Serviços:</label>
@@ -29,58 +27,55 @@
                                 </div>
                             </div>
 
-
-
-
-                            <!-- Button -->
                             <!-- Button -->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="salvar"></label>
                                 <div class="col-md-4">
-                                    <input type="button" id="salvar" name="salvar" class="btn btn-primary"
-                                           value="Salvar">
+                                    <button type="button" id="salvar">Salvar</button>
                                 </div>
                             </div>
                         </fieldset>
                     </form>
 
-                    <!-- Select Basic -->
-                  {{--  <div class="form-group">
-                        <label class="col-md-4 control-label" for="servicos">Serviços:</label>
-                        <div class="col-md-4">
-                            <div id="load">
-                                <select id="servicos" name="servicos" class="form-control">
-                                    @foreach($prodService as $ps)
-                                        <option value="{{$ps->id}}">{{$ps->nome}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>--}}
+
+                    <a href="{{url('order/salva-ordem')}}" class="btn btn-success">Salvar</a>
                     <div id="load">
 
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>id</th>
-                            <th>nome</th>
-                        </tr>
-                        @foreach($prodService as $ps)
-                        <tr>
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>valor</th>
 
-                            <td>{{$ps->id}}</td>
-                            <td>{{$ps->nome}}</td>
+                                </tr>
+                                </thead>
+                                <tbody id="products-list" name="products-list">
+                                @foreach($prodService as $ps)
+                                    <tr id="product{{$ps->id}}">
 
-                        </tr>
-                            @endforeach
-                    </table>
-                    </div>
+                                        <td>{{$ps->id}}</td>
+                                        <td>{{$ps->nome}}</td>
+                                        <td><input type="number" step="0.1" value="{{$ps->valor}}"></td>
 
-
-
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                 </div>
+                </div>
+
             </div>
         </div>
     </div>
-    </div>
+</div>
+
+
+
+
+
+
 
 @endsection

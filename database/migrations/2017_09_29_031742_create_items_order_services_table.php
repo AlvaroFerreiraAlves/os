@@ -17,6 +17,9 @@ class CreateItemsOrderServicesTable extends Migration
             $table->increments('id');
             $table->integer('id_item')->unsigned();
             $table->integer('id_ordem_servico')->unsigned();
+            $table->float('valor');
+            $table->float('desconto');
+         ;
 
 
             $table->foreign('id_item')

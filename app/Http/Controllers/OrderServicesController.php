@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Entities\Customer;
 use App\Entities\Item;
+use App\Entities\OrderService;
 use App\Entities\TypeOrderService;
 use App\Entities\UserTypeUser;
 use App\User;
@@ -218,10 +219,30 @@ class OrderServicesController extends Controller
 
     public function addService(Request $request)
     {
-        $id = $request->input('itens');
-         $item = Item::addItem($id);
 
-         return $item;
+        $id = $request->input('itens');
+        $item = Item::addItem($id);
+        return response()->json($item);
+
+
+    }
+
+    public function salvaOrdem(){
+        session_start();
+
+        $dataform = Item::listItem();
+        foreach ($dataform as $d){
+              $data[]=$d->id;
+        }
+
+
+
+
+
+        $ordem = OrderService::find(3);
+
+        $ordem->itensOrdem()->sync($data);
+        return $ordem;
     }
 
 
