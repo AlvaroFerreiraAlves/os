@@ -224,5 +224,14 @@ class OrderServicesController extends Controller
          return $item;
     }
 
+    public function removeItem(Request $request)
+    {
+        session_start();
+        $prodService = Item::listItem();
+        $id = $request->input('itens');
+        unset($prodService[$id]);
+        return $prodService;
+    }
+
 
 }

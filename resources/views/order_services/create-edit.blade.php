@@ -37,42 +37,41 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="salvar"></label>
                                 <div class="col-md-4">
-                                    <input type="button" id="salvar" name="salvar" class="btn btn-primary"
-                                           value="Salvar">
+                                    <a id="salvar" class="btn btn-success">Salvar</a>
                                 </div>
                             </div>
                         </fieldset>
                     </form>
 
                     <!-- Select Basic -->
-                  {{--  <div class="form-group">
-                        <label class="col-md-4 control-label" for="servicos">Serviços:</label>
-                        <div class="col-md-4">
-                            <div id="load">
-                                <select id="servicos" name="servicos" class="form-control">
-                                    @foreach($prodService as $ps)
-                                        <option value="{{$ps->id}}">{{$ps->nome}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>--}}
+                    {{--  <div class="form-group">
+                          <label class="col-md-4 control-label" for="servicos">Serviços:</label>
+                          <div class="col-md-4">
+                              <div id="load">
+                                  <select id="servicos" name="servicos" class="form-control">
+                                      @foreach($prodService as $ps)
+                                          <option value="{{$ps->id}}">{{$ps->nome}}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
+                          </div>
+                      </div>--}}
                     <div id="load">
 
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>id</th>
-                            <th>nome</th>
-                        </tr>
-                        @foreach($prodService as $ps)
-                        <tr>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>id</th>
+                                <th>nome</th>
+                            </tr>
+                            @foreach($prodService as $ps)
+                                <tr>
 
-                            <td>{{$ps->id}}</td>
-                            <td>{{$ps->nome}}</td>
+                                    <td>{{$ps->id}}</td>
+                                    <td>{{$ps->nome}}</td>
 
-                        </tr>
+                                </tr>
                             @endforeach
-                    </table>
+                        </table>
                     </div>
 
 
