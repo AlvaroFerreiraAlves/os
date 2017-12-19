@@ -23,3 +23,20 @@ $("#salvar").click(function () {
     });
 
 });
+
+$(document).on('click','.delete-product',function(){
+    var product_id = $(this).val();
+    console.log(product_id);
+
+   /* $.ajax({
+        type: "DELETE",
+        url: url + '/' + product_id,
+        success: function (data) {
+            console.log(data);
+            $("#product" + product_id).remove();
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });*/
+});

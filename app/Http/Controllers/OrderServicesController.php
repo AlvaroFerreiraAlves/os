@@ -228,6 +228,14 @@ class OrderServicesController extends Controller
 
     }
 
+    public function destroyService($id)
+    {
+        session_start();
+        $x = Item::removeItem($id);
+        return response()->json($x);
+
+    }
+
     public function salvaOrdem(){
         session_start();
 

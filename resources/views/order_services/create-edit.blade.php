@@ -60,8 +60,7 @@
                                         <td>{{$ps->nome}}</td>
                                         <td>{{$ps->valor}}</td>
                                         <td>
-                                            <button class="btn btn-warning btn-detail open_modal" value="{{$ps->id}}">Edit</button>
-                                            <button class="btn btn-danger btn-delete delete-product" value="{{$ps->id}}">Delete</button>
+                                            <button class="btn btn-danger btn-delete delete-product" value="{{$ps->id}}">X</button>
                                         </td>
 
                                     </tr>

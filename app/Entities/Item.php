@@ -32,5 +32,12 @@ class Item extends Model implements Transformable
         return $prodService;
     }
 
+    public static function removeItem($id){
+        $_SESSION['itens'][] = null;
+        unset($_SESSION['itens'][$id]);
+    }
+
+
+
 
 }
