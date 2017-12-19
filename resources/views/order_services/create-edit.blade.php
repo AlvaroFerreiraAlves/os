@@ -48,6 +48,7 @@
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>valor</th>
+                                    <th>Ações</th>
 
                                 </tr>
                                 </thead>
@@ -57,7 +58,11 @@
 
                                         <td>{{$ps->id}}</td>
                                         <td>{{$ps->nome}}</td>
-                                        <td><input type="number" step="0.1" value="{{$ps->valor}}"></td>
+                                        <td>{{$ps->valor}}</td>
+                                        <td>
+                                            <button class="btn btn-warning btn-detail open_modal" value="{{$ps->id}}">Edit</button>
+                                            <button class="btn btn-danger btn-delete delete-product" value="{{$ps->id}}">Delete</button>
+                                        </td>
 
                                     </tr>
                                 @endforeach

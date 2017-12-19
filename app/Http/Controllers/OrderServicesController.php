@@ -219,10 +219,11 @@ class OrderServicesController extends Controller
 
     public function addService(Request $request)
     {
-
+        session_start();
         $id = $request->input('itens');
         $item = Item::addItem($id);
-        return response()->json($item);
+        $prodService = Item::listItem();
+        return response()->json($prodService);
 
 
     }

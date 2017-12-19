@@ -18,7 +18,7 @@ class Item extends Model implements Transformable
     ];
 
     public static function addItem($id){
-        session_start();
+        //session_start();
         $listItem = Item::find($id);
         $_SESSION['itens'][] = $listItem;
 
