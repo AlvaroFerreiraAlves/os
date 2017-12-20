@@ -12,4 +12,8 @@ class OrderService extends Model implements Transformable
 
     protected $fillable = [];
 
+    public function itensOrdem(){
+        return $this->belongsToMany(ItemsOrderService::class, 'items_order_services', 'id_ordem_servico','id_item');
+    }
+
 }

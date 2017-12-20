@@ -18,7 +18,7 @@ class Item extends Model implements Transformable
     ];
 
     public static function addItem($id){
-        session_start();
+        //session_start();
         $listItem = Item::find($id);
         $_SESSION['itens'][] = $listItem;
 
@@ -31,6 +31,13 @@ class Item extends Model implements Transformable
 
         return $prodService;
     }
+
+    public static function removeItem($id){
+        $_SESSION['itens'][] = null;
+        unset($_SESSION['itens'][$id]);
+    }
+
+
 
 
 }

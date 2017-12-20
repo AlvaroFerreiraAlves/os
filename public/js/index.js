@@ -1,5 +1,6 @@
-$("#salvar").click(function (){
+$("#salvar").click(function () {
     var form = new FormData($("#formulario")[0]);
+
     $.ajax({
         url: 'addservice',
         type: 'post',
@@ -8,18 +9,34 @@ $("#salvar").click(function (){
         processData: false,
         contentType: false,
         data: form,
-        timeout: 8000,
-        success: function(resultado){
-            console.log('deu certo');
-            console.log(resultado);
-        },
-        error: function () {
-            console.log('deu erro');
-        }
+        success: function (data) {
+            for (var key in data) {
+                var i = key;
+            }
+            var x = i;
+            product = '<tr id="product' + data[x].id + '"><td>' + data[x].id + '</td><td>' + data[x].nome + '</td><td>' + data[x].valor + '</td>';
+            product += '<td><button class="btn btn-warning btn-detail open_modal" value="' + data[x].id + '">Edit</button>';
+            product += ' <button class="btn btn-danger btn-delete delete-product" value="' + data[x].id + '">Delete</button></td></tr>';
+            $('#products-list').append(product);
 
+        }
     });
+
 });
-/*
-$("#salvar").click(function (){
-    $("#load").load("create-edit.blade.php");
-});*/
+
+$(document).on('click','.delete-product',function(){
+    var product_id = $(this).val();
+    console.log(product_id);
+
+   /* $.ajax({
+        type: "DELETE",
+        url: url + '/' + product_id,
+        success: function (data) {
+            console.log(data);
+            $("#product" + product_id).remove();
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });*/
+});
