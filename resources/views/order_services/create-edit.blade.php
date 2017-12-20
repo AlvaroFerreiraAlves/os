@@ -60,7 +60,10 @@
                                         <td>{{$ps->nome}}</td>
                                         <td>{{$ps->valor}}</td>
                                         <td>
-                                            <button class="btn btn-danger btn-delete delete-product" value="{{$ps->id}}">X</button>
+                                            <form action="{{url('order/removeservice/'.$ps->id)}}" method="post">
+                                                <button type="submit" class="btn btn-danger btn-delete delete-product" value="{{$ps->id}}">X</button>
+                                            </form>
+
                                         </td>
 
                                     </tr>

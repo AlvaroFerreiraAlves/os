@@ -25,7 +25,6 @@ class OrderServicesController extends Controller
 {
 
 
-
     /**
      * @var OrderServiceRepository
      */
@@ -228,24 +227,15 @@ class OrderServicesController extends Controller
 
     }
 
-    public function destroyService($id)
+
+    public function salvaOrdem()
     {
-        session_start();
-        $x = Item::removeItem($id);
-        return response()->json($x);
-
-    }
-
-    public function salvaOrdem(){
         session_start();
 
         $dataform = Item::listItem();
-        foreach ($dataform as $d){
-              $data[]=$d->id;
+        foreach ($dataform as $d) {
+            $data[] = $d->id;
         }
-
-
-
 
 
         $ordem = OrderService::find(3);
@@ -254,13 +244,19 @@ class OrderServicesController extends Controller
         return $ordem;
     }
 
-    public function removeItem(Request $request)
+    public function destroyService($id = 3)
     {
         session_start();
-        $prodService = Item::listItem();
-        $id = $request->input('itens');
-        unset($prodService[$id]);
-        return $prodService;
+
+
+        foreach ($_SESSION['itens'] as $i => $value) {
+
+
+            if ($value['id'] == $id) {
+                unset($_SESSION['itens'][$i]);
+            }
+        }
+
     }
 
 

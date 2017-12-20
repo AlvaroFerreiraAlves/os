@@ -45,6 +45,6 @@ Route::put('items/{id}/update', 'ItemsController@update');
 Route::get('order/formregister', 'OrderServicesController@showFormOrder');
 Route::post('order/addservice', 'OrderServicesController@addService');
 Route::get('order/salva-ordem', 'OrderServicesController@salvaOrdem');
-Route::delete('order/removeservice/{id}', 'OrderServicesController@addService');
+Route::get('order/removeservice/{id}', 'OrderServicesController@destroyService');
 
 
