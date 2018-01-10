@@ -206,25 +206,69 @@ class OrderServicesController extends Controller
         return redirect()->back()->with('message', 'OrderService deleted.');
     }
 
-    public function showFormOrder()
+    public function showFormOrder(Item $item)
     {
-        session_start();
 
-        $itens = Item::all();
-        $prodService = Item::listItem();
+        $itens = $item->all();
+        $prodService = $item->getItems();
+        /*$total = $item->total();*/
 
-        return view('order_services.create-edit', compact('itens', 'prodService'));
+        return view('order_services.create-edit', compact('itens', 'prodService','item'));
     }
 
     public function addService(Request $request)
     {
-        session_start();
+
         $id = $request->input('itens');
-        $item = Item::addItem($id);
-        $prodService = Item::listItem();
-        return response()->json($prodService);
+        $qtd = $request->qtd;
+
+        $item = Item::find($id);
+
+        $item->valor = $request->valor;
 
 
+        if (!$item)
+            return redirect()->back();
+
+        $items = new Item();
+
+        if (!array_key_exists($id, $items->getItems())) {
+            $items->addItem($item,$qtd);
+            Session::put('items', $items);
+            $item = $items->getItems();
+            return end($item);
+        }
+
+    }
+
+
+    public function remove($id)
+    {
+
+        $item = Item::find($id);
+        if (!$item)
+            return redirect()->back();
+
+        $items = new Item();
+        $items->removeItems($item);;
+
+        Session::put('items', $items);
+
+        return redirect()->route('form.register');
+
+    }
+
+    public function setValue($id)
+    {
+        $valorItem = Item::find($id);
+
+        return $valorItem->valor;
+    }
+
+    public function total(Item $item)
+    {
+
+        return $item->total();
     }
 
 
@@ -242,21 +286,6 @@ class OrderServicesController extends Controller
 
         $ordem->itensOrdem()->sync($data);
         return $ordem;
-    }
-
-    public function destroyService($id = 3)
-    {
-        session_start();
-
-
-        foreach ($_SESSION['itens'] as $i => $value) {
-
-
-            if ($value['id'] == $id) {
-                unset($_SESSION['itens'][$i]);
-            }
-        }
-
     }
 
 

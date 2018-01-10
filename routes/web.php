@@ -42,9 +42,11 @@ Route::post('items/store', 'ItemsController@store');
 Route::get('items/{id}/edit', 'ItemsController@edit');
 Route::put('items/{id}/update', 'ItemsController@update');
 
-Route::get('order/formregister', 'OrderServicesController@showFormOrder');
-Route::post('order/addservice', 'OrderServicesController@addService');
+Route::get('order/formregister', 'OrderServicesController@showFormOrder')->name('form.register');
+Route::post('order/addservice', 'OrderServicesController@addService')->name('add.service');
 Route::get('order/salva-ordem', 'OrderServicesController@salvaOrdem');
-Route::get('order/removeservice/{id}', 'OrderServicesController@destroyService');
+Route::post('order/removeservice/{id}', 'OrderServicesController@remove')->name('remove.item');
+Route::post('order/set-value/{id}', 'OrderServicesController@setValue')->name('set.value');
+Route::post('order/total/', 'OrderServicesController@total')->name('total');
 
 
