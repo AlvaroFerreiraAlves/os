@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Company;
 use App\Entities\Customer;
 use App\Entities\Item;
 use App\Entities\OrderService;
 use App\Entities\TypeOrderService;
+use App\Entities\UserType;
 use App\Entities\UserTypeUser;
 use App\User;
 use Illuminate\Http\Request;
@@ -70,14 +72,28 @@ class OrderServicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(OrderServiceCreateRequest $request)
+    public function store(Request $request, Item $item)
     {
+
 
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
             $orderService = $this->repository->create($request->all());
+
+            $data = [];
+            $dataform = $item->getItems();
+            foreach ($dataform as $d) {
+                $data[$d['item']->id] = [
+                    'qtd' => $d['qtd'],
+                    'valor' => $d['item']->valor,
+                ];
+            }
+
+            $ordem = OrderService::find($orderService->id);
+
+            $ordem->itensOrdem()->sync($data);
 
             $response = [
                 'message' => 'OrderService created.',
@@ -132,12 +148,20 @@ class OrderServicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Item $item,$id)
     {
 
         $orderService = $this->repository->find($id);
+        $title = 'Editar';
+        $itens = $item->all();
+        $prodService = $item->getItems();
+        $tipoOrdem = TypeOrderService::all();
+        $companies = Company::all();
+        $customers = Customer::all();
+        $tecnicos = UserType::find(2);
+        $tecnicos = $tecnicos->users;
 
-        return view('orderServices.edit', compact('orderService'));
+        return view('order_services.create-edit', compact('orderService','title','tipoOrdem','companies','customers','tecnicos','itens','prodService','item'));
     }
 
 
@@ -208,12 +232,17 @@ class OrderServicesController extends Controller
 
     public function showFormOrder(Item $item)
     {
-
+        $title = 'Ordem de Serviço';
         $itens = $item->all();
         $prodService = $item->getItems();
-        /*$total = $item->total();*/
+        $tipoOrdem = TypeOrderService::all();
+        $companies = Company::all();
+        $customers = Customer::all();
+        $tecnicos = UserType::find(2);
+        $tecnicos = $tecnicos->users;
 
-        return view('order_services.create-edit', compact('itens', 'prodService','item'));
+
+        return view('order_services.create-edit', compact('itens', 'prodService', 'item', 'title', 'tipoOrdem', 'companies', 'customers', 'tecnicos'));
     }
 
     public function addService(Request $request)
@@ -233,7 +262,7 @@ class OrderServicesController extends Controller
         $items = new Item();
 
         if (!array_key_exists($id, $items->getItems())) {
-            $items->addItem($item,$qtd);
+            $items->addItem($item, $qtd);
             Session::put('items', $items);
             $item = $items->getItems();
             return end($item);
@@ -254,7 +283,7 @@ class OrderServicesController extends Controller
 
         Session::put('items', $items);
 
-        return redirect()->route('form.register');
+        return redirect()->route('nova.ordem');
 
     }
 
@@ -265,18 +294,21 @@ class OrderServicesController extends Controller
         return $valorItem->valor;
     }
 
-    public function total(Item $item)
+    public function total(Item $item, $desconto = null)
     {
 
-        return $item->total();
+
+        $total = $item->total();
+        $total = $total - $desconto;
+        return $total;
     }
 
 
-    public function salvaOrdem()
+    public function salvaOrdem(Item $item)
     {
         session_start();
 
-        $dataform = Item::listItem();
+        $dataform = $item->getItems();
         foreach ($dataform as $d) {
             $data[] = $d->id;
         }
@@ -286,6 +318,45 @@ class OrderServicesController extends Controller
 
         $ordem->itensOrdem()->sync($data);
         return $ordem;
+    }
+
+    public function teste(Request $request)
+    {
+
+        dd($request->all());
+    }
+
+    public function showBudgets(OrderService $orderService)
+    {
+        $title = 'Orçamentos';
+        $budgets = $orderService->all();
+
+        foreach ($budgets as $budget) {
+            echo $budget->technician->name;
+        }
+
+
+        return view('order_services.list-budgets', compact('title', 'budgets'));
+
+    }
+
+    public function details(OrderService $orderService, $id)
+    {
+
+        $ordemOrcamento = $orderService->find($id);
+        $total = $orderService->totalOrdem($ordemOrcamento);
+        $items = $ordemOrcamento->itensOrdem;
+        $company = $ordemOrcamento->empresa;
+        $customer = $ordemOrcamento->cliente;
+        $technician = $ordemOrcamento->technician;
+
+        if ($ordemOrcamento->id_tipo_ordem_servico == 1) {
+            $title = 'Detalhes do orçamento';
+        } else {
+            $title = 'Detalhes da Ordem de serviço';
+        }
+        return view('order_services.details', compact('title', 'ordemOrcamento', 'company', 'customer', 'items', 'technician','total'));
+
     }
 
 

@@ -13,8 +13,8 @@ class ItemTransformer extends TransformerAbstract
 {
 
     /**
-     * Transform the \Item entity
-     * @param \Item $model
+     * Transform the Item entity
+     * @param App\Entities\Item $model
      *
      * @return array
      */

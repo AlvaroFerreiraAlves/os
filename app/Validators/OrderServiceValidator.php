@@ -9,7 +9,9 @@ class OrderServiceValidator extends LaravelValidator
 {
 
     protected $rules = [
-        ValidatorInterface::RULE_CREATE => [],
+        ValidatorInterface::RULE_CREATE => [
+            'dt_prox_manut'=>'required',
+        ],
         ValidatorInterface::RULE_UPDATE => [],
    ];
 }

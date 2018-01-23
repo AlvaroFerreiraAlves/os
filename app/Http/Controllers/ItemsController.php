@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Entities\CategoryItems;
+use App\Entities\Item;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -39,10 +40,12 @@ class ItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showProducts()
     {
+        $title = 'Produtos';
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $items = $this->repository->all();
+
 
         if (request()->wantsJson()) {
 
@@ -51,7 +54,24 @@ class ItemsController extends Controller
             ]);
         }
 
-        return $items;
+        return view('items.list-products', compact('title','items'));
+    }
+
+    public function showServices()
+    {
+        $title = 'Serviços';
+        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $items = $this->repository->all();
+
+
+        if (request()->wantsJson()) {
+
+            return response()->json([
+                'data' => $items,
+            ]);
+        }
+
+        return view('items.list-services', compact('title','items'));
     }
 
     /**
@@ -125,11 +145,16 @@ class ItemsController extends Controller
      */
     public function edit($id)
     {
-        $categorias = CategoryItems::all();
 
         $item = $this->repository->find($id);
+        $categorias = CategoryItems::all();
+        if($item->id_categoria_item == 1){
+            $title = 'Editar produto';
+        }else{
+            $title = 'Editar serviço';
+        }
 
-        return view('items.create-edit', compact('item','categorias'));
+        return view('items.create-edit', compact('title','item','categorias'));
     }
 
 
@@ -198,8 +223,23 @@ class ItemsController extends Controller
         return redirect()->back()->with('message', 'Item deleted.');
     }
 
+
     public function showFormItems(){
+        $title = 'Cadastrar produto / serviço';
         $categorias = CategoryItems::all();
-        return view('items.create-edit',compact('categorias'));
+        return view('items.create-edit',compact('title','categorias'));
+    }
+
+    public function details(Item $item, $id)
+    {
+
+        $item = $item->find($id);
+        if($item->id_categoria_item == 1){
+            $title = 'Detalhes do produto';
+        }else{
+            $title = 'Detalhes do serviço';
+        }
+        return view('items.details', compact('title','item'));
+
     }
 }

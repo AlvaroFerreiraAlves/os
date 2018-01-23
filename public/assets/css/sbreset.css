@@ -1,0 +1,55 @@
+.navbar-inverse .navbar-nav > li > a {
+    color: #fff;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
+    background: #fff;
+    color: #000;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    color: #fff;
+    background-color: #080808;
+}
+
+.logo{
+    width: 13%;
+    height: 125px;
+    border-bottom: 1px solid;
+}
+
+.empresa{
+    width: 70%;
+    height: 125px;
+    border-bottom: 1px solid;
+}
+
+.telefones{
+    width: 17%;
+    height: 125px;
+    border-bottom: 1px solid;
+}
+.numero-ordem{
+
+    height: 40px;
+    border-bottom: 1px solid;
+}
+
+.problemas{
+
+    border-bottom: 1px solid;
+}
+.cliente{
+
+    border-bottom: 1px solid;
+}
+
+
+
+
+
+
+
+
+
+

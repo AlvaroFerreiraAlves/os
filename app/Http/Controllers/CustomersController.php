@@ -39,10 +39,11 @@ class CustomersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showCustomers()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $customers = $this->repository->all();
+        $title = 'Clientes';
 
         if (request()->wantsJson()) {
 
@@ -51,7 +52,7 @@ class CustomersController extends Controller
             ]);
         }
 
-        return view('customers.index', compact('customers'));
+        return view('customers.list-customers', compact('customers','title'));
     }
 
     /**
@@ -125,10 +126,16 @@ class CustomersController extends Controller
      */
     public function edit($id)
     {
+        $title = "Editar cliente";
 
         $customers = $this->repository->find($id);
 
-        return view('customers.create-edit', compact('customers'));
+
+
+        if($customers->status == 0)
+            return redirect()->back();
+
+        return view('customers.create-edit', compact('customers','title'));
     }
 
 
@@ -151,7 +158,7 @@ class CustomersController extends Controller
             $customer = Customer::find($id);
             $customer = $customer->update($request->all());
         }
-        return redirect()->back();
+        return redirect('listar-clientes')->with('message', 'Os dados do cliente foram atualizados.');
 
     }
 
@@ -165,7 +172,7 @@ class CustomersController extends Controller
      */
     public function destroy($id)
     {
-        $deleted = $this->repository->delete($id);
+        $deleted = $this->repository->update(["status"=>0],$id);
 
         if (request()->wantsJson()) {
 
@@ -175,10 +182,20 @@ class CustomersController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('message', 'Customer deleted.');
+        return redirect()->back()->with('message', 'Cliente Excluído.');
     }
 
     public function showFormCustomer(){
-        return view('customers.create-edit');
+        $title = 'Cadastrar Cliente';
+        return view('customers.create-edit', compact('title'));
+    }
+
+    public function details(Customer $customer, $id)
+    {
+
+        $title = "Detalhes do cliente";
+        $customer = $customer->find($id);
+        return view('customers.details', compact('title','customer'));
+
     }
 }

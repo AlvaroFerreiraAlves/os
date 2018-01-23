@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Company;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -38,10 +39,11 @@ class CompaniesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showCustomers()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $companies = $this->repository->all();
+        $title = 'Minha(s) Empresa(s)';
 
         if (request()->wantsJson()) {
 
@@ -50,7 +52,7 @@ class CompaniesController extends Controller
             ]);
         }
 
-        return view('companies.index', compact('companies'));
+        return view('companies.list-companies', compact('title','companies'));
     }
 
     /**
@@ -65,9 +67,47 @@ class CompaniesController extends Controller
 
         try {
 
+            // Define o valor default para a variável que contém o nome da imagem
+            $nameFile = null;
+
+            // Verifica se informou o arquivo e se é válido
+            if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
+
+                // Define um aleatório para o arquivo baseado no timestamps atual
+                $name = 'logo';
+
+                // Recupera a extensão do arquivo
+                $extension = $request->logo->extension();
+
+                // Define finalmente o nome
+                $nameFile = "{$name}.{$extension}";
+
+                // Faz o upload:
+                $upload = $request->logo->storeAs('logo', $nameFile);
+                // Se tiver funcionado o arquivo foi armazenado em storage/app/public/categories/nomedinamicoarquivo.extensao
+
+                // Verifica se NÃO deu certo o upload (Redireciona de volta)
+                if ( !$upload )
+                    return redirect()
+                        ->back()
+                        ->with('error', 'Falha ao fazer upload')
+                        ->withInput();
+
+            }
+
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $company = $this->repository->create($request->all());
+            $company = $this->repository->create([
+
+                      "razao_social" => $request->razao_social,
+                      "cnpj" => $request->cnpj,
+                      "endereco" => $request->endereco,
+                      "email" => $request->email,
+                      "telefone" => $request->telefone,
+                      "celular" => $request->celular,
+                      "logo" => $nameFile,
+                      "status" => "1",
+            ]);
 
             $response = [
                 'message' => 'Company created.',
@@ -124,10 +164,11 @@ class CompaniesController extends Controller
      */
     public function edit($id)
     {
+        $title = 'Editar empresa';
 
         $companies = $this->repository->find($id);
 
-        return view('companies.create-edit', compact('companies'));
+        return view('companies.create-edit', compact('title','companies'));
     }
 
 
@@ -144,9 +185,45 @@ class CompaniesController extends Controller
 
         try {
 
+            // Define o valor default para a variável que contém o nome da imagem
+            $nameFile = null;
+
+            // Verifica se informou o arquivo e se é válido
+            if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
+
+                // Define um aleatório para o arquivo baseado no timestamps atual
+                $name = $request->logo->getClientOriginalName();
+
+                // Recupera a extensão do arquivo
+                $extension = $request->logo->extension();
+
+                // Define finalmente o nome
+                $nameFile = "{$name}"/*.{$extension}*/;
+
+                // Faz o upload:
+                $upload = $request->logo->storeAs('logo', $nameFile);
+                // Se tiver funcionado o arquivo foi armazenado em storage/app/public/categories/nomedinamicoarquivo.extensao
+
+                // Verifica se NÃO deu certo o upload (Redireciona de volta)
+                if ( !$upload )
+                    return redirect()
+                        ->back()
+                        ->with('error', 'Falha ao fazer upload')
+                        ->withInput();
+
+            }
+
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $company = $this->repository->update($request->all(), $id);
+            $company = $this->repository->update(
+                [ "razao_social" => $request->razao_social,
+                    "cnpj" => $request->cnpj,
+                    "endereco" => $request->endereco,
+                    "email" => $request->email,
+                    "telefone" => $request->telefone,
+                    "celular" => $request->celular,
+                    "logo" => $nameFile,
+                    "status" => "1",], $id);
 
             $response = [
                 'message' => 'Company updated.',
@@ -196,7 +273,18 @@ class CompaniesController extends Controller
         return redirect()->back()->with('message', 'Company deleted.');
     }
 
-    public function showFormCustomer(){
-        return view('companies.create-edit');
+    public function showFormCustomer()
+    {
+        $title = 'Cadastrar empresa';
+        return view('companies.create-edit',compact('title'));
+    }
+
+    public function details(Company $company, $id)
+    {
+
+        $title = "Detalhes da empresa";
+        $company = $company->find($id);
+        return view('companies.details', compact('title','company'));
+
     }
 }

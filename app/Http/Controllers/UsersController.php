@@ -40,8 +40,9 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showUsers()
     {
+        $title = 'Usuários';
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $users = $this->repository->all();
 
@@ -52,7 +53,7 @@ class UsersController extends Controller
             ]);
         }
 
-        return $users;
+        return view('users.list-users',compact('title','users'));
     }
 
     /**
@@ -127,12 +128,13 @@ class UsersController extends Controller
     public function edit($id)
     {
 
+        $title = 'Editar usuário';
         $user = $this->repository->find($id);
         $tipoUsuario = UserType::all();
         $userTypeUser =  $user->tipoUsuario;
         $typeOrder = TypeOrderService::all();
 
-        return view('auth.register', compact('user','tipoUsuario','userTypeUser','typeOrder'));
+        return view('auth.register', compact('title','user','tipoUsuario','userTypeUser','typeOrder'));
     }
 
 
@@ -149,9 +151,16 @@ class UsersController extends Controller
 
         try {
 
+            $dataForm = $request->all();
+
+            if( isset($dataForm['email']) )
+                unset($dataForm['email']);
+            if( isset($dataForm['cpf']) )
+                unset($dataForm['cpf']);
+
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $user = $this->repository->update($request->all(), $id);
+            $user = $this->repository->update($dataForm, $id);
 
             $dataform = $request['tipousuario'];
 

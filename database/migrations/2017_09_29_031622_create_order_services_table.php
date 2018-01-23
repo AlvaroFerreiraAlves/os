@@ -28,6 +28,7 @@ class CreateOrderServicesTable extends Migration
             $table->integer('id_cliente')->unsigned();
             $table->integer('id_empresa')->unsigned();
             $table->integer('id_usuario')->unsigned();
+            $table->integer('tecnico');
 
             $table->foreign('id_tipo_ordem_servico')
                 ->references('id')->on('type_order_services')

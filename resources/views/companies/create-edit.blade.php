@@ -1,13 +1,8 @@
-@extends('layouts.app')
+@extends('template.main')
 
 @section('content')
 
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
 
-                <div class="panel-body">
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -20,16 +15,13 @@
 
                     @if(isset($companies))
 
-                        <form class="form-horizontal" method="post" action="{{url('companies/'.$companies->id.'/update')}}">
+                        <form class="form-horizontal" method="post" action="{{url('companies/'.$companies->id.'/update')}}" enctype="multipart/form-data">
                             {!! method_field('PUT') !!}
                             @else
-                                <form class="form-horizontal" method="post" action="{{url('companies/store')}}">
+                                <form class="form-horizontal" method="post" action="{{url('companies/store')}}" enctype="multipart/form-data">
                                     @endif
                                     {{csrf_field()}}
                                     <fieldset>
-
-                                        <!-- Form Name -->
-                                        <legend>Cadastrar Empresa</legend>
 
                                         <!-- Text input-->
                                         <div class="form-group">
@@ -87,6 +79,14 @@
                                             </div>
                                         </div>
 
+                                        <!-- File Button -->
+                                       <div class="form-group">
+                                            <label class="col-md-4 control-label" for="logo">Logo:</label>
+                                            <div class="col-md-4">
+                                                <input id="logo" name="logo" class="input-file" type="file">
+                                            </div>
+                                        </div>
+
                                         <input type="hidden" id="status" name="status" value="1">
 
 
@@ -102,11 +102,5 @@
                                 </form>
                         </form>
 
-
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
 
 @endsection
