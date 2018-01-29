@@ -79,8 +79,11 @@
                       <hr>
 
                       <div class="col-md-3" style="float: right">
-                          <h3 id="total">Total: R$ {{$total}}</h3>
+                          <h5 id="total">Subtotal: R$ {{$total}}</h5>
+                          <h5 id="total">Desconto: R$ {{$ordemOrcamento->valor_desconto}}</h5>
+                          <h3 id="total">Total: R$ {{$total - $ordemOrcamento->valor_desconto}}</h3>
                       </div>
+
 
                   </div>
               </div>

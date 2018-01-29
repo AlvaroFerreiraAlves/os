@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\ItemsOrderService;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -181,9 +182,10 @@ class ItemsOrderServicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ItemsOrderService $itemsOrderService,$idOrdem,$id)
     {
-        $deleted = $this->repository->delete($id);
+        $deleted = $itemsOrderService->where('id_ordem_servico',$idOrdem)->where('id_item',$id)->delete();
+
 
         if (request()->wantsJson()) {
 
@@ -193,6 +195,7 @@ class ItemsOrderServicesController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('message', 'ItemsOrderService deleted.');
+        return $deleted;
     }
+
 }

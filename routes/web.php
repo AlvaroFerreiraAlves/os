@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     $title = 'Painel';
-    return view('home.index',compact('title'));
+    return view('home.index', compact('title'));
 })->name('painel');
 
 Auth::routes();
@@ -58,16 +58,22 @@ Route::post('categories/store', 'CategoryItemsController@store');
 Route::get('categories/{id}/edit', 'CategoryItemsController@edit');
 Route::put('categories/{id}/update', 'CategoryItemsController@update');
 
-
 Route::get('nova-ordem-servico', 'OrderServicesController@showFormOrder')->name('nova.ordem');
 Route::post('order/addservice', 'OrderServicesController@addService')->name('add.service');
 Route::get('order/salva-ordem', 'OrderServicesController@salvaOrdem');
 Route::post('order/removeservice/{id}', 'OrderServicesController@remove')->name('remove.item');
+Route::post('editar-ordem-orcamento/order/removeservice-update/{id}', 'OrderServicesController@removeUpdate')->name('remove.item.update');
 Route::post('order/set-value/{id}', 'OrderServicesController@setValue')->name('set.value');
+Route::post('editar-ordem-orcamento/order/set-value/{id}', 'OrderServicesController@setValue')->name('set.value.update');
+Route::post('editar-ordem-orcamento/order/total/{desconto}', 'OrderServicesController@totalUpdate')->name('total.update');
 Route::post('order/total/{desconto}', 'OrderServicesController@total')->name('total');
-Route::post('teste', 'OrderServicesController@store')->name('teste');
+Route::post('editar-ordem-orcamento/order/total-update/{desconto}', 'OrderServicesController@totalUpdate')->name('total');
+Route::post('cadastrar-ordem', 'OrderServicesController@store')->name('cadastrar.ordem');
 Route::get('listar-orcamentos', 'OrderServicesController@showBudgets')->name('listar.orcamentos');
 Route::get('detalhes-ordem/{id}', 'OrderServicesController@details')->name('detalhes.ordem');
 Route::get('editar-ordem-orcamento/{id}', 'OrderServicesController@edit')->name('editar.ordem.orcamento');
+Route::post('editar-ordem-orcamento/destroy-item/{idOrdem}/{id}', 'ItemsOrderServicesController@destroy')->name('excluir.item.ordem');
+Route::post('editar-ordem-orcamento/update-item/{idOrdem}/{id}', 'OrderServicesController@update')->name('atualizar.item.ordem');
+Route::post('order/addservice-update', 'OrderServicesController@addServiceUpdate')->name('add.service.update');
 
 

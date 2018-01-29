@@ -148,20 +148,31 @@ class OrderServicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Item $item,$id)
+    public function edit(Item $item, $id)
     {
-
+        $item->emptySessionUpdate();
         $orderService = $this->repository->find($id);
+        $itensOrdem = $orderService->itensOrdem;
+        $items = new Item();
+        $itemsOrderSession = [];
+        foreach ($itensOrdem as $io => $value) {
+
+
+            $items->addItemUpdate($value, $value->pivot->qtd);
+            Session::put('itemsUpdate', $items);
+            $itemsOrderSession = $items->getItemsUpdate();
+        }
+
+
         $title = 'Editar';
         $itens = $item->all();
-        $prodService = $item->getItems();
         $tipoOrdem = TypeOrderService::all();
         $companies = Company::all();
         $customers = Customer::all();
         $tecnicos = UserType::find(2);
         $tecnicos = $tecnicos->users;
 
-        return view('order_services.create-edit', compact('orderService','title','tipoOrdem','companies','customers','tecnicos','itens','prodService','item'));
+        return view('order_services.create-edit', compact('orderService', 'title', 'tipoOrdem', 'companies', 'customers', 'tecnicos', 'itens', 'item', 'itemsOrderSession'));
     }
 
 
@@ -173,7 +184,7 @@ class OrderServicesController extends Controller
      *
      * @return Response
      */
-    public function update(OrderServiceUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
         try {
@@ -215,9 +226,9 @@ class OrderServicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        $deleted = $this->repository->delete($id);
+        $deleted = $this->repository->delete();
 
         if (request()->wantsJson()) {
 
@@ -232,6 +243,7 @@ class OrderServicesController extends Controller
 
     public function showFormOrder(Item $item)
     {
+       // $item->emptySession();
         $title = 'Ordem de Serviço';
         $itens = $item->all();
         $prodService = $item->getItems();
@@ -270,6 +282,33 @@ class OrderServicesController extends Controller
 
     }
 
+     public function addServiceUpdate(Request $request)
+     {
+
+
+         $id = $request->input('itens');
+         $qtd = $request->qtd;
+
+         $item = Item::find($id);
+
+         $item->valor = $request->valor;
+
+
+         if (!$item)
+             return redirect()->back();
+
+         $items = new Item();
+
+         if (!array_key_exists($id, $items->getItemsUpdate())) {
+             $items->addItemUpdate($item, $qtd);
+             Session::put('itemsUpdate', $items);
+             $item = $items->getItemsUpdate();
+             return end($item);
+         }
+
+
+     }
+
 
     public function remove($id)
     {
@@ -287,6 +326,23 @@ class OrderServicesController extends Controller
 
     }
 
+    public function removeUpdate($id)
+    {
+
+        $item = Item::find($id);
+        if (!$item)
+            return redirect()->back();
+
+        $items = new Item();
+        $items->removeItemsUpdate($item);
+
+        Session::put('itemsUpdate', $items);
+
+        return $items->getItemsUpdate();
+
+    }
+
+
     public function setValue($id)
     {
         $valorItem = Item::find($id);
@@ -296,29 +352,20 @@ class OrderServicesController extends Controller
 
     public function total(Item $item, $desconto = null)
     {
-
-
         $total = $item->total();
         $total = $total - $desconto;
         return $total;
     }
 
-
-    public function salvaOrdem(Item $item)
+    public function totalUpdate(Item $item, $desconto = null)
     {
-        session_start();
+        $total = $item->totalUpdate();
+        $total = $total - $desconto;
 
-        $dataform = $item->getItems();
-        foreach ($dataform as $d) {
-            $data[] = $d->id;
-        }
-
-
-        $ordem = OrderService::find(3);
-
-        $ordem->itensOrdem()->sync($data);
-        return $ordem;
+        return $total;
     }
+
+
 
     public function teste(Request $request)
     {
@@ -355,7 +402,7 @@ class OrderServicesController extends Controller
         } else {
             $title = 'Detalhes da Ordem de serviço';
         }
-        return view('order_services.details', compact('title', 'ordemOrcamento', 'company', 'customer', 'items', 'technician','total'));
+        return view('order_services.details', compact('title', 'ordemOrcamento', 'company', 'customer', 'items', 'technician', 'total'));
 
     }
 

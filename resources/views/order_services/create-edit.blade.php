@@ -15,10 +15,11 @@
 
     @if(isset($orderService))
 
+
         <form class="form-horizontal" method="post" action="{{--{{url('companies/'.$companies->id.'/update')}}--}}">
             {!! method_field('PUT') !!}
             @else
-                <form class="form-horizontal" method="post" action="{{route('teste')}}" name="form2">
+                <form class="form-horizontal" method="post" action="{{route('cadastrar.ordem')}}" name="form2">
                     @endif
                     {{csrf_field()}}
 
@@ -130,7 +131,8 @@
                             <div class="col-md-6">
                                 <label class="col-md-12" for="n_serie">N° de série</label>
                                 <input id="n_serie" name="n_serie" type="text" placeholder=""
-                                       class="form-control input-md" value="{{$orderService->n_serie or old('n_serie')}}">
+                                       class="form-control input-md"
+                                       value="{{$orderService->n_serie or old('n_serie')}}">
                             </div>
                         </div>
 
@@ -139,7 +141,8 @@
                             <div class="col-md-4">
                                 <label class="col-md-12" for="p_info">Problema informado pelo cliente</label>
                                 @if(isset($orderService))
-                                    <textarea class="form-control" id="p_info" name="p_info">{{$orderService->p_info or old('p_info')}}</textarea>
+                                    <textarea class="form-control" id="p_info"
+                                              name="p_info">{{$orderService->p_info or old('p_info')}}</textarea>
                                 @else
                                     <textarea class="form-control" id="p_info" name="p_info"></textarea>
                                 @endif
@@ -147,18 +150,20 @@
                             <div class="col-md-4">
                                 <label class="col-md-12" for="p_const">Problema constado</label>
                                 @if(isset($orderService))
-                                <textarea class="form-control" id="p_const" name="p_const">{{$orderService->p_const or old('p_const')}}</textarea>
-                                    @else
+                                    <textarea class="form-control" id="p_const"
+                                              name="p_const">{{$orderService->p_const or old('p_const')}}</textarea>
+                                @else
                                     <textarea class="form-control" id="p_const" name="p_const"></textarea>
                                 @endif
                             </div>
                             <div class="col-md-4">
                                 <label class="col-md-12" for="s_exec">Serviço executado</label>
                                 @if(isset($orderService))
-                                <textarea class="form-control" id="s_exec" name="s_exec">{{$orderService->s_exec or old('s_exec')}}</textarea>
+                                    <textarea class="form-control" id="s_exec"
+                                              name="s_exec">{{$orderService->s_exec or old('s_exec')}}</textarea>
                                 @else
-                                <textarea class="form-control" id="s_exec" name="s_exec"></textarea>
-                                    @endif
+                                    <textarea class="form-control" id="s_exec" name="s_exec"></textarea>
+                                @endif
                             </div>
                         </div>
                         <hr>
@@ -185,15 +190,20 @@
 
                         <input type="hidden" name="status" id="status" value="1">
                         <input type="hidden" name="id_usuario" id="id_usuario" value="1">
+                        <input type="hidden" name="valor_desconto" id="valor_desconto" value="0">
 
                     </fieldset>
                 </form>
         </form>
 
+
+
         <form class="form-horizontal" id="form">
             {{ csrf_field() }}
             <fieldset>
-
+                @if(isset($orderService))
+                    <input type="hidden" id="idordem" name="idordem" value="{{$orderService->id}}">
+                @endif
                 <div class="col-md-4">
                     Produto/Serviço:
                     <select id="itens" name="itens" class="form-control">
@@ -218,9 +228,11 @@
                 </div>
 
                 <div class="col-md-2">
-
-                    <button class="btn btn-success" type="button" onclick="add()" id="salvar">+</button>
-
+                    @if(isset($orderService))
+                        <button class="btn btn-success" type="button" onclick="updateAdd()" id="salvar1">+</button>
+                    @else
+                        <button class="btn btn-success" type="button" onclick="add()" id="salvar">+</button>
+                    @endif
                 </div>
 
             </fieldset>
@@ -232,7 +244,7 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
+                        <th>Nome</th>
                         <th>valor</th>
                         <th>Quantidade.</th>
                         <th>Subtotal</th>
@@ -240,27 +252,53 @@
 
                     </tr>
                     </thead>
-                    <tbody id="products-list" name="products-list">
-                    @foreach($prodService as $ps)
-                        <tr id="product{{$ps['item']->id}}">
+                    @if(isset($orderService))
+                        <tbody id="items-list-update" name="items-list-update">
+                        @foreach($itemsOrderSession as $ios)
+                            <tr id="product{{$ios['item']->id}}">
 
-                            <td>{{$ps['item']->id}}</td>
-                            <td>{{$ps['item']->nome}}</td>
-                            <td>{{$ps['item']->valor}}</td>
-                            <td>{{$ps['qtd']}}</td>
-                            <td>{{$ps['qtd']*$ps['item']->valor}}</td>
-                            <td>
-                                <button type="button" id="delete{{$ps['item']->id}}"
-                                        class="btn btn-danger btn-delete delete-item"
-                                        value="{{$ps['item']->id}}">X
-                                </button>
+                                <td>{{$ios['item']->id}}</td>
+                                <td>{{$ios['item']->nome}}</td>
+                                <td>{{$ios['item']->pivot->valor}}</td>
+                                <td>{{$ios['item']->pivot->qtd}}</td>
+                                <td>{{$ios['item']->pivot->valor*$ios['item']->pivot->qtd}}</td>
+                                <td>
+                                    <button type="button" id="delete{{$ios['item']->id}}"
+                                            class="btn btn-danger btn-delete update-delete-item"
+                                            value="{{$ios['item']->id}}">X
+                                    </button>
 
 
-                            </td>
+                                </td>
 
-                        </tr>
-                    @endforeach
-                    </tbody>
+                            </tr>
+
+                        @endforeach
+                        </tbody>
+                    @else
+                        <tbody id="products-list" name="products-list">
+                        @foreach($prodService as $ps)
+                            <tr id="product{{$ps['item']->id}}">
+
+                                <td>{{$ps['item']->id}}</td>
+                                <td>{{$ps['item']->nome}}</td>
+                                <td>{{$ps['item']->valor}}</td>
+                                <td>{{$ps['qtd']}}</td>
+                                <td>{{$ps['qtd']*$ps['item']->valor}}</td>
+                                <td>
+                                    <button type="button" id="delete{{$ps['item']->id}}"
+                                            class="btn btn-danger btn-delete delete-item"
+                                            value="{{$ps['item']->id}}">X
+                                    </button>
+
+
+                                </td>
+
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    @endif
+
                 </table>
                 <hr>
 
@@ -281,10 +319,18 @@
 
 
                 <div class="col-md-3" style="float: right">
-                    <h3 id="total">Total: R$ {{$item->total()}}</h3>
+                    @if(isset($orderService))
+                        <input type="hidden" id="desconto-update" name="desconto-update" value="{{$orderService->valor_desconto}}">
+                        <h5 id="vdesconto">Desconto: R$ {{$orderService->valor_desconto}}</h5>
+                        <h5 id="subtotal-update">Subtotal: R$ {{$item->totalUpdate()}}</h5>
+                        <h3 id="total-update">Total: R$ {{$item->totalUpdate()-$orderService->valor_desconto}}</h3>
+                        @else
+                        <h3 id="total">Total: R$ {{$item->total()}}</h3>
+                        @endif
                 </div>
             </div>
         </div>
+
         <hr>
 
         <input class="btn btn-success" type="submit" value="salvar" onClick="document.form2.submit()">
@@ -303,6 +349,8 @@
                     $("#valor").val(seletc);
                     $("#qtd").val(1);
                 });
+
+                totalUpdate();
 
             });
 
@@ -381,6 +429,24 @@
                 });
             }
 
+            function totalUpdate() {
+                var desconto = $("#desconto-update").val();
+
+                $.ajax({
+                    url: "order/total-update/" + 0,
+                    method: "POST",
+                    data: ""
+                }).done(function (data) {
+                    var total = parseFloat(data) - parseFloat(desconto);
+                    $("#subtotal-update").text("Subtotal: R$ " + data);
+                    $("#total-update").text("Total: R$ " + total);
+                    if(total < 0){
+                        $("#total-update").text("Total: R$ " + 0);
+                    }
+
+                });
+            }
+
 
             $(document).on('click', '#aplicar', function () {
                 var desconto = $("#desconto").val();
@@ -392,8 +458,53 @@
                     data: ""
                 }).done(function (data) {
                     $("#total").text("Total: R$ " + data);
+                    $("#total-update").text("Total: R$ " + data);
+                    $("#vdesconto").text("Desconto: R$ " + desconto);
                     $('#desconto').val(0);
+                    $("#valor_desconto").val(desconto);
                 });
+            });
+
+            function updateAdd() {
+                var data = $('#form').serialize();
+
+                $.ajax({
+                    url: "{{route('add.service.update')}}",
+                    method: "POST",
+                    data: data
+                }).done(function (data) {
+
+                    console.log(data);
+
+                    if (data != '') {
+
+                        items = '<tr id="product' + data.item.id + '"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + data.item.valor + '</td><td>' + data.qtd + '</td><td>' + data.item.valor * data.qtd + '</td>';
+                        items += '<td><button type="button" id="delete' + data.item.id + '"class="btn btn-danger btn-delete update-delete-item" value="' + data.item.id + '">X</button></td></tr>';
+                        $('#items-list-update').append(items);
+
+                    }
+                    totalUpdate();
+                })
+            }
+
+
+            $(document).on('click', '.update-delete-item', function () {
+                var id = event.target.id;
+                var data = $('#form').serialize();
+                var parametro = $("#" + id).val();
+                var subtotal = $("#subtotal-update").text();
+
+                $.ajax({
+                    url: "order/removeservice-update/" + parametro,
+                    method: "POST",
+                    data: data
+                }).done(function (data) {
+
+                    var tr = $("#" + id).closest('tr');
+                    tr.remove();
+                    totalUpdate();
+
+                })
             });
 
         </script>
