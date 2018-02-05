@@ -73,7 +73,7 @@ Route::get('listar-orcamentos', 'OrderServicesController@showBudgets')->name('li
 Route::get('detalhes-ordem/{id}', 'OrderServicesController@details')->name('detalhes.ordem');
 Route::get('editar-ordem-orcamento/{id}', 'OrderServicesController@edit')->name('editar.ordem.orcamento');
 Route::post('editar-ordem-orcamento/destroy-item/{idOrdem}/{id}', 'ItemsOrderServicesController@destroy')->name('excluir.item.ordem');
-Route::post('editar-ordem-orcamento/update-item/{idOrdem}/{id}', 'OrderServicesController@update')->name('atualizar.item.ordem');
+Route::put('editar-ordem-orcamento/update-item/{id}', 'OrderServicesController@update')->name('atualizar.item.ordem');
 Route::post('order/addservice-update', 'OrderServicesController@addServiceUpdate')->name('add.service.update');
 
 

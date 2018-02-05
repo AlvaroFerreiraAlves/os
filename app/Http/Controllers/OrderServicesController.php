@@ -184,7 +184,7 @@ class OrderServicesController extends Controller
      *
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, Item $item)
     {
 
         try {
@@ -192,6 +192,20 @@ class OrderServicesController extends Controller
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
             $orderService = $this->repository->update($request->all(), $id);
+
+
+            $data = [];
+            $dataform = $item->getItemsUpdate();
+            foreach ($dataform as $d) {
+                $data[$d['item']->id] = [
+                    'qtd' => $d['qtd'],
+                    'valor' => $d['item']->valor,
+                ];
+            }
+
+            $ordem = OrderService::find($orderService->id);
+
+            $ordem->itensOrdem()->sync($data);
 
             $response = [
                 'message' => 'OrderService updated.',

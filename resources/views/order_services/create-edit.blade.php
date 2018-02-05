@@ -16,7 +16,8 @@
     @if(isset($orderService))
 
 
-        <form class="form-horizontal" method="post" action="{{--{{url('companies/'.$companies->id.'/update')}}--}}">
+        <form class="form-horizontal" name="formupdate" method="post"
+              action="{{route("atualizar.item.ordem",$orderService->id)}}">
             {!! method_field('PUT') !!}
             @else
                 <form class="form-horizontal" method="post" action="{{route('cadastrar.ordem')}}" name="form2">
@@ -30,7 +31,9 @@
                         <div class="form-group">
                             <div class="col-md-3">
                                 <label class="col-md-12" for="id_tipo_ordem_servico">Tipo de Documento</label>
-                                <select id="id_tipo_ordem_servico" name="id_tipo_ordem_servico" class="form-control">
+
+                                <select id="id_tipo_ordem_servico" name="id_tipo_ordem_servico"
+                                        class="form-control input-md">
                                     @if(isset($orderService))
                                         @forelse($tipoOrdem as $tipo)
                                             <option value="{{$tipo->id}}"
@@ -49,9 +52,11 @@
                                         @endforelse
                                     @endif
                                 </select>
+
                             </div>
                             <div class="col-md-3">
                                 <label class="col-md-12" for="id_empresa">Empresa</label>
+
                                 <select id="id_empresa" name="id_empresa" class="form-control">
                                     @if(isset($orderService))
                                         @forelse($companies as $company)
@@ -71,31 +76,40 @@
                                         @endforelse
                                     @endif
                                 </select>
+
                             </div>
                             <div class="col-md-3">
                                 <label class="col-md-12" for="id_cliente">Cliente</label>
-                                <select id="id_cliente" name="id_cliente" class="form-control">
-                                    @if(isset($orderService))
-                                        @forelse($customers as $customer)
-                                            <option value="{{$customer->id}}"
-                                                    @if($customer->id == $orderService->id_cliente)
-                                                    selected
-                                                    @endif
-                                            >{{$customer->nome}}</option>
-                                        @empty
-                                            não há dados
-                                        @endforelse
-                                    @else
-                                        @forelse($customers as $customer)
-                                            <option value="{{$customer->id}}">{{$customer->nome}}</option>
-                                        @empty
-                                            não há dados
-                                        @endforelse
-                                    @endif
-                                </select>
+                                <div class="customer input-group">
+                                    <select id="id_cliente" name="id_cliente" class="form-control">
+                                        @if(isset($orderService))
+                                            @forelse($customers as $customer)
+                                                <option value="{{$customer->id}}"
+                                                        @if($customer->id == $orderService->id_cliente)
+                                                        selected
+                                                        @endif
+                                                >{{$customer->nome}}</option>
+                                            @empty
+                                                não há dados
+                                            @endforelse
+                                        @else
+                                            @forelse($customers as $customer)
+                                                <option value="{{$customer->id}}">{{$customer->nome}}</option>
+                                            @empty
+                                                não há dados
+                                            @endforelse
+                                        @endif
+                                    </select>
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                                data-target="#customermodal">+
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-3">
                                 <label class="col-md-12" for="tecnico">Técnico responsável</label>
+                                <div class="input-group">
                                 <select id="tecnico" name="tecnico" class="form-control">
                                     @if(isset($orderService))
                                         @forelse($tecnicos as $tecnico)
@@ -115,6 +129,13 @@
                                         @endforelse
                                     @endif
                                 </select>
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                            data-target="#technicianmodal">+
+                                    </button>
+                                </div>
+                            </div>
+
                             </div>
                         </div>
                         <hr>
@@ -190,11 +211,26 @@
 
                         <input type="hidden" name="status" id="status" value="1">
                         <input type="hidden" name="id_usuario" id="id_usuario" value="1">
-                        <input type="hidden" name="valor_desconto" id="valor_desconto" value="0">
+                        @if(isset($orderService))
+                            <input type="hidden" name="valor_desconto" id="valor_desconto"
+                                   value="{{$orderService->valor_desconto}}">
+                        @else
+                            <input type="hidden" name="valor_desconto" id="valor_desconto" value="0">
+                        @endif
 
                     </fieldset>
                 </form>
         </form>
+
+
+
+
+
+
+       @include('order_services.modals.customer')
+       @include('order_services.modals.technician')
+
+
 
 
 
@@ -206,11 +242,18 @@
                 @endif
                 <div class="col-md-4">
                     Produto/Serviço:
+                    <div class="input-group">
                     <select id="itens" name="itens" class="form-control">
                         @foreach($itens as $i)
                             <option id="option" value="{{$i->id}}">{{$i->nome}}</option>
                         @endforeach
                     </select>
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                data-target="#technicianmodal">+
+                        </button>
+                    </div>
+                </div>
 
                 </div>
 
@@ -306,7 +349,6 @@
 
 
                 <div class="col-md-3">
-
                     Desconto total
                     <div class="input-group">
                         <input id="desconto" name="desconto" type="number" step="0.1" min="0" placeholder=""
@@ -320,20 +362,24 @@
 
                 <div class="col-md-3" style="float: right">
                     @if(isset($orderService))
-                        <input type="hidden" id="desconto-update" name="desconto-update" value="{{$orderService->valor_desconto}}">
+                        <input type="hidden" id="desconto-update" name="desconto-update"
+                               value="{{$orderService->valor_desconto}}">
                         <h5 id="vdesconto">Desconto: R$ {{$orderService->valor_desconto}}</h5>
                         <h5 id="subtotal-update">Subtotal: R$ {{$item->totalUpdate()}}</h5>
                         <h3 id="total-update">Total: R$ {{$item->totalUpdate()-$orderService->valor_desconto}}</h3>
-                        @else
+                    @else
                         <h3 id="total">Total: R$ {{$item->total()}}</h3>
-                        @endif
+                    @endif
                 </div>
             </div>
         </div>
 
         <hr>
-
-        <input class="btn btn-success" type="submit" value="salvar" onClick="document.form2.submit()">
+        @if(isset($orderService))
+            <input class="btn btn-success" type="submit" value="Salvar" onClick="document.formupdate.submit()">
+        @else
+            <input class="btn btn-success" type="submit" value="Salvar" onClick="document.form2.submit()">
+        @endif
 
         <script>
 
@@ -440,7 +486,7 @@
                     var total = parseFloat(data) - parseFloat(desconto);
                     $("#subtotal-update").text("Subtotal: R$ " + data);
                     $("#total-update").text("Total: R$ " + total);
-                    if(total < 0){
+                    if (total < 0) {
                         $("#total-update").text("Total: R$ " + 0);
                     }
 
@@ -506,6 +552,25 @@
 
                 })
             });
+
+            function saveCustomer() {
+                var data = $('#form-customer-modal').serialize();
+
+                $.ajax({
+                    url: "customer/store",
+                    method: "POST",
+                    data: data,
+                    success: function () {
+                        $(".customer").load(location.href+" .customer>*","");
+
+                        $('#form-customer-modal').each (function(){
+                            this.reset();
+                        });
+                        $('#customermodal').modal('hide');
+
+                    }
+                })
+            }
 
         </script>
 
