@@ -42,6 +42,7 @@ Route::get('editar-item/{id}', 'ItemsController@edit')->name('editar.item');
 Route::post('items/store', 'ItemsController@store');
 Route::get('items/{id}/edit', 'ItemsController@edit');
 Route::put('items/{id}/update', 'ItemsController@update');
+Route::get('items/destroy/{id}', 'ItemsController@destroy')->name('excluir.item');
 Route::get('detalhes-item/{id}', 'ItemsController@details')->name('detalhes.item');
 
 /*Rotas Itens============================================================================================*/

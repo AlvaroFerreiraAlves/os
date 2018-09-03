@@ -10,6 +10,8 @@
         </div>
     @endif
 
+    
+
     <p><a href="{{route('cadastrar.cliente')}}" class="btn btn-success">Cadastrar cliente</a></p>
 
     <div class="panel-body">

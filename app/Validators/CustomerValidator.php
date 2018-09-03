@@ -2,20 +2,59 @@
 
 namespace App\Validators;
 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use \Prettus\Validator\Contracts\ValidatorInterface;
 use \Prettus\Validator\LaravelValidator;
+
 
 class CustomerValidator extends LaravelValidator
 {
 
-    public $rules = [
-        'cnpj_cpf' => 'cpf'
-   ];
 
-
-    public $rulesCnpj = [
-        'cnpj_cpf' => 'cnpj'
+    public $rules_cpf = [
+        'nome' => 'required|string|max:255',
+        'telefone' => '(77)9999-3333',
+        'telefone' => 'required|celular_com_ddd',
+        'celular' => '(77)99999-3333',
+        'celular' => 'required|celular_com_ddd',
+        'cnpj_cpf' => 'required|cpf|unique:users',
     ];
+
+    public $rules_cnpj = [
+        'nome' => 'required|string|max:255',
+        'telefone' => '(77)9999-3333',
+        'telefone' => 'required|celular_com_ddd',
+        'celular' => '(77)99999-3333',
+        'celular' => 'required|celular_com_ddd',
+        'cnpj_cpf' => 'required|cnpj|unique:users',
+    ];
+
+    public function rulesCpfUpdate()
+    {
+        return [
+            'nome' => 'required|string|max:255',
+            'telefone' => '(77)9999-3333',
+            'telefone' => 'required|celular_com_ddd',
+            'celular' => '(77)99999-3333',
+            'celular' => 'required|celular_com_ddd',
+            'cnpj_cpf' => ['required', Rule::unique('customers')->ignore('id'),
+            ],
+        ];
+    }
+
+    public function rulesCnpjUpdate()
+    {
+        return [
+            'nome' => 'required|string|max:255',
+            'telefone' => '(77)9999-3333',
+            'telefone' => 'required|celular_com_ddd',
+            'celular' => '(77)99999-3333',
+            'celular' => 'required|celular_com_ddd',
+            'cnpj_cpf' => ['required', Rule::unique('customers')->ignore('id'),
+            ],
+        ];
+    }
 
 
 }

@@ -91,7 +91,7 @@ class ItemsController extends Controller
             $item = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Item created.',
+                'message' => 'Item cadastrado com sucesso.',
                 'data'    => $item->toArray(),
             ];
 
@@ -210,17 +210,17 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-        $deleted = $this->repository->delete($id);
+        $deleted = $this->repository->update(["status" => 0], $id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Item deleted.',
+                'message' => 'Customer deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Item deleted.');
+        return redirect()->back()->with('message', 'Item Excluído.');
     }
 
 

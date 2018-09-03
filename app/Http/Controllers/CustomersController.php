@@ -6,6 +6,8 @@ use App\Entities\Customer;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\CustomerCreateRequest;
@@ -30,7 +32,7 @@ class CustomersController extends Controller
     public function __construct(CustomerRepository $repository, CustomerValidator $validator)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
+        $this->validator = $validator;
     }
 
 
@@ -52,7 +54,7 @@ class CustomersController extends Controller
             ]);
         }
 
-        return view('customers.list-customers', compact('customers','title'));
+        return view('customers.list-customers', compact('customers', 'title'));
     }
 
     /**
@@ -67,13 +69,23 @@ class CustomersController extends Controller
 
         try {
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+            if($request->input('tipo_cliente') == 0)
+            {
+                $this->validate($request, $this->validator->rules_cpf);
+            }
+            else if($request->input('tipo_cliente') == 1)
+            {
+                $this->validate($request, $this->validator->rules_cnpj);
+            }
+
+
+          //  $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
             $customer = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Customer created.',
-                'data'    => $customer->toArray(),
+                'message' => 'Cliente cadastrado.',
+                'data' => $customer->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -85,7 +97,7 @@ class CustomersController extends Controller
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'error'   => true,
+                    'error' => true,
                     'message' => $e->getMessageBag()
                 ]);
             }
@@ -131,11 +143,10 @@ class CustomersController extends Controller
         $customers = $this->repository->find($id);
 
 
-
-        if($customers->status == 0)
+        if ($customers->status == 0)
             return redirect()->back();
 
-        return view('customers.create-edit', compact('customers','title'));
+        return view('customers.create-edit', compact('customers', 'title'));
     }
 
 
@@ -143,18 +154,21 @@ class CustomersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  CustomerUpdateRequest $request
-     * @param  string            $id
+     * @param  string $id
      *
      * @return Response
      */
     public function update(Request $request, $id)
     {
 
-        if($request['tipo_cliente'] == 0) {
-            $this->validate($request, $this->validator->rules);
-            $customer = $this->repository->update($request->all(),$id);
-        }else{
-            $this->validate($request, $this->validator->rulesCnpj);
+        if ($request['tipo_cliente'] == 0)
+        {
+            $this->validate($request, $this->validator->rulesCpfUpdate());
+            $customer = $this->repository->update($request->all(), $id);
+        }
+        else if($request['tipo_cliente'] == 1)
+        {
+            $this->validate($request, $this->validator->rulesCnpjUpdate());
             $customer = Customer::find($id);
             $customer = $customer->update($request->all());
         }
@@ -172,7 +186,7 @@ class CustomersController extends Controller
      */
     public function destroy($id)
     {
-        $deleted = $this->repository->update(["status"=>0],$id);
+        $deleted = $this->repository->update(["status" => 0], $id);
 
         if (request()->wantsJson()) {
 
@@ -185,7 +199,8 @@ class CustomersController extends Controller
         return redirect()->back()->with('message', 'Cliente Excluído.');
     }
 
-    public function showFormCustomer(){
+    public function showFormCustomer()
+    {
         $title = 'Cadastrar Cliente';
         return view('customers.create-edit', compact('title'));
     }
@@ -195,7 +210,7 @@ class CustomersController extends Controller
 
         $title = "Detalhes do cliente";
         $customer = $customer->find($id);
-        return view('customers.details', compact('title','customer'));
+        return view('customers.details', compact('title', 'customer'));
 
     }
 }

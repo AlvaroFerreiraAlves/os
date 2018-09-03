@@ -11,6 +11,14 @@
         </div>
     @endif
 
+    @if (session('message'))
+        <div class="alert alert-success">
+            <ul>
+                <li>{{ session('message') }}</li>
+            </ul>
+        </div>
+    @endif
+
     @if(isset($item))
 
         <form class="form-horizontal" method="post" action="{{url('items/'.$item->id.'/update')}}">
