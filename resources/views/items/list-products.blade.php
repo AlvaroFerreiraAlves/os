@@ -34,7 +34,7 @@
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->nome}}</td>
                                 <td>{{$item->descricao}}</td>
-                                <td>{{$item->id_categoria_item}}</td>
+                                <td>{{$item->category->descricao}}</td>
                                 <td>{{$item->valor}}</td>
 
                                 <td>

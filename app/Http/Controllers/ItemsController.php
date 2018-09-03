@@ -176,7 +176,7 @@ class ItemsController extends Controller
             $item = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Item updated.',
+                'message' => 'Item atualizado.',
                 'data'    => $item->toArray(),
             ];
 

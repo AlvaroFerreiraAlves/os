@@ -28,13 +28,13 @@
                 <tbody id="customers-list" name="customers-list">
                 @foreach($items as $item)
                     @if($item->id_categoria_item == 2)
-                        @if($item->starus == 1)
+                        @if($item->status == 1)
                             <tr>
 
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->nome}}</td>
                                 <td>{{$item->descricao}}</td>
-                                <td>{{$item->id_categoria_item}}</td>
+                                <td>{{$item->category->descricao}}</td>
                                 <td>{{$item->valor}}</td>
 
                                 <td>

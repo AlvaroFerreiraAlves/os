@@ -24,7 +24,7 @@
                     <li class="list-group-item"><b>Nome: </b>{{$item->nome}}</li>
                     <li class="list-group-item"><b>Descrição: </b>{{$item->descricao}}</li>
                     <li class="list-group-item"><b>Valor: </b>{{$item->valor}}</li>
-                    <li class="list-group-item"><b>Categoria: </b>{{$item->id_categoria_item}}</li>
+                    <li class="list-group-item"><b>Categoria: </b>{{$item->category->descricao}}</li>
                 </div>
             </div>
 

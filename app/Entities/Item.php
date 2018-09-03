@@ -32,6 +32,12 @@ class Item extends Model implements Transformable
         }
     }
 
+    public function category()
+    {
+        return $this->belongsTo(CategoryItems::class, 'id_categoria_item');
+
+    }
+
     public function addItem(Item $item, $qtd){
         if(isset($this->items[$item->id])){
         }else{
