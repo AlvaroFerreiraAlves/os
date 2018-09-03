@@ -575,16 +575,12 @@
 
         </script>
 
-@endsection--}}
+@endsection
+--}}
 
 @extends('template.main')
 
 @section('content')
-
-    <div class="container">
-        <h2>Dynamic Pills</h2>
-        <p>To make the tabs toggleable, add the data-toggle="pill" attribute to each link. Then add a .tab-pane class
-            with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p>
 
 
         <ul class="nav nav-tabs nav-justified">
@@ -596,9 +592,223 @@
 
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
-                <h3>HOME</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.</p>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if(isset($orderService))
+
+                <form class="form-horizontal" name="formupdate" method="post"
+                      action="{{route("atualizar.item.ordem",$orderService->id)}}">
+                    {!! method_field('PUT') !!}
+                    @else
+                        <form class="form-horizontal" method="post" action="{{route('cadastrar.ordem')}}" name="form2">
+                            @endif
+                            {{csrf_field()}}
+
+
+                            <fieldset>
+
+                                <!-- Select Basic -->
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label class="col-md-12" for="id_tipo_ordem_servico">Tipo de Documento</label>
+
+                                        <select id="id_tipo_ordem_servico" name="id_tipo_ordem_servico"
+                                                class="form-control input-md">
+                                            @if(isset($orderService))
+                                                @forelse($tipoOrdem as $tipo)
+                                                    <option value="{{$tipo->id}}"
+                                                            @if($tipo->id == $orderService->id_tipo_ordem_servico)
+                                                            selected
+                                                            @endif
+                                                    >{{$tipo->descricao}}</option>
+                                                @empty
+                                                    não há dados
+                                                @endforelse
+                                            @else
+                                                @forelse($tipoOrdem as $tipo)
+                                                    <option value="{{$tipo->id}}">{{$tipo->descricao}}</option>
+                                                @empty
+                                                    não há dados
+                                                @endforelse
+                                            @endif
+                                        </select>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="col-md-12" for="id_empresa">Empresa</label>
+
+                                        <select id="id_empresa" name="id_empresa" class="form-control">
+                                            @if(isset($orderService))
+                                                @forelse($companies as $company)
+                                                    <option value="{{$company->id}}"
+                                                            @if($company->id == $orderService->id_empresa)
+                                                            selected
+                                                            @endif
+                                                    >{{$company->razao_social}}</option>
+                                                @empty
+                                                    não há dados
+                                                @endforelse
+                                            @else
+                                                @forelse($companies as $company)
+                                                    <option value="{{$company->id}}">{{$company->razao_social}}</option>
+                                                @empty
+                                                    não há dados
+                                                @endforelse
+                                            @endif
+                                        </select>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="col-md-12" for="id_cliente">Cliente</label>
+                                        <div class="customer input-group">
+                                            <select id="id_cliente" name="id_cliente" class="form-control">
+                                                @if(isset($orderService))
+                                                    @forelse($customers as $customer)
+                                                        <option value="{{$customer->id}}"
+                                                                @if($customer->id == $orderService->id_cliente)
+                                                                selected
+                                                                @endif
+                                                        >{{$customer->nome}}</option>
+                                                    @empty
+                                                        não há dados
+                                                    @endforelse
+                                                @else
+                                                    @forelse($customers as $customer)
+                                                        <option value="{{$customer->id}}">{{$customer->nome}}</option>
+                                                    @empty
+                                                        não há dados
+                                                    @endforelse
+                                                @endif
+                                            </select>
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                                        data-target="#customermodal">+
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="col-md-12" for="tecnico">Técnico responsável</label>
+                                        <div class="input-group">
+                                            <select id="tecnico" name="tecnico" class="form-control">
+                                                @if(isset($orderService))
+                                                    @forelse($tecnicos as $tecnico)
+                                                        <option value="{{$tecnico->id}}"
+                                                                @if($tecnico->id == $orderService->tecnico)
+                                                                selected
+                                                                @endif
+                                                        >{{$tecnico->name}}</option>
+                                                    @empty
+                                                        não há dados
+                                                    @endforelse
+                                                @else
+                                                    @forelse($tecnicos as $tecnico)
+                                                        <option value="{{$tecnico->id}}">{{$tecnico->name}}</option>
+                                                    @empty
+                                                        não há dados
+                                                    @endforelse
+                                                @endif
+                                            </select>
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                                        data-target="#technicianmodal">+
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <hr>
+
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-md-12" for="equipamento">Equipamento</label>
+                                        <input id="equipamento" name="equipamento" type="text" placeholder=""
+                                               class="form-control input-md"
+                                               value="{{$orderService->equipamento or old('equipamento')}}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="col-md-12" for="n_serie">N° de série</label>
+                                        <input id="n_serie" name="n_serie" type="text" placeholder=""
+                                               class="form-control input-md"
+                                               value="{{$orderService->n_serie or old('n_serie')}}">
+                                    </div>
+                                </div>
+
+                                <!-- Textarea -->
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label class="col-md-12" for="p_info">Problema informado pelo cliente</label>
+                                        @if(isset($orderService))
+                                            <textarea class="form-control" id="p_info"
+                                                      name="p_info">{{$orderService->p_info or old('p_info')}}</textarea>
+                                        @else
+                                            <textarea class="form-control" id="p_info" name="p_info"></textarea>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-md-12" for="p_const">Problema constado</label>
+                                        @if(isset($orderService))
+                                            <textarea class="form-control" id="p_const"
+                                                      name="p_const">{{$orderService->p_const or old('p_const')}}</textarea>
+                                        @else
+                                            <textarea class="form-control" id="p_const" name="p_const"></textarea>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-md-12" for="s_exec">Serviço executado</label>
+                                        @if(isset($orderService))
+                                            <textarea class="form-control" id="s_exec"
+                                                      name="s_exec">{{$orderService->s_exec or old('s_exec')}}</textarea>
+                                        @else
+                                            <textarea class="form-control" id="s_exec" name="s_exec"></textarea>
+                                        @endif
+                                    </div>
+                                </div>
+                                <hr>
+                                <!-- Select Basic -->
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-md-12" for="situacao_atual">Situação atual</label>
+                                        <select id="situacao_atual" name="situacao_atual" class="form-control">
+                                            <option value="1">Em aberto</option>
+                                            <option value="2">Em andamento</option>
+                                            <option value="3">Concluído</option>
+                                            <option value="4">cancelado</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="col-md-12" for="dt_prox_manut">Próxima manutenção</label>
+
+                                        <input id="dt_prox_manut" name="dt_prox_manut" type="date" placeholder=""
+                                               class="form-control input-md"
+                                               value="{{$orderService->dt_prox_manut or old('dt_prox_manut') }}" required="">
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <input type="hidden" name="status" id="status" value="1">
+                                <input type="hidden" name="id_usuario" id="id_usuario" value="1">
+                                @if(isset($orderService))
+                                    <input type="hidden" name="valor_desconto" id="valor_desconto"
+                                           value="{{$orderService->valor_desconto}}">
+                                @else
+                                    <input type="hidden" name="valor_desconto" id="valor_desconto" value="0">
+                                @endif
+
+                            </fieldset>
+                        </form>
+                </form>
             </div>
             <div id="menu1" class="tab-pane fade">
                 <h3>Menu 1</h3>
@@ -616,7 +826,7 @@
                     explicabo.</p>
             </div>
         </div>
-    </div>
+
 
 @endsection
 
