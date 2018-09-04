@@ -15,6 +15,7 @@
     <link href="{{url('assets/css/sbnew.css')}}" rel="stylesheet">
     <link href="{{url('assets/css/sbreset.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{url('assets/font-awesome/css/font-awesome.min.css')}}">
+    <script src="js/index.js"></script>
     <!-- Page Specific CSS -->
 {{--    <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">--}}
 </head>
