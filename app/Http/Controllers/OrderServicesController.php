@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\CategoryItems;
 use App\Entities\Company;
 use App\Entities\Customer;
 use App\Entities\Item;
@@ -266,9 +267,10 @@ class OrderServicesController extends Controller
         $customers = Customer::all();
         $tecnicos = UserType::find(2);
         $tecnicos = $tecnicos->users;
+        $category = CategoryItems::all();
 
 
-        return view('order_services.create-edit', compact('itens', 'prodService', 'item', 'title', 'tipoOrdem', 'companies', 'customers', 'tecnicos'));
+        return view('order_services.create-edit', compact('itens', 'prodService', 'item', 'title', 'tipoOrdem', 'companies', 'customers', 'tecnicos','category'));
     }
 
     public function addService(Request $request)

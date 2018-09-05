@@ -18,7 +18,7 @@ class CustomerValidator extends LaravelValidator
         'telefone' => 'required|celular_com_ddd',
         'celular' => '(77)99999-3333',
         'celular' => 'required|celular_com_ddd',
-        'cnpj_cpf' => 'required|cpf|unique:users',
+        'cnpj_cpf' => 'required|cpf|unique:customers',
     ];
 
     public $rules_cnpj = [
@@ -27,7 +27,7 @@ class CustomerValidator extends LaravelValidator
         'telefone' => 'required|celular_com_ddd',
         'celular' => '(77)99999-3333',
         'celular' => 'required|celular_com_ddd',
-        'cnpj_cpf' => 'required|cnpj|unique:users',
+        'cnpj_cpf' => 'required|cnpj|unique:customers',
     ];
 
     public function rulesCpfUpdate()

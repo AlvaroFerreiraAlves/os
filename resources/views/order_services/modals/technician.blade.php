@@ -1,3 +1,4 @@
+{{--
 <div class="modal fade" id="technicianmodal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -12,7 +13,7 @@
                 <form class="form-horizontal" method="post" action="{{ route('register')}}">
                     {{csrf_field()}}
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                        <label for="name" class="col-md-4 control-label">Nome</label>
+                        <label for="name" class="col-md-4 control-label">Nome: </label>
 
                         <div class="col-md-6">
                             <input id="name" type="text" class="form-control" name="name"
@@ -27,7 +28,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('cpf') ? ' has-error' : '' }}">
-                        <label for="cpf" class="col-md-4 control-label">CPF</label>
+                        <label for="cpf" class="col-md-4 control-label">CPF: </label>
 
                         <div class="col-md-6">
                             <input id="cpf" type="text" class="form-control" name="cpf"
@@ -42,7 +43,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                        <label for="email" class="col-md-4 control-label">E-Mail</label>
+                        <label for="email" class="col-md-4 control-label">E-Mail: </label>
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control" name="email"
@@ -58,7 +59,7 @@
 
                     @if(!isset($user))
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Senha</label>
+                            <label for="password" class="col-md-4 control-label">Senha: </label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" required>
@@ -82,7 +83,7 @@
                     @endif
 
                     <div class="form-group{{ $errors->has('endereco') ? ' has-error' : '' }}">
-                        <label for="endereco" class="col-md-4 control-label">Endereço</label>
+                        <label for="endereco" class="col-md-4 control-label">Endereço: </label>
 
                         <div class="col-md-6">
                             <input id="endereco" type="text" class="form-control" name="endereco"
@@ -97,7 +98,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('telefone') ? ' has-error' : '' }}">
-                        <label for="telefone" class="col-md-4 control-label">Telefone</label>
+                        <label for="telefone" class="col-md-4 control-label">Telefone: </label>
 
                         <div class="col-md-6">
                             <input id="telefone" type="text" class="form-control" name="telefone"
@@ -113,7 +114,7 @@
 
                     <!-- Select Multiple -->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="tipousuario">Tipo usuário</label>
+                        <label class="col-md-4 control-label" for="tipousuario"></label>
                         <div class="col-md-4">
                             <select id="tipousuario" name="tipousuario[]" class="form-control" multiple="multiple">
 
@@ -147,3 +148,4 @@
 
 
 
+--}}

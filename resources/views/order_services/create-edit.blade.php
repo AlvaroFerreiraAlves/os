@@ -690,14 +690,14 @@
                                             </select>
                                             <div class="input-group-btn">
                                                 <button type="button" class="btn btn-success" data-toggle="modal"
-                                                        data-target="#customermodal">+
+                                                        data-target="#customermodal" onclick="hideMessage()">+
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="col-md-12" for="tecnico">Técnico responsável</label>
-                                        <div class="input-group">
+
                                             <select id="tecnico" name="tecnico" class="form-control">
                                                 @if(isset($orderService))
                                                     @forelse($tecnicos as $tecnico)
@@ -717,12 +717,7 @@
                                                     @endforelse
                                                 @endif
                                             </select>
-                                            <div class="input-group-btn">
-                                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                                        data-target="#technicianmodal">+
-                                                </button>
-                                            </div>
-                                        </div>
+
 
                                     </div>
                                 </div>
@@ -837,7 +832,7 @@
                             </select>
                             <div class="input-group-btn">
                                 <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target="#technicianmodal">+
+                                        data-target="#itemmodal" onclick="hideMessage()">+
                                 </button>
                             </div>
                         </div>
@@ -867,6 +862,8 @@
 
                 </fieldset>
             </form>
+
+            @include('order_services.modals.item')
 
             <div class="panel-body">
                 <div class="table-responsive">

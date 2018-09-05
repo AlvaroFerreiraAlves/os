@@ -5,33 +5,37 @@ function saveCustomer() {
         url: "customer/store",
         method: "POST",
         data: data,
-        /*success: function () {
-            $(".customer").load(location.href+" .customer>*","");
+    }).done(function (data) {
 
-            $('#form-customer-modal').each (function(){
-                this.reset();
-            });
-            $('#customermodal').modal('hide');
+       if ($.isEmptyObject(data.error)) {
+           printSuccessMsg(data);
+           $("#form-customer-modal").trigger('reset');
+           $(".customer").load(location.href+" .customer>*","");
+           $('.print-error-msg').hide();
+        } else {
+            printErrorMsg(data.error);
+           $('.print-success-msg').hide();
 
-        }*/
-
-        success: function(data) {
-            if($.isEmptyObject(data.error)){
-                alert(data.success);
-            }else{
-                printErrorMsg(data.error);
-            }
         }
     })
-
-
 }
 
-function printErrorMsg (msg) {
+function printErrorMsg(msg) {
     $(".print-error-msg").find("ul").html('');
-    $(".print-error-msg").css('display','block');
-    $.each( msg, function( key, value ) {
-        $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+    $(".print-error-msg").css('display', 'block');
+    $.each(msg, function (key, value) {
+        $(".print-error-msg").find("ul").append('<li>' + value + '</li>');
     });
 }
-});
+
+function printSuccessMsg(msg) {
+    $(".print-success-msg").find("ul").html('');
+    $(".print-success-msg").css('display', 'block');
+    $(".print-success-msg").find("ul").append('<li>' + msg + '</li>');
+
+}
+
+function hideMessage(){
+    $('.print-error-msg').hide();
+    $('.print-success-msg').hide();
+}
