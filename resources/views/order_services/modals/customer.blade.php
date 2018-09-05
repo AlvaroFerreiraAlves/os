@@ -1,11 +1,32 @@
-<div class="modal fade" id="customermodal">
-    <div class="modal-dialog">
+<div class="modal fade" id="customermodal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <!-- Form Name -->
-                Cliente
+                <h5 class="modal-title" id="exampleModalLabel">Cadastrar Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if (session('message'))
+                    <div class="alert alert-success">
+                        <ul>
+                            <li>{{ session('message') }}</li>
+                        </ul>
+                    </div>
+                @endif
+
 
                 <form class="form-horizontal" id="form-customer-modal">
                     {{csrf_field()}}
@@ -99,18 +120,18 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="salvar"></label>
                             <div class="col-md-4">
-                                <button type="button" id="save-customer" name="save-customer" onclick="saveCustomer()" class="btn btn-primary">Salvar</button>
+                                <button type="button" id="save-customer" name="save-customer" onclick="saveCustomer()"
+                                        class="btn btn-primary">Salvar
+                                </button>
                             </div>
                         </div>
 
                     </fieldset>
                 </form>
-
             </div>
             <div class="modal-footer">
-
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
             </div>
         </div>
-
     </div>
 </div>
