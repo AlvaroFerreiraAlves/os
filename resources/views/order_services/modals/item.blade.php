@@ -94,7 +94,9 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="salvar"></label>
                             <div class="col-md-4">
-                                <button id="salvar" name="salvar" class="btn btn-primary">Salvar</button>
+                                <button type="button" id="save-customer" name="save-customer" onclick="saveCustomer()"
+                                        class="btn btn-primary">Salvar
+                                </button>
                             </div>
                         </div>
 

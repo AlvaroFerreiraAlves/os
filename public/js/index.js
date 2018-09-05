@@ -20,6 +20,29 @@ function saveCustomer() {
     })
 }
 
+
+function saveItem() {
+    var data = $('#form-customer-modal').serialize();
+
+    $.ajax({
+        url: "items/store",
+        method: "POST",
+        data: data,
+    }).done(function (data) {
+
+        if ($.isEmptyObject(data.error)) {
+            printSuccessMsg(data);
+            $("#form-customer-modal").trigger('reset');
+            $(".customer").load(location.href+" .customer>*","");
+            $('.print-error-msg').hide();
+        } else {
+            printErrorMsg(data.error);
+            $('.print-success-msg').hide();
+
+        }
+    })
+}
+
 function printErrorMsg(msg) {
     $(".print-error-msg").find("ul").html('');
     $(".print-error-msg").css('display', 'block');
