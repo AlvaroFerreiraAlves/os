@@ -71,11 +71,17 @@ class CustomersController extends Controller
 
             if($request->input('tipo_cliente') == 0)
             {
-                $this->validate($request, $this->validator->rules_cpf);
+                $e = \validator($request->all(), $this->validator->rules_cpf);
+                if($e->fails()){
+                    return response()->json($e);
+                }
             }
             else if($request->input('tipo_cliente') == 1)
             {
-                $this->validate($request, $this->validator->rules_cnpj);
+                $e = \validator($request->all(), $this->validator->rules_cnpj);
+                if($e->fails()){
+                    return response()->json($e);
+                }
             }
 
 
