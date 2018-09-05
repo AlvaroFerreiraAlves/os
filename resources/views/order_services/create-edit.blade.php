@@ -806,14 +806,160 @@
                                     <input type="hidden" name="valor_desconto" id="valor_desconto" value="0">
                                 @endif
 
+                         <input type="submit" value="salvar">
+               
                             </fieldset>
                         </form>
                 </form>
+
             </div>
             <div id="menu1" class="tab-pane fade">
-                <h3>Menu 1</h3>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.</p>
+            <form class="form-horizontal" id="form">
+            {{ csrf_field() }}
+            <fieldset>
+                @if(isset($orderService))
+                    <input type="hidden" id="idordem" name="idordem" value="{{$orderService->id}}">
+                @endif
+                <div class="col-md-4">
+                    Produto/Serviço:
+                    <div class="input-group">
+                    <select id="itens" name="itens" class="form-control">
+                        @foreach($itens as $i)
+                            <option id="option" value="{{$i->id}}">{{$i->nome}}</option>
+                        @endforeach
+                    </select>
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                data-target="#technicianmodal">+
+                        </button>
+                    </div>
+                </div>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    valor R$: <input id="valor" name="valor" type="number" step="0.1" min="0" placeholder=""
+                                     class="form-control input-md" required="" value="0">
+                </div>
+
+                <div class="col-md-2">
+
+                    Quantidade: <input id="qtd" name="qtd" min="1" type="number" placeholder=""
+                                       class="form-control input-md" required="" value="1">
+
+                </div>
+
+                <div class="col-md-2">
+                    @if(isset($orderService))
+                        <button class="btn btn-success" type="button" onclick="updateAdd()" id="salvar1">+</button>
+                    @else
+                        <button class="btn btn-success" type="button" onclick="add()" id="salvar">+</button>
+                    @endif
+                </div>
+
+            </fieldset>
+        </form>
+
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-responsive">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>valor</th>
+                        <th>Quantidade.</th>
+                        <th>Subtotal</th>
+                        <th></th>
+
+                    </tr>
+                    </thead>
+                    @if(isset($orderService))
+                        <tbody id="items-list-update" name="items-list-update">
+                        @foreach($itemsOrderSession as $ios)
+                            <tr id="product{{$ios['item']->id}}">
+
+                                <td>{{$ios['item']->id}}</td>
+                                <td>{{$ios['item']->nome}}</td>
+                                <td>{{$ios['item']->pivot->valor}}</td>
+                                <td>{{$ios['item']->pivot->qtd}}</td>
+                                <td>{{$ios['item']->pivot->valor*$ios['item']->pivot->qtd}}</td>
+                                <td>
+                                    <button type="button" id="delete{{$ios['item']->id}}"
+                                            class="btn btn-danger btn-delete update-delete-item"
+                                            value="{{$ios['item']->id}}">X
+                                    </button>
+
+
+                                </td>
+
+                            </tr>
+
+                        @endforeach
+                        </tbody>
+                    @else
+                        <tbody id="products-list" name="products-list">
+                        @foreach($prodService as $ps)
+                            <tr id="product{{$ps['item']->id}}">
+
+                                <td>{{$ps['item']->id}}</td>
+                                <td>{{$ps['item']->nome}}</td>
+                                <td>{{$ps['item']->valor}}</td>
+                                <td>{{$ps['qtd']}}</td>
+                                <td>{{$ps['qtd']*$ps['item']->valor}}</td>
+                                <td>
+                                    <button type="button" id="delete{{$ps['item']->id}}"
+                                            class="btn btn-danger btn-delete delete-item"
+                                            value="{{$ps['item']->id}}">X
+                                    </button>
+
+
+                                </td>
+
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    @endif
+
+                </table>
+                <hr>
+
+                <!-- Text input-->
+
+
+                <div class="col-md-3">
+                    Desconto total
+                    <div class="input-group">
+                        <input id="desconto" name="desconto" type="number" step="0.1" min="0" placeholder=""
+                               class="form-control input-md" value="0">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary" type="button" id="aplicar">Aplicar</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-3" style="float: right">
+                    @if(isset($orderService))
+                        <input type="hidden" id="desconto-update" name="desconto-update"
+                               value="{{$orderService->valor_desconto}}">
+                        <h5 id="vdesconto">Desconto: R$ {{$orderService->valor_desconto}}</h5>
+                        <h5 id="subtotal-update">Subtotal: R$ {{$item->totalUpdate()}}</h5>
+                        <h3 id="total-update">Total: R$ {{$item->totalUpdate()-$orderService->valor_desconto}}</h3>
+                    @else
+                        <h3 id="total">Total: R$ {{$item->total()}}</h3>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        @if(isset($orderService))
+            <input class="btn btn-success" type="submit" value="Salvar" onClick="document.formupdate.submit()">
+        @else
+            <input class="btn btn-success" type="submit" value="Salvar" onClick="document.form2.submit()">
+        @endif
             </div>
             <div id="menu2" class="tab-pane fade">
                 <h3>Menu 2</h3>
