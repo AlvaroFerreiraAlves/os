@@ -698,25 +698,25 @@
                                     <div class="col-md-3">
                                         <label class="col-md-12" for="tecnico">Técnico responsável</label>
 
-                                            <select id="tecnico" name="tecnico" class="form-control">
-                                                @if(isset($orderService))
-                                                    @forelse($tecnicos as $tecnico)
-                                                        <option value="{{$tecnico->id}}"
-                                                                @if($tecnico->id == $orderService->tecnico)
-                                                                selected
-                                                                @endif
-                                                        >{{$tecnico->name}}</option>
-                                                    @empty
-                                                        não há dados
-                                                    @endforelse
-                                                @else
-                                                    @forelse($tecnicos as $tecnico)
-                                                        <option value="{{$tecnico->id}}">{{$tecnico->name}}</option>
-                                                    @empty
-                                                        não há dados
-                                                    @endforelse
-                                                @endif
-                                            </select>
+                                        <select id="tecnico" name="tecnico" class="form-control">
+                                            @if(isset($orderService))
+                                                @forelse($tecnicos as $tecnico)
+                                                    <option value="{{$tecnico->id}}"
+                                                            @if($tecnico->id == $orderService->tecnico)
+                                                            selected
+                                                            @endif
+                                                    >{{$tecnico->name}}</option>
+                                                @empty
+                                                    não há dados
+                                                @endforelse
+                                            @else
+                                                @forelse($tecnicos as $tecnico)
+                                                    <option value="{{$tecnico->id}}">{{$tecnico->name}}</option>
+                                                @empty
+                                                    não há dados
+                                                @endforelse
+                                            @endif
+                                        </select>
 
 
                                     </div>
@@ -809,60 +809,70 @@
 
                 @include('order_services.modals.customer')
 
-                 <!-- Modal Técnico-->
+            <!-- Modal Técnico-->
 
                 @include('order_services.modals.technician')
 
         </div>
 
         <div id="menu1" class="tab-pane fade">
+            <div class="container">
             <form class="form-horizontal" id="form">
                 {{ csrf_field() }}
                 <fieldset>
                     @if(isset($orderService))
                         <input type="hidden" id="idordem" name="idordem" value="{{$orderService->id}}">
                     @endif
-                    <div class="col-md-4">
-                        Produto/Serviço:
-                        <div class="item input-group">
-                            <select id="itens" name="itens" class="form-control">
-                                @foreach($itens as $i)
-                                    <option id="option" value="{{$i->id}}">{{$i->nome}}</option>
-                                @endforeach
-                            </select>
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target="#itemmodal" onclick="hideMessage()">+
-                                </button>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">Produto/Serviço</label>
+                            <div class="col-md-4">
+                                <div class="item input-group">
+                                    <select id="itens" name="itens" class="form-control">
+                                        @foreach($itens as $i)
+                                            <option id="option" value="{{$i->id}}">{{$i->nome}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                                data-target="#itemmodal" onclick="hideMessage()">+
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                    </div>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">Valor</label>
+                            <div class="col-md-4">
+                                <input id="valor" name="valor" type="number" step="0.1" min="0" placeholder=""
+                                       class="form-control input-md" required="" value="0">
+                            </div>
+                        </div>
 
-                    <div class="col-md-2">
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">Quantidade </label>
+                            <div class="col-md-4">
+                                <input id="qtd" name="qtd" min="1" type="number" placeholder=""
+                                       class="form-control input-md" required="" value="1">
+                            </div>
+                        </div>
 
-                        valor R$: <input id="valor" name="valor" type="number" step="0.1" min="0" placeholder=""
-                                         class="form-control input-md" required="" value="0">
-                    </div>
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="singlebutton">Single Button</label>
+                            <div class="col-md-4">
+                                <button id="singlebutton" name="singlebutton" class="btn btn-primary">Button</button>
+                            </div>
+                        </div>
 
-                    <div class="col-md-2">
-
-                        Quantidade: <input id="qtd" name="qtd" min="1" type="number" placeholder=""
-                                           class="form-control input-md" required="" value="1">
-
-                    </div>
-
-                    <div class="col-md-2">
-                        @if(isset($orderService))
-                            <button class="btn btn-success" type="button" onclick="updateAdd()" id="salvar1">+</button>
-                        @else
-                            <button class="btn btn-success" type="button" onclick="add()" id="salvar">+</button>
-                        @endif
-                    </div>
 
                 </fieldset>
             </form>
-
+            </div>
             @include('order_services.modals.item')
 
             <div class="panel-body">

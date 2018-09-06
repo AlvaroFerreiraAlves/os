@@ -129,18 +129,40 @@ class CustomersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request['tipo_cliente'] == 0)
-        {
-            $this->validate($request, $this->validator->rulesCpfUpdate());
+        try {
+            if($request->input('tipo_cliente') == 0)
+            {
+                $e = Validator::make($request->all(), $this->validator->rulesCpfUpdate($id));
+                if ($e->fails()) {
+                    return response()->json(['error'=>$e->errors()->all()]);
+                }
+            }
+            else if($request->input('tipo_cliente') == 1)
+            {
+                $e = Validator::make($request->all(), $this->validator->rulesCnpjUpdate($id));
+                if ($e->fails()) {
+                    return response()->json(['error'=>$e->errors()->all()]);
+                }
+            }
+            //  $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
             $customer = $this->repository->update($request->all(), $id);
+            $response = [
+                'message' => 'Cliente atualizado.',
+                'data' => $customer->toArray(),
+            ];
+            if ($request->wantsJson()) {
+                return response()->json($response);
+            }
+            return  response()->json($response['message']);
+        } catch (ValidatorException $e) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'error' => true,
+                    'message' => $e->getMessageBag()
+                ]);
+            }
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
-        else if($request['tipo_cliente'] == 1)
-        {
-            $this->validate($request, $this->validator->rulesCnpjUpdate());
-            $customer = Customer::find($id);
-            $customer = $customer->update($request->all());
-        }
-        return redirect('listar-clientes')->with('message', 'Os dados do cliente foram atualizados.');
     }
     /**
      * Remove the specified resource from storage.

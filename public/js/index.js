@@ -7,22 +7,40 @@ function saveCustomer() {
         data: data,
     }).done(function (data) {
 
-       if ($.isEmptyObject(data.error)) {
-           printSuccessMsg(data);
-           $("#form-customer-modal").trigger('reset');
-           $(".customer").load(location.href+" .customer>*","");
-           $('.print-error-msg').hide();
+        if ($.isEmptyObject(data.error)) {
+            printSuccessMsg(data);
+            $("#form-customer-modal").trigger('reset');
+            $(".customer").load(location.href + " .customer>*", "");
+            $('.print-error-msg').hide();
         } else {
             printErrorMsg(data.error);
-           $('.print-success-msg').hide();
+            $('.print-success-msg').hide();
 
         }
     })
 }
 
-function updateCustomer() {
-   console.log('oi')
+
+function updateCustomer(id) {
+    var data = $('#form-customer').serialize();
+
+    $.ajax({
+        url: "../customer/update/" + id,
+        method: "PUT",
+        data: data,
+    }).done(function (data) {
+
+        if ($.isEmptyObject(data.error)) {
+            printSuccessMsg(data);
+            $('.print-error-msg').hide();
+        } else {
+            printErrorMsg(data.error);
+            $('.print-success-msg').hide();
+
+        }
+    })
 }
+
 
 function saveItem() {
     var data = $('#form-item-modal').serialize();
@@ -36,13 +54,35 @@ function saveItem() {
         if ($.isEmptyObject(data.error_description)) {
             printSuccessMsg(data);
             $("#form-item-modal").trigger('reset');
-            $(".item").load(location.href+" .item>*","");
+            $(".item").load(location.href + " .item>*", "");
             $('.print-error-msg').hide();
-         } else {
-             printErrorMsg(data.error);
+        } else {
+            printErrorMsg(data.error_description);
             $('.print-success-msg').hide();
- 
-         }
+
+        }
+
+        console.log(data.error_description);
+    })
+}
+
+function updateItem(id) {
+    var data = $('#form-item').serialize();
+
+    $.ajax({
+        url: "../items/update/" + id,
+        method: "PUT",
+        data: data,
+    }).done(function (data) {
+
+        if ($.isEmptyObject(data.error_description)) {
+            printSuccessMsg(data);
+            $('.print-error-msg').hide();
+        } else {
+            printErrorMsg(data.error_description);
+            $('.print-success-msg').hide();
+
+        }
 
         console.log(data.error_description);
     })
@@ -63,7 +103,7 @@ function printSuccessMsg(msg) {
 
 }
 
-function hideMessage(){
+function hideMessage() {
     $('.print-error-msg').hide();
     $('.print-success-msg').hide();
 }

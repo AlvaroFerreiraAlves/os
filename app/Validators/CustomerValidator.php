@@ -30,7 +30,7 @@ class CustomerValidator extends LaravelValidator
         'cnpj_cpf' => 'required|cnpj|unique:customers',
     ];
 
-    public function rulesCpfUpdate()
+    public function rulesCpfUpdate($id)
     {
         return [
             'nome' => 'required|string|max:255',
@@ -38,12 +38,11 @@ class CustomerValidator extends LaravelValidator
             'telefone' => 'required|celular_com_ddd',
             'celular' => '(77)99999-3333',
             'celular' => 'required|celular_com_ddd',
-            'cnpj_cpf' => ['required', Rule::unique('customers')->ignore('id'),
-            ],
+            'cnpj_cpf' => 'required|cpf|unique:customers,cnpj_cpf,'.$id,
         ];
     }
 
-    public function rulesCnpjUpdate()
+    public function rulesCnpjUpdate($id)
     {
         return [
             'nome' => 'required|string|max:255',
@@ -51,8 +50,7 @@ class CustomerValidator extends LaravelValidator
             'telefone' => 'required|celular_com_ddd',
             'celular' => '(77)99999-3333',
             'celular' => 'required|celular_com_ddd',
-            'cnpj_cpf' => ['required', Rule::unique('customers')->ignore('id'),
-            ],
+            'cnpj_cpf' => 'required|cnpj|unique:customers,cnpj_cpf,'.$id,
         ];
     }
 
