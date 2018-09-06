@@ -20,8 +20,7 @@
                 </div>
 
 
-                <form class="form-horizontal" method="post" action="{{url('items/store')}}">
-
+                <form class="form-horizontal" id="form-item-modal">
                     {{csrf_field()}}
                     <fieldset>
 
@@ -94,7 +93,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="salvar"></label>
                             <div class="col-md-4">
-                                <button type="button" id="save-customer" name="save-customer" onclick="saveItem()"
+                                <button type="button" id="save-item" name="save-item" onclick="saveItem()"
                                         class="btn btn-primary">Salvar
                                 </button>
                             </div>

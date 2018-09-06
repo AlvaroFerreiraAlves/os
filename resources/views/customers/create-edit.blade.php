@@ -3,34 +3,17 @@
 @section('content')
 
 
-    <div class="panel-body">
+   <div class="alert alert-danger print-error-msg" style="display:none">
+                    <ul></ul>
+                </div>
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-         @if (session('message'))
-        <div class="alert alert-success">
-            <ul>
-                <li>{{ session('message') }}</li>
-            </ul>
-        </div>
-         @endif
+                <div class="alert alert-success print-success-msg" style="display:none">
+                    <ul></ul>
+                </div>
 
 
-        @if(isset($customers))
 
-            <form class="form-horizontal" method="post" action="{{url('customer/'.$customers->id.'/update')}}">
-                {!! method_field('PUT') !!}
-                @else
-                    <form class="form-horizontal" method="post" action="{{url('customer/store')}}">
-                        @endif
+                    <form class="form-horizontal" id="form-customer-modal">
                         {{csrf_field()}}
                         <fieldset>
 
@@ -140,17 +123,38 @@
                             @endif
 
 
-                            <!-- Button -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="salvar"></label>
-                                <div class="col-md-4">
-                                    <button id="salvar" name="salvar" class="btn btn-primary">Salvar</button>
-                                </div>
+                   
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="salvar"></label>
+                            <div class="col-md-4">
+                                <button type="button" id="save-customer" name="save-customer" onclick="saveCustomer()"
+                                        class="btn btn-primary">Salvar
+                                </button>
                             </div>
+                        </div>
+
+                         @if(isset($customers))
+
+                          <div class="form-group">
+                            <label class="col-md-4 control-label" for="salvar"></label>
+                            <div class="col-md-4">
+                                <button type="button" id="save-customer" name="save-customer" onclick="updateCustomer()"
+                                        class="btn btn-primary">Atualizar
+                                </button>
+                            </div>
+                        </div>
+                        @endif
+                         
+                     
+                        
+                      
+
+
 
                         </fieldset>
                     </form>
-            </form>
+           
 
 
     </div>

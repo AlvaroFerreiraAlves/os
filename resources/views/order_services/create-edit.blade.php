@@ -824,7 +824,7 @@
                     @endif
                     <div class="col-md-4">
                         Produto/Serviço:
-                        <div class="input-group">
+                        <div class="item input-group">
                             <select id="itens" name="itens" class="form-control">
                                 @foreach($itens as $i)
                                     <option id="option" value="{{$i->id}}">{{$i->nome}}</option>

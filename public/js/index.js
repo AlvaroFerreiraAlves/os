@@ -20,9 +20,12 @@ function saveCustomer() {
     })
 }
 
+function updateCustomer() {
+   console.log('oi')
+}
 
 function saveItem() {
-    var data = $('#form-customer-modal').serialize();
+    var data = $('#form-item-modal').serialize();
 
     $.ajax({
         url: "items/store",
@@ -30,16 +33,18 @@ function saveItem() {
         data: data,
     }).done(function (data) {
 
-        if ($.isEmptyObject(data.error)) {
+        if ($.isEmptyObject(data.error_description)) {
             printSuccessMsg(data);
-            $("#form-customer-modal").trigger('reset');
-            $(".customer").load(location.href+" .customer>*","");
+            $("#form-item-modal").trigger('reset');
+            $(".item").load(location.href+" .item>*","");
             $('.print-error-msg').hide();
-        } else {
-            printErrorMsg(data.error);
+         } else {
+             printErrorMsg(data.error);
             $('.print-success-msg').hide();
+ 
+         }
 
-        }
+        console.log(data.error_description);
     })
 }
 

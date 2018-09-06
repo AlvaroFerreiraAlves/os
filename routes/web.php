@@ -29,7 +29,7 @@ Route::get('listar-clientes', 'CustomersController@showCustomers')->name('listar
 Route::get('cadastrar-cliente', 'CustomersController@showFormCustomer')->name('cadastrar.cliente');
 Route::post('customer/store', 'CustomersController@store');
 Route::get('editar-cliente/{id}', 'CustomersController@edit')->name('editar.cliente');
-Route::put('customer/{id}/update', 'CustomersController@update');
+Route::put('customer/update/{id}', 'CustomersController@update');
 Route::get('customer/destroy/{id}', 'CustomersController@destroy')->name('excluir.cliente');
 Route::get('detalhes-cliente/{id}', 'CustomersController@details')->name('detalhes.cliente');
 
