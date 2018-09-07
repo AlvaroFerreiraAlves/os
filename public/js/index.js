@@ -107,3 +107,25 @@ function hideMessage() {
     $('.print-error-msg').hide();
     $('.print-success-msg').hide();
 }
+
+function addItem() {
+    var data = $('#form-add-item').serialize();
+
+    $.ajax({
+        url: "../order/addservice",
+        method: "POST",
+        data: data
+    }).done(function (data) {
+
+        if (data != '') {
+
+            product = '<tr id="product' + data.item.id + '"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + data.item.valor + '</td><td>' + data.qtd + '</td><td>' + data.item.valor * data.qtd + '</td>';
+            product += '<td><button type="button" id="delete' + data.item.id + '"class="btn btn-danger btn-delete delete-item" value="' + data.item.id + '">X</button></td></tr>';
+            $('#products-list').append(product);
+
+        }
+        total();
+
+
+    })
+}

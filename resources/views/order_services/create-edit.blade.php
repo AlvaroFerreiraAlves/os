@@ -589,7 +589,7 @@
         <li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
         <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>
     </ul>
-
+    <hr>
     <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
             @if ($errors->any())
@@ -817,7 +817,7 @@
 
         <div id="menu1" class="tab-pane fade">
             <div class="container">
-            <form class="form-horizontal" id="form">
+            <form class="form-horizontal" id="form-add-item">
                 {{ csrf_field() }}
                 <fieldset>
                     @if(isset($orderService))
@@ -863,9 +863,9 @@
 
                         <!-- Button -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="singlebutton">Single Button</label>
+                            <label class="col-md-4 control-label" for="btn-add-item"></label>
                             <div class="col-md-4">
-                                <button id="singlebutton" name="singlebutton" class="btn btn-primary">Button</button>
+                                <button type="button" id="btn-add-item" name="btn-add-item" class="btn btn-primary" onclick="addItem()">Adicionar</button>
                             </div>
                         </div>
 
