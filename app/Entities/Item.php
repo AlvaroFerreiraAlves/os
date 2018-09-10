@@ -42,7 +42,7 @@ class Item extends Model implements Transformable
         if(isset($this->items[$item->id])){
             $this->items[$item->id] = [
                 'item'=> $item,
-                'qtd'=> $this->items[$item->id]['qtd'] + 1,
+                'qtd'=> $this->items[$item->id]['qtd'] + $qtd,
         ];
         }else{
             $this->items[$item->id] = [
