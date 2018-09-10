@@ -117,14 +117,22 @@ function addItem() {
         data: data
     }).done(function (data) {
 
-        if (data != '') {
-
-            product = '<tr id="product' + data.item.id + '"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + data.item.valor + '</td><td>' + data.qtd + '</td><td>' + data.item.valor * data.qtd + '</td>';
-            product += '<td><button type="button" id="delete' + data.item.id + '"class="btn btn-danger btn-delete delete-item" value="' + data.item.id + '">X</button></td></tr>';
+        product = '<tr id="product' + data.item.id + '"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + data.item.valor + '</td><td>' + data.qtd + '</td><td>' + data.item.valor * data.qtd + '</td>';
+        product += '<td><button type="button" id="delete' + data.item.id + '"class="btn btn-danger btn-delete delete-item" value="' + data.item.id + '">X</button></td></tr>';
+        if(!$("#product" + data.item.id).length) {
             $('#products-list').append(product);
+        }
+
+        else if($("#product" + data.item.id).length) {
+
+            $("#product" + data.item.id).replaceWith( product );
 
         }
-        total();
+
+
+
+
+
 
 
     })

@@ -258,7 +258,7 @@ class OrderServicesController extends Controller
 
     public function showFormOrder(Item $item)
     {
-       // $item->emptySession();
+        // $item->emptySession();
         $title = 'Ordem de Serviço';
         $itens = $item->all();
         $prodService = $item->getItems();
@@ -270,7 +270,7 @@ class OrderServicesController extends Controller
         $category = CategoryItems::all();
 
 
-        return view('order_services.create-edit', compact('itens', 'prodService', 'item', 'title', 'tipoOrdem', 'companies', 'customers', 'tecnicos','category'));
+        return view('order_services.create-edit', compact('itens', 'prodService', 'item', 'title', 'tipoOrdem', 'companies', 'customers', 'tecnicos', 'category'));
     }
 
     public function addService(Request $request)
@@ -289,41 +289,43 @@ class OrderServicesController extends Controller
 
         $items = new Item();
 
-        if (!array_key_exists($id, $items->getItems())) {
-            $items->addItem($item, $qtd);
-            Session::put('items', $items);
-            $item = $items->getItems();
-            return end($item);
-        }
+//        if (!array_key_exists($id, $items->getItems())) {
+        $items->addItem($item, $qtd);
+        Session::put('items', $items);
+
+        $item = $items->getItems();
+        return end($item);
+//            return end($item);
+//        }
 
     }
 
-     public function addServiceUpdate(Request $request)
-     {
+    public function addServiceUpdate(Request $request)
+    {
 
 
-         $id = $request->input('itens');
-         $qtd = $request->qtd;
+        $id = $request->input('itens');
+        $qtd = $request->qtd;
 
-         $item = Item::find($id);
+        $item = Item::find($id);
 
-         $item->valor = $request->valor;
-
-
-         if (!$item)
-             return redirect()->back();
-
-         $items = new Item();
-
-         if (!array_key_exists($id, $items->getItemsUpdate())) {
-             $items->addItemUpdate($item, $qtd);
-             Session::put('itemsUpdate', $items);
-             $item = $items->getItemsUpdate();
-             return end($item);
-         }
+        $item->valor = $request->valor;
 
 
-     }
+        if (!$item)
+            return redirect()->back();
+
+        $items = new Item();
+
+        if (!array_key_exists($id, $items->getItemsUpdate())) {
+            $items->addItemUpdate($item, $qtd);
+            Session::put('itemsUpdate', $items);
+            $item = $items->getItemsUpdate();
+            return end($item);
+        }
+
+
+    }
 
 
     public function remove($id)
@@ -380,7 +382,6 @@ class OrderServicesController extends Controller
 
         return $total;
     }
-
 
 
     public function teste(Request $request)

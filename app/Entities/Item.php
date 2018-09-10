@@ -40,6 +40,10 @@ class Item extends Model implements Transformable
 
     public function addItem(Item $item, $qtd){
         if(isset($this->items[$item->id])){
+            $this->items[$item->id] = [
+                'item'=> $item,
+                'qtd'=> $this->items[$item->id]['qtd'] + 1,
+        ];
         }else{
             $this->items[$item->id] = [
                 'item'=> $item,
