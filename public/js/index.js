@@ -131,3 +131,30 @@ function addItem() {
 
     })
 }
+
+function deleteItem(id){
+
+    $.ajax({
+        url: "order/removeservice/" + id,
+        method: "POST",
+    }).done(function () {
+
+        var tr = $("#product" + id).closest('tr');
+        tr.remove();
+    })
+}
+
+$(document).on('click', '.delete-item', function () {
+    var id = event.target.id;
+    var parametro = $("#" + id).val();
+
+    $.ajax({
+        url: "../order/removeservice/" + parametro,
+        method: "POST",
+    }).done(function () {
+
+        var tr = $("#" + id).closest('tr');
+        tr.remove();
+
+    })
+});

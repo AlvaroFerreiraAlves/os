@@ -67,6 +67,11 @@ class Item extends Model implements Transformable
         return $this->items;
     }
 
+    public function getItemEndAdd($id)
+    {
+        return $this->items[$id];
+    }
+
     public function getItemsUpdate()
     {
         return $this->itemsUpdate;

@@ -293,8 +293,8 @@ class OrderServicesController extends Controller
         $items->addItem($item, $qtd);
         Session::put('items', $items);
 
-        $item = $items->getItems();
-        return end($item);
+        $item = $items->getItemEndAdd($id);
+        return $item;
 //            return end($item);
 //        }
 

@@ -586,8 +586,8 @@
     <ul class="nav nav-tabs nav-justified">
         <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
         <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
-        <li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
-        <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>
+       {{-- <li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
+        <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>--}}
     </ul>
     <hr>
     <div class="tab-content">
@@ -923,10 +923,11 @@
                                     <td>{{$ps['qtd']}}</td>
                                     <td>{{$ps['qtd']*$ps['item']->valor}}</td>
                                     <td>
-                                        <button type="button" id="delete{{$ps['item']->id}}"
+                                      <button type="button" id="delete{{$ps['item']->id}}"
                                                 class="btn btn-danger btn-delete delete-item"
                                                 value="{{$ps['item']->id}}">X
                                         </button>
+
 
 
                                     </td>
@@ -975,7 +976,7 @@
                 <input class="btn btn-success" type="submit" value="Salvar" onClick="document.form2.submit()">
             @endif
         </div>
-        <div id="menu2" class="tab-pane fade">
+        {{--<div id="menu2" class="tab-pane fade">
             <h3>Menu 2</h3>
             <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
                 totam rem aperiam.</p>
@@ -984,7 +985,7 @@
             <h3>Menu 3</h3>
             <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
                 explicabo.</p>
-        </div>
+        </div>--}}
     </div>
 
 
