@@ -423,5 +423,22 @@ class OrderServicesController extends Controller
 
     }
 
+    public function descontoTotal(Item $item, $desconto = 10){
+
+        $items = $item->getItems();
+        $qtdItems = count($items);
+        $desconto = $desconto/$qtdItems;
+
+        foreach ($items as $i){
+            $i['item']['desconto'] = $desconto;
+
+            echo $i['item'];
+        }
+
+
+
+
+    }
+
 
 }

@@ -884,6 +884,7 @@
                             <th>Nome</th>
                             <th>valor</th>
                             <th>Quantidade.</th>
+                            <th>Desconto.</th>
                             <th>Subtotal</th>
                             <th></th>
 
@@ -921,6 +922,7 @@
                                     <td>{{$ps['item']->nome}}</td>
                                     <td>{{$ps['item']->valor}}</td>
                                     <td>{{$ps['qtd']}}</td>
+                                    <td>{{$ps['desconto']}}</td>
                                     <td>{{$ps['qtd']*$ps['item']->valor}}</td>
                                     <td>
                                       <button type="button" id="delete{{$ps['item']->id}}"

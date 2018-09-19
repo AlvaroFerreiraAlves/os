@@ -78,3 +78,6 @@ Route::put('editar-ordem-orcamento/update-item/{id}', 'OrderServicesController@u
 Route::post('order/addservice-update', 'OrderServicesController@addServiceUpdate')->name('add.service.update');
 
 
+Route::get('teste', 'OrderServicesController@descontoTotal')->name('add.service.update');
+
+

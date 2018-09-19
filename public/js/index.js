@@ -122,27 +122,19 @@ function addItem() {
 
         if (!$("#product" + data.item.id).length) {
             $('#products-list').append(product);
+            total();
         }
         else if ($("#product" + data.item.id).length) {
 
             $("#product" + data.item.id).replaceWith(product);
+            total();
         }
 
 
     })
 }
 
-function deleteItem(id){
 
-    $.ajax({
-        url: "order/removeservice/" + id,
-        method: "POST",
-    }).done(function () {
-
-        var tr = $("#product" + id).closest('tr');
-        tr.remove();
-    })
-}
 
 $(document).on('click', '.delete-item', function () {
     var id = event.target.id;
@@ -155,6 +147,18 @@ $(document).on('click', '.delete-item', function () {
 
         var tr = $("#" + id).closest('tr');
         tr.remove();
+        total();
 
     })
 });
+
+function total() {
+
+    $.ajax({
+        url: "order/total/" + 0,
+        method: "POST",
+        data: ""
+    }).done(function (data) {
+        $("#total").text("Total: R$ " + data);
+    });
+}
