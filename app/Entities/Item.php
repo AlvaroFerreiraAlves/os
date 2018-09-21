@@ -43,13 +43,12 @@ class Item extends Model implements Transformable
             $this->items[$item->id] = [
                 'item'=> $item,
                 'qtd'=> $this->items[$item->id]['qtd'] + $qtd,
-                'desconto'=> 0,
+
         ];
         }else{
             $this->items[$item->id] = [
                 'item'=> $item,
                 'qtd'=> $qtd,
-                'desconto'=> 0,
             ];
         }
     }

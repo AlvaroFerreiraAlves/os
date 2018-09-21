@@ -430,10 +430,13 @@ class OrderServicesController extends Controller
         $desconto = $desconto/$qtdItems;
 
         foreach ($items as $i){
+
             $i['item']['desconto'] = $desconto;
 
-            echo $i['item'];
         }
+        Session::put('desconto', $items);
+
+        return $items;
 
 
 

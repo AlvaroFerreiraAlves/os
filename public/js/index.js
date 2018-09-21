@@ -117,7 +117,16 @@ function addItem() {
         data: data
     }).done(function (data) {
 
-        product = '<tr id="product' + data.item.id + '"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + data.item.valor + '</td><td>' + data.qtd + '</td><td>' + data.item.valor * data.qtd + '</td>';
+        desconto;
+
+        if(data.item.desconto){
+
+            desconto = data.item.desconto;
+        }else{
+
+            desconto = '-';
+        }
+        product = '<tr id="product' + data.item.id + '"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + data.item.valor + '</td><td>' + data.qtd + '</td><td>'+desconto+'</td><td>' + data.item.valor * data.qtd + '</td>';
         product += '<td><button type="button" id="delete' + data.item.id + '"class="btn btn-danger btn-delete delete-item" value="' + data.item.id + '">X</button></td></tr>';
 
         if (!$("#product" + data.item.id).length) {

@@ -586,8 +586,8 @@
     <ul class="nav nav-tabs nav-justified">
         <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
         <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
-       {{-- <li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
-        <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>--}}
+        {{-- <li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
+         <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>--}}
     </ul>
     <hr>
     <div class="tab-content">
@@ -817,14 +817,14 @@
 
         <div id="menu1" class="tab-pane fade">
             <div class="container">
-            <form class="form-horizontal" id="form-add-item">
-                {{ csrf_field() }}
-                <fieldset>
-                    @if(isset($orderService))
-                        <input type="hidden" id="idordem" name="idordem" value="{{$orderService->id}}">
+                <form class="form-horizontal" id="form-add-item">
+                    {{ csrf_field() }}
+                    <fieldset>
+                        @if(isset($orderService))
+                            <input type="hidden" id="idordem" name="idordem" value="{{$orderService->id}}">
                     @endif
 
-                        <!-- Text input-->
+                    <!-- Text input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="textinput">Produto/Serviço</label>
                             <div class="col-md-4">
@@ -865,13 +865,15 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="btn-add-item"></label>
                             <div class="col-md-4">
-                                <button type="button" id="btn-add-item" name="btn-add-item" class="btn btn-primary" onclick="addItem()">Adicionar</button>
+                                <button type="button" id="btn-add-item" name="btn-add-item" class="btn btn-primary"
+                                        onclick="addItem()">Adicionar
+                                </button>
                             </div>
                         </div>
 
 
-                </fieldset>
-            </form>
+                    </fieldset>
+                </form>
             </div>
             @include('order_services.modals.item')
 
@@ -922,14 +924,17 @@
                                     <td>{{$ps['item']->nome}}</td>
                                     <td>{{$ps['item']->valor}}</td>
                                     <td>{{$ps['qtd']}}</td>
-                                    <td>{{$ps['desconto']}}</td>
-                                    <td>{{$ps['qtd']*$ps['item']->valor}}</td>
+                                    @if($ps['item']->desconto)
+                                        <td>{{$ps['item']->desconto}}</td>
+                                    @else
+                                        <td>-</td>
+                                    @endif
+                                    <td>{{($ps['qtd']*$ps['item']->valor)-($ps['item']->desconto)}}</td>
                                     <td>
-                                      <button type="button" id="delete{{$ps['item']->id}}"
+                                        <button type="button" id="delete{{$ps['item']->id}}"
                                                 class="btn btn-danger btn-delete delete-item"
                                                 value="{{$ps['item']->id}}">X
                                         </button>
-
 
 
                                     </td>
