@@ -94,7 +94,7 @@ class Item extends Model implements Transformable
     {
         $total = 0;
         foreach ($this->items as $item) {
-            $subTotal = $item['item']->valor * $item['qtd'];
+            $subTotal = ($item['item']->valor * $item['qtd']) - ($item['item']->desconto );
             $total += $subTotal;
         }
         return $total;

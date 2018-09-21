@@ -949,17 +949,20 @@
 
                     <!-- Text input-->
 
+                    <form class="form-horizontal" id="form-desconto-total">
 
-                    <div class="col-md-3">
-                        Desconto total
-                        <div class="input-group">
-                            <input id="desconto" name="desconto" type="number" step="0.1" min="0" placeholder=""
-                                   class="form-control input-md" value="0">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary" type="button" id="aplicar">Aplicar</button>
+                        <div class="col-md-3">
+                            Desconto total
+                            <div class="input-group">
+                                <input id="desconto" name="desconto" type="number" step="0.1" min="0" placeholder=""
+                                       class="form-control input-md" value="0">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" id="aplicar" onclick="descontoTotal()">Aplicar</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                    </form>
 
 
                     <div class="col-md-3" style="float: right">

@@ -171,3 +171,25 @@ function total() {
         $("#total").text("Total: R$ " + data);
     });
 }
+
+
+
+function descontoTotal() {
+    var data = $('#form-desconto-total').serialize();
+
+    $.ajax({
+        url: "../desconto-total",
+        method: "POST",
+        data: data,
+    }).done(function (data) {
+
+        if ($("#product" + data.item.id).length) {
+
+            $("#product" + data.item.id).replaceWith(product);
+            total();
+        }
+
+        console.log(data);
+        total();
+    })
+}

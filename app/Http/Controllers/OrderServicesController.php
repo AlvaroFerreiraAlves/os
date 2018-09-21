@@ -423,8 +423,13 @@ class OrderServicesController extends Controller
 
     }
 
-    public function descontoTotal(Item $item, $desconto = 10){
+    public function descontoTotal(Request $request){
 
+        $desconto = $request->all();
+
+        $desconto = $desconto['desconto'];
+
+        $item = new Item();
         $items = $item->getItems();
         $qtdItems = count($items);
         $desconto = $desconto/$qtdItems;
