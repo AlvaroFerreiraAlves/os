@@ -925,9 +925,9 @@
                                     <td>{{$ps['item']->valor}}</td>
                                     <td>{{$ps['qtd']}}</td>
                                     @if($ps['item']->desconto)
-                                        <td>{{$ps['item']->desconto}}</td>
+                                        <td id="descproduct{{$ps['item']->id}}">{{$ps['item']->desconto}}</td>
                                     @else
-                                        <td>-</td>
+                                        <td id="descproduct{{$ps['item']->id}}">-</td>
                                     @endif
                                     <td>{{($ps['qtd']*$ps['item']->valor)-($ps['item']->desconto)}}</td>
                                     <td>

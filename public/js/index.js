@@ -126,7 +126,7 @@ function addItem() {
 
             desconto = '-';
         }
-        product = '<tr id="product' + data.item.id + '"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + data.item.valor + '</td><td>' + data.qtd + '</td><td>'+desconto+'</td><td>' + data.item.valor * data.qtd + '</td>';
+        product = '<tr id="product' + data.item.id + '"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + data.item.valor + '</td><td>' + data.qtd + '</td><td id="descproduct'+ data.item.id +'">'+desconto+'</td><td>' + data.item.valor * data.qtd + '</td>';
         product += '<td><button type="button" id="delete' + data.item.id + '"class="btn btn-danger btn-delete delete-item" value="' + data.item.id + '">X</button></td></tr>';
 
         if (!$("#product" + data.item.id).length) {
@@ -183,13 +183,18 @@ function descontoTotal() {
         data: data,
     }).done(function (data) {
 
-        if ($("#product" + data.item.id).length) {
+        for (var d in data) {
+            console.log(data[d].item.id);
+            product = '<td id="descproduct'+ data[d].item.id +'">'+ data[d].item.desconto+'</td>';
 
-            $("#product" + data.item.id).replaceWith(product);
+            if ($("#descproduct" + data[d].item.id).length) {
+
+                $("#descproduct" + data[d].item.id).replaceWith(product);
+                total();
+            }
             total();
+
         }
 
-        console.log(data);
-        total();
-    })
+    });
 }
