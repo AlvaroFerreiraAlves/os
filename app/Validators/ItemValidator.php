@@ -21,4 +21,24 @@ class ItemValidator extends LaravelValidator
             'valor'=>'required',
         ],
     ];
+
+    public function rulesCpfUpdate($id)
+    {
+        return [
+            'nome'=>'required|string|max:80',
+            'descricao'=>'required|string|max:255',
+            'valor'=>'required',
+            'cnpj_cpf' => 'required|cpf|unique:customers,cnpj_cpf,'.$id,
+        ];
+    }
+
+    public function rulesCnpjUpdate($id)
+    {
+        return [
+            'nome'=>'required|string|max:80',
+            'descricao'=>'required|string|max:255',
+            'valor'=>'required',
+            'cnpj_cpf' => 'required|cnpj|unique:customers,cnpj_cpf,'.$id,
+        ];
+    }
 }

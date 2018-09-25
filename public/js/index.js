@@ -67,7 +67,7 @@ function saveItem() {
 }
 
 function updateItem(id) {
-    var data = $('#form-item').serialize();
+    var data = $('#form-item-modal').serialize();
 
     $.ajax({
         url: "../items/update/" + id,

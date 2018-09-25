@@ -208,19 +208,14 @@ class ItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Item $item, $id)
     {
-        $deleted = $this->repository->update(["status" => 0], $id);
+        $item = $item->find($id);
+        $item = $item->update(['status'=>0]);
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'message' => 'Customer deleted.',
-                'deleted' => $deleted,
-            ]);
+        if ($item) {
+            return redirect()->back()->with('message', 'Item Excluído.');
         }
-
-        return redirect()->back()->with('message', 'Item Excluído.');
     }
 
 
