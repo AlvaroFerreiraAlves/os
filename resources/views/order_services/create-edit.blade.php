@@ -582,14 +582,6 @@
 
 @section('content')
 
-
-    <ul class="nav nav-tabs nav-justified">
-        <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
-        <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
-        {{-- <li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
-         <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>--}}
-    </ul>
-    <hr>
     <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
             @if ($errors->any())
@@ -601,6 +593,20 @@
                     </ul>
                 </div>
             @endif
+
+            @if(session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
+
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
+                <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
+                {{-- <li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
+                 <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>--}}
+            </ul>
+            <hr>
 
             @if(isset($orderService))
 
@@ -795,10 +801,10 @@
                                 <input type="hidden" name="status" id="status" value="1">
                                 <input type="hidden" name="id_usuario" id="id_usuario" value="1">
                                 {{--@if(isset($orderService))--}}
-                                    {{--<input type="hidden" name="valor_desconto" id="valor_desconto"--}}
-                                           {{--value="{{$orderService->valor_desconto}}">--}}
+                                {{--<input type="hidden" name="valor_desconto" id="valor_desconto"--}}
+                                {{--value="{{$orderService->valor_desconto}}">--}}
                                 {{--@else--}}
-                                    {{--<input type="hidden" name="valor_desconto" id="valor_desconto" value="0">--}}
+                                {{--<input type="hidden" name="valor_desconto" id="valor_desconto" value="0">--}}
                                 {{--@endif--}}
 
                             </fieldset>

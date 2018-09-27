@@ -100,7 +100,7 @@ class OrderServicesController extends Controller
             $item->emptySession();
 
             $response = [
-                'message' => 'OrderService created.',
+                'message' => 'Ordem de serviço cadastrada.',
                 'data' => $orderService->toArray(),
             ];
 
