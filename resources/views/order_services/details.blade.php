@@ -1,9 +1,16 @@
 @extends('template.main')
 
 @section('content')
-    <p><a href="{{route("editar.ordem.orcamento", $ordemOrcamento->id)}}" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a></p>
 
           <div class="form-group">
+
+              <div class="col-md-12">
+
+                 <a href="{{route("editar.ordem.orcamento", $ordemOrcamento->id)}}" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+                 <a href="{{route("editar.ordem.orcamento", $ordemOrcamento->id)}}" class="btn btn-default" style="float: right"><i class="fa fa-pencil" aria-hidden="true"></i> Imprimir</a>
+                  <hr>
+              </div>
+
               <div class="logo col-md-6" s>
                   <img src="{{url("storage/logo/{$company->logo}")}}" width="125px" height="115px">
               </div>
@@ -94,6 +101,8 @@
                   <h5><b>Técnico responsável: </b>{{$technician->name}}</h5>
                   <h5><b>Situação: </b>{{$ordemOrcamento->status}}</h5>
               </div>
+
+
           </div>
 
 
