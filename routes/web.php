@@ -19,6 +19,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('cadastrar-usuario', 'Auth\RegisterController@showRegistrationForm')->name('cadastrar.usuario');
 Route::get('usuario/{id}/edit', 'UsersController@edit');
 Route::put('usuario/{id}/update', 'UsersController@update');
 Route::get('listar-usuarios', 'UsersController@showUsers')->name('listar.usuarios');

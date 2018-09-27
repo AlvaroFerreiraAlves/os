@@ -58,7 +58,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users"></i>
                     Usúarios <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ route('register') }}">Cadastrar usuário</a></li>
+                    <li><a href="{{ route('cadastrar.usuario') }}">Cadastrar usuário</a></li>
                     <li><a href="{{route('listar.usuarios')}}">Visualizar usuários</a></li>
                 </ul>
             </li>

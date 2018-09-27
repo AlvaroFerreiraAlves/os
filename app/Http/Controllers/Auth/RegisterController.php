@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Entities\UserType;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -63,6 +64,13 @@ class RegisterController extends Controller
      * @param  array $data
      * @return \App\User
      */
+    public function showRegistrationForm()
+    {
+        $title = 'Cadastro de usuário';
+        $tipoUsuario = UserType::all();
+        return view('auth.register', compact('tipoUsuario','title'));
+    }
+
     protected function create(array $data)
     {
         $user =  User::create([
