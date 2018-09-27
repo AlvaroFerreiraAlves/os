@@ -794,12 +794,12 @@
 
                                 <input type="hidden" name="status" id="status" value="1">
                                 <input type="hidden" name="id_usuario" id="id_usuario" value="1">
-                                @if(isset($orderService))
-                                    <input type="hidden" name="valor_desconto" id="valor_desconto"
-                                           value="{{$orderService->valor_desconto}}">
-                                @else
-                                    <input type="hidden" name="valor_desconto" id="valor_desconto" value="0">
-                                @endif
+                                {{--@if(isset($orderService))--}}
+                                    {{--<input type="hidden" name="valor_desconto" id="valor_desconto"--}}
+                                           {{--value="{{$orderService->valor_desconto}}">--}}
+                                {{--@else--}}
+                                    {{--<input type="hidden" name="valor_desconto" id="valor_desconto" value="0">--}}
+                                {{--@endif--}}
 
                             </fieldset>
                         </form>
@@ -957,7 +957,9 @@
                                 <input id="desconto" name="desconto" type="number" step="0.1" min="0" placeholder=""
                                        class="form-control input-md" value="0">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary" type="button" id="aplicar" onclick="descontoTotal()">Aplicar</button>
+                                    <button class="btn btn-primary" type="button" id="aplicar"
+                                            onclick="descontoTotal()">Aplicar
+                                    </button>
                                 </div>
                             </div>
                         </div>

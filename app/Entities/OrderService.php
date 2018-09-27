@@ -13,13 +13,13 @@ class OrderService extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = [
-        'equipamento','n_serie','p_info','p_const','s_exec','dt_prox_manut','valor_total','valor_desconto',
+        'equipamento','n_serie','p_info','p_const','s_exec','dt_prox_manut',
         'status','id_tipo_ordem_servico','id_cliente','id_empresa','id_usuario','tecnico'
     ];
 
     public function itensOrdem()
     {
-        return $this->belongsToMany(Item::class, 'items_order_services', 'id_ordem_servico','id_item')->withPivot('valor','qtd');
+        return $this->belongsToMany(Item::class, 'items_order_services', 'id_ordem_servico','id_item')->withPivot('valor','qtd','desconto');
     }
 
     public function cliente()

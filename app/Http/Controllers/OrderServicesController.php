@@ -89,12 +89,15 @@ class OrderServicesController extends Controller
                 $data[$d['item']->id] = [
                     'qtd' => $d['qtd'],
                     'valor' => $d['item']->valor,
+                    'desconto' => $d['item']->desconto,
                 ];
             }
 
             $ordem = OrderService::find($orderService->id);
 
             $ordem->itensOrdem()->sync($data);
+
+            $item->emptySession();
 
             $response = [
                 'message' => 'OrderService created.',
@@ -201,6 +204,7 @@ class OrderServicesController extends Controller
                 $data[$d['item']->id] = [
                     'qtd' => $d['qtd'],
                     'valor' => $d['item']->valor,
+                    'desconto' => $d['item']->desconto,
                 ];
             }
 
@@ -265,7 +269,7 @@ class OrderServicesController extends Controller
         $tipoOrdem = TypeOrderService::all();
         $companies = Company::all();
         $customers = Customer::all();
-        $tecnicos = UserType::find(2);
+        $tecnicos = UserType::find(3);
         $tecnicos = $tecnicos->users;
         $category = CategoryItems::all();
 
@@ -423,7 +427,8 @@ class OrderServicesController extends Controller
 
     }
 
-    public function descontoTotal(Request $request){
+    public function descontoTotal(Request $request)
+    {
 
         $desconto = $request->all();
 
@@ -432,9 +437,9 @@ class OrderServicesController extends Controller
         $item = new Item();
         $items = $item->getItems();
         $qtdItems = count($items);
-        $desconto = $desconto/$qtdItems;
+        $desconto = $desconto / $qtdItems;
 
-        foreach ($items as $i){
+        foreach ($items as $i) {
 
             $i['item']['desconto'] = $desconto;
 
