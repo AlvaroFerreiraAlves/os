@@ -6,6 +6,7 @@ use App\Entities\CategoryItems;
 use App\Entities\Company;
 use App\Entities\Customer;
 use App\Entities\Item;
+use App\Entities\ItemsOrderService;
 use App\Entities\OrderService;
 use App\Entities\TypeOrderService;
 use App\Entities\UserType;
@@ -410,7 +411,7 @@ class OrderServicesController extends Controller
 
     public function details(OrderService $orderService, $id)
     {
-
+        $descontoTotal = 0;
         $ordemOrcamento = $orderService->find($id);
         $total = $orderService->totalOrdem($ordemOrcamento);
         $items = $ordemOrcamento->itensOrdem;
@@ -418,12 +419,20 @@ class OrderServicesController extends Controller
         $customer = $ordemOrcamento->cliente;
         $technician = $ordemOrcamento->technician;
 
+        $itemOrdem = new ItemsOrderService();
+        $itemOrdem = $itemOrdem->where('id_ordem_servico','=',$ordemOrcamento->id)->get();
+
+        foreach ($itemOrdem as $i){
+            $descontoTotal = $descontoTotal + $i->desconto;
+        }
+
+
         if ($ordemOrcamento->id_tipo_ordem_servico == 1) {
             $title = 'Detalhes do orçamento';
         } else {
             $title = 'Detalhes da Ordem de serviço';
         }
-        return view('order_services.details', compact('title', 'ordemOrcamento', 'company', 'customer', 'items', 'technician', 'total'));
+        return view('order_services.details', compact('title', 'ordemOrcamento', 'company', 'customer', 'items', 'technician', 'total','descontoTotal'));
 
     }
 

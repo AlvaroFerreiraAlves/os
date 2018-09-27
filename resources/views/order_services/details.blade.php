@@ -5,7 +5,7 @@
 
           <div class="form-group">
               <div class="logo col-md-6" s>
-                  <img src="{{url("storage/logo/{$company->logo}")}}" width="125px" height="124px">
+                  <img src="{{url("storage/logo/{$company->logo}")}}" width="125px" height="115px">
               </div>
               <div class="empresa col-md-6" >
                   <h3>{{$company->razao_social}}</h3>
@@ -38,15 +38,15 @@
               </div>
               <div class="numero-ordem col-md-12">
                   <h5>
-                     Equipamento:
+                     Equipamento: {{$ordemOrcamento->equipamento}}
                   </h5>
 
 
               </div>
               <div class="problemas col-md-12">
-                 <h5><b>Problema informado:</b></h5>
-                 <h5><b>Problema constado:</b></h5>
-                 <h5><b>Serviço executado:</b></h5>
+                 <h5><b>Problema informado:</b> {{$ordemOrcamento->p_info}}</h5>
+                 <h5><b>Problema constado:</b> {{$ordemOrcamento->p_const}}</h5>
+                 <h5><b>Serviço executado:</b> {{$ordemOrcamento->s_exec}}</h5>
               </div>
 
               <div class="problemas col-md-12">
@@ -56,6 +56,7 @@
                           <tr>
                               <th>Cód</th>
                               <th>Nome</th>
+                              <th>Desconto</th>
                               <th>Valor</th>
                               <th>Quantidade.</th>
 
@@ -68,6 +69,7 @@
 
                                   <td>{{$item->id}}</td>
                                   <td>{{$item->nome}}</td>
+                                  <td>{{$item->pivot->desconto}}</td>
                                   <td>{{$item->pivot->valor}}</td>
                                   <td>{{$item->pivot->qtd}}</td>
 
@@ -80,8 +82,8 @@
 
                       <div class="col-md-3" style="float: right">
                           <h5 id="total">Subtotal: R$ {{$total}}</h5>
-                          <h5 id="total">Desconto: R$ {{$ordemOrcamento->valor_desconto}}</h5>
-                          <h3 id="total">Total: R$ {{$total - $ordemOrcamento->valor_desconto}}</h3>
+                          <h5 id="total">Desconto: R$ {{$descontoTotal}}</h5>
+                          <h3 id="total">Total: R$ {{$total - $descontoTotal}}</h3>
                       </div>
 
 
@@ -90,7 +92,7 @@
 
               <div class="problemas col-md-12">
                   <h5><b>Técnico responsável: </b>{{$technician->name}}</h5>
-                  <h5><b>Situação:</b></h5>
+                  <h5><b>Situação: </b>{{$ordemOrcamento->status}}</h5>
               </div>
           </div>
 
