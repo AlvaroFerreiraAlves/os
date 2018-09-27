@@ -582,8 +582,7 @@
 
 @section('content')
 
-    <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
+
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -607,6 +606,9 @@
                  <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>--}}
             </ul>
             <hr>
+
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
 
             @if(isset($orderService))
 
