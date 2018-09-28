@@ -31,7 +31,6 @@
                       @endif
                   </h4>
 
-
               </div>
               <div class="numero-ordem col-md-6">
                   <h5 style="float: right">{{$ordemOrcamento->created_at}}</h5>
@@ -50,11 +49,17 @@
 
 
               </div>
+
               <div class="problemas col-md-12">
                  <h5><b>Problema informado:</b> {{$ordemOrcamento->p_info}}</h5>
                  <h5><b>Problema constado:</b> {{$ordemOrcamento->p_const}}</h5>
                  <h5><b>Serviço executado:</b> {{$ordemOrcamento->s_exec}}</h5>
               </div>
+              <div class="problemas col-md-12">
+                  <h5><b>Técnico responsável: </b>{{$technician->name}}</h5>
+                  <h5><b>Situação: </b>{{$ordemOrcamento->status}}</h5>
+              </div>
+
 
               <div class="problemas col-md-12">
                   <div class="table-responsive">
@@ -95,11 +100,6 @@
 
 
                   </div>
-              </div>
-
-              <div class="problemas col-md-12">
-                  <h5><b>Técnico responsável: </b>{{$technician->name}}</h5>
-                  <h5><b>Situação: </b>{{$ordemOrcamento->status}}</h5>
               </div>
 
 

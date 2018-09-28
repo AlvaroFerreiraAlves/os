@@ -583,32 +583,30 @@
 @section('content')
 
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            @if(session()->has('message'))
-                <div class="alert alert-success">
-                    {{ session()->get('message') }}
-                </div>
-            @endif
-
-            <ul class="nav nav-tabs nav-justified">
-                <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
-                <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
-                {{-- <li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
-                 <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>--}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
             </ul>
-            <hr>
+        </div>
+    @endif
 
-            <div class="tab-content">
-                <div id="home" class="tab-pane fade in active">
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+
+    <ul class="nav nav-tabs nav-justified">
+        <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
+        <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
+    </ul>
+    <hr>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
 
             @if(isset($orderService))
 

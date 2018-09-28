@@ -174,10 +174,11 @@ class OrderServicesController extends Controller
         $tipoOrdem = TypeOrderService::all();
         $companies = Company::all();
         $customers = Customer::all();
-        $tecnicos = UserType::find(2);
+        $tecnicos = UserType::find(3);
         $tecnicos = $tecnicos->users;
+        $category = CategoryItems::all();
 
-        return view('order_services.create-edit', compact('orderService', 'title', 'tipoOrdem', 'companies', 'customers', 'tecnicos', 'itens', 'item', 'itemsOrderSession'));
+        return view('order_services.create-edit', compact('orderService', 'title', 'tipoOrdem', 'companies', 'customers', 'tecnicos', 'itens', 'item', 'itemsOrderSession','category'));
     }
 
 

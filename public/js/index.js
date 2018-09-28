@@ -2,7 +2,7 @@ function saveCustomer() {
     var data = $('#form-customer-modal').serialize();
 
     $.ajax({
-        url: "customer/store",
+        url: "../customer/store",
         method: "POST",
         data: data,
     }).done(function (data) {
@@ -46,7 +46,7 @@ function saveItem() {
     var data = $('#form-item-modal').serialize();
 
     $.ajax({
-        url: "items/store",
+        url: "../items/store",
         method: "POST",
         data: data,
     }).done(function (data) {
