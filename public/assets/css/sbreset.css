@@ -12,6 +12,11 @@
     background-color: #080808;
 }
 
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: #3c8dbc;
+    background: #3c8dbc;
+}
+
 .logo{
     width: 13%;
     height: 125px;
