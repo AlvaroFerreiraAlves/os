@@ -126,6 +126,7 @@ function addItem() {
 
             desconto = '-';
         }
+
         product = '<tr id="product' + data.item.id + '"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + data.item.valor + '</td><td>' + data.qtd + '</td><td id="descproduct'+ data.item.id +'">'+desconto+'</td><td>' + data.item.valor * data.qtd + '</td>';
         product += '<td><button type="button" id="delete' + data.item.id + '"class="btn btn-danger btn-delete delete-item" value="' + data.item.id + '">X</button></td></tr>';
 
@@ -164,7 +165,7 @@ $(document).on('click', '.delete-item', function () {
 function total() {
 
     $.ajax({
-        url: "order/total/" + 0,
+        url: "../order/total/" + 0,
         method: "POST",
         data: ""
     }).done(function (data) {

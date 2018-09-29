@@ -64,7 +64,7 @@ Route::get('nova-ordem-servico', 'OrderServicesController@showFormOrder')->name(
 Route::post('order/addservice', 'OrderServicesController@addService')->name('add.service');
 Route::get('order/salva-ordem', 'OrderServicesController@salvaOrdem');
 Route::post('order/removeservice/{id}', 'OrderServicesController@remove')->name('remove.item');
-Route::post('editar-ordem-orcamento/order/removeservice-update/{id}', 'OrderServicesController@removeUpdate')->name('remove.item.update');
+Route::post('order/removeservice-update/{id}', 'OrderServicesController@removeUpdate')->name('remove.item.update');
 Route::post('order/set-value/{id}', 'OrderServicesController@setValue')->name('set.value');
 Route::post('editar-ordem-orcamento/order/set-value/{id}', 'OrderServicesController@setValue')->name('set.value.update');
 Route::post('editar-ordem-orcamento/order/total/{desconto}', 'OrderServicesController@totalUpdate')->name('total.update');

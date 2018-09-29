@@ -868,14 +868,28 @@
                         </div>
 
                         <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="btn-add-item"></label>
-                            <div class="col-md-4">
-                                <button type="button" id="btn-add-item" name="btn-add-item" class="btn btn-primary"
-                                        onclick="addItem()">Adicionar
-                                </button>
-                            </div>
-                        </div>
+
+                            @if(isset($orderService))
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="btn-add-item"></label>
+                                    <div class="col-md-4">
+                                        <button type="button" id="btn-add-item" name="btn-add-item" class="btn btn-primary"
+                                                onclick="addItemUpdate()">Adicionar
+                                        </button>
+                                    </div>
+                                </div>
+                                @else
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="btn-add-item"></label>
+                                    <div class="col-md-4">
+                                        <button type="button" id="btn-add-item" name="btn-add-item" class="btn btn-primary"
+                                                onclick="addItem()">Adicionar
+                                        </button>
+                                    </div>
+                                </div>
+                                @endif
+
+
 
 
                     </fieldset>
@@ -899,21 +913,21 @@
                         </tr>
                         </thead>
                         @if(isset($orderService))
-                            <tbody id="items-list-update" name="items-list-update">
+                            <tbody id="products-list-update" name="products-list-update">
                             @foreach($itemsOrderSession as $ios)
-                                <tr id="product{{$ios['item']->id}}">
+                                <tr id="product-update{{$ios['item']->id}}">
 
                                     <td>{{$ios['item']->id}}</td>
                                     <td>{{$ios['item']->nome}}</td>
                                     <td>{{$ios['item']->pivot->valor}}</td>
                                     <td>{{$ios['item']->pivot->qtd}}</td>
-                                    <td>{{$ios['item']->pivot->valor*$ios['item']->pivot->qtd}}</td>
+                                    <td>{{$ios['item']->pivot->desconto}}</td>
+                                    <td>{{($ios['item']->pivot->valor*$ios['item']->pivot->qtd)-($ios['item']->pivot->desconto)}}</td>
                                     <td>
-                                        <button type="button" id="delete{{$ios['item']->id}}"
-                                                class="btn btn-danger btn-delete update-delete-item"
+                                        <button type="button" id="delete-update{{$ios['item']->id}}"
+                                                class="btn btn-danger btn-delete delete-item-update"
                                                 value="{{$ios['item']->id}}">X
                                         </button>
-
 
                                     </td>
 
@@ -975,11 +989,7 @@
 
                     <div class="col-md-3" style="float: right">
                         @if(isset($orderService))
-                            <input type="hidden" id="desconto-update" name="desconto-update"
-                                   value="{{$orderService->valor_desconto}}">
-                            <h5 id="vdesconto">Desconto: R$ {{$orderService->valor_desconto}}</h5>
-                            <h5 id="subtotal-update">Subtotal: R$ {{$item->totalUpdate()}}</h5>
-                            <h3 id="total-update">Total: R$ {{$item->totalUpdate()-$orderService->valor_desconto}}</h3>
+                            <h3 id="total">Total: R$ {{$item->totalUpdate()}}</h3>
                         @else
                             <h3 id="total">Total: R$ {{$item->total()}}</h3>
                         @endif

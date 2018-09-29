@@ -162,7 +162,6 @@ class OrderServicesController extends Controller
         $itemsOrderSession = [];
         foreach ($itensOrdem as $io => $value) {
 
-
             $items->addItemUpdate($value, $value->pivot->qtd);
             Session::put('itemsUpdate', $items);
             $itemsOrderSession = $items->getItemsUpdate();
@@ -179,6 +178,7 @@ class OrderServicesController extends Controller
         $category = CategoryItems::all();
 
         return view('order_services.create-edit', compact('orderService', 'title', 'tipoOrdem', 'companies', 'customers', 'tecnicos', 'itens', 'item', 'itemsOrderSession','category'));
+
     }
 
 
@@ -214,8 +214,10 @@ class OrderServicesController extends Controller
 
             $ordem->itensOrdem()->sync($data);
 
+            $item->emptySessionUpdate();
+
             $response = [
-                'message' => 'OrderService updated.',
+                'message' => 'Ordem de serviço atualizada.',
                 'data' => $orderService->toArray(),
             ];
 
@@ -264,7 +266,7 @@ class OrderServicesController extends Controller
 
     public function showFormOrder(Item $item)
     {
-        // $item->emptySession();
+        $item->emptySession();
         $title = 'Ordem de Serviço';
         $itens = $item->all();
         $prodService = $item->getItems();
