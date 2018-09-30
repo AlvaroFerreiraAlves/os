@@ -69,7 +69,7 @@ Route::post('order/set-value/{id}', 'OrderServicesController@setValue')->name('s
 Route::post('editar-ordem-orcamento/order/set-value/{id}', 'OrderServicesController@setValue')->name('set.value.update');
 Route::post('editar-ordem-orcamento/order/total/{desconto}', 'OrderServicesController@totalUpdate')->name('total.update');
 Route::post('order/total/{desconto}', 'OrderServicesController@total')->name('total');
-Route::post('editar-ordem-orcamento/order/total-update/{desconto}', 'OrderServicesController@totalUpdate')->name('total');
+Route::post('order/total-update/{desconto}', 'OrderServicesController@totalUpdate')->name('total');
 Route::post('cadastrar-ordem', 'OrderServicesController@store')->name('cadastrar.ordem');
 Route::get('listar-orcamentos', 'OrderServicesController@showBudgets')->name('listar.orcamentos');
 Route::get('detalhes-ordem/{id}', 'OrderServicesController@details')->name('detalhes.ordem');
@@ -80,5 +80,6 @@ Route::post('order/addservice-update', 'OrderServicesController@addServiceUpdate
 
 
 Route::post('desconto-total', 'OrderServicesController@descontoTotal')->name('desconto.total');
+Route::get('remove-all', 'OrderServicesController@removeAll')->name('remove.all');
 
 

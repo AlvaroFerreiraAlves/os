@@ -989,7 +989,7 @@
 
                     <div class="col-md-3" style="float: right">
                         @if(isset($orderService))
-                            <h3 id="total">Total: R$ {{$item->totalUpdate()}}</h3>
+                            <h3 id="total-update">Total: R$ {{$item->totalUpdate()}}</h3>
                         @else
                             <h3 id="total">Total: R$ {{$item->total()}}</h3>
                         @endif

@@ -73,6 +73,11 @@ class Item extends Model implements Transformable
         return $this->items[$id];
     }
 
+    public function getItemEndAddUpdate($id)
+    {
+        return $this->itemsUpdate[$id];
+    }
+
     public function getItemsUpdate()
     {
         return $this->itemsUpdate;
@@ -94,7 +99,7 @@ class Item extends Model implements Transformable
     {
         $total = 0;
         foreach ($this->items as $item) {
-            $subTotal = ($item['item']->valor * $item['qtd']) - ($item['item']->desconto );
+            $subTotal = ($item['item']->valor * $item['qtd']) - ($item['item']->desconto);
             $total += $subTotal;
         }
         return $total;
@@ -104,7 +109,7 @@ class Item extends Model implements Transformable
     {
         $total = 0;
         foreach ($this->itemsUpdate as $item) {
-            $subTotal = $item['item']->valor * $item['qtd'];
+            $subTotal = ($item['item']->pivot->valor * $item['qtd']);
             $total += $subTotal;
         }
         return $total;

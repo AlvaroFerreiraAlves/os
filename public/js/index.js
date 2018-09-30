@@ -145,6 +145,43 @@ function addItem() {
 }
 
 
+function addItemUpdate() {
+    var data = $('#form-add-item').serialize();
+
+    $.ajax({
+        url: "../order/addservice-update",
+        method: "POST",
+        data: data
+    }).done(function (data) {
+
+        desconto;
+
+        if(data.item.desconto){
+
+            desconto = data.item.desconto;
+        }else{
+
+            desconto = '-';
+        }
+
+        product = '<tr id="product-update' + data.item.id + '"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + data.item.valor + '</td><td>' + data.qtd + '</td><td id="descproduct'+ data.item.id +'">'+desconto+'</td><td>' + data.item.valor * data.qtd + '</td>';
+        product += '<td><button type="button" id="delete' + data.item.id + '"class="btn btn-danger btn-delete delete-item" value="' + data.item.id + '">X</button></td></tr>';
+
+        if (!$("#product-update" + data.item.id).length) {
+            $('#products-list-update').append(product);
+            totalUpdate();
+        }
+        else if ($("#product-update" + data.item.id).length) {
+
+            $("#product-update" + data.item.id).replaceWith(product);
+            totalUpdate();
+        }
+
+
+    })
+}
+
+
 
 $(document).on('click', '.delete-item', function () {
     var id = event.target.id;
@@ -162,6 +199,25 @@ $(document).on('click', '.delete-item', function () {
     })
 });
 
+
+
+$(document).on('click', '.delete-item-update', function () {
+    var id = event.target.id;
+    var parametro = $("#" + id).val();
+
+    $.ajax({
+        url: "../order/removeservice-update/" + parametro,
+        method: "POST",
+    }).done(function () {
+
+        var tr = $("#" + id).closest('tr');
+        tr.remove();
+        totalUpdate();
+
+    })
+});
+
+
 function total() {
 
     $.ajax({
@@ -173,6 +229,17 @@ function total() {
     });
 }
 
+
+function totalUpdate() {
+
+    $.ajax({
+        url: "../order/total-update/" + 0,
+        method: "POST",
+        data: ""
+    }).done(function (data) {
+        $("#total-update").text("Total: R$ " + data);
+    });
+}
 
 
 function descontoTotal() {

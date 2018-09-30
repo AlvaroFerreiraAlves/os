@@ -168,6 +168,7 @@ class OrderServicesController extends Controller
         }
 
 
+
         $title = 'Editar';
         $itens = $item->all();
         $tipoOrdem = TypeOrderService::all();
@@ -266,6 +267,7 @@ class OrderServicesController extends Controller
 
     public function showFormOrder(Item $item)
     {
+
         $item->emptySession();
         $title = 'Ordem de Serviço';
         $itens = $item->all();
@@ -325,12 +327,11 @@ class OrderServicesController extends Controller
 
         $items = new Item();
 
-        if (!array_key_exists($id, $items->getItemsUpdate())) {
-            $items->addItemUpdate($item, $qtd);
-            Session::put('itemsUpdate', $items);
-            $item = $items->getItemsUpdate();
-            return end($item);
-        }
+        $items->addItemUpdate($item, $qtd);
+        Session::put('itemsUpdate', $items);
+
+        $item = $items->getItemEndAddUpdate($id);
+        return $item;
 
 
     }
@@ -364,7 +365,7 @@ class OrderServicesController extends Controller
 
         Session::put('itemsUpdate', $items);
 
-        return $items->getItemsUpdate();
+        return redirect()->route('nova.ordem');
 
     }
 
@@ -391,12 +392,6 @@ class OrderServicesController extends Controller
         return $total;
     }
 
-
-    public function teste(Request $request)
-    {
-
-        dd($request->all());
-    }
 
     public function showBudgets(OrderService $orderService)
     {
