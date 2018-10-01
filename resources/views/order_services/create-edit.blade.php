@@ -919,9 +919,13 @@
 
                                     <td>{{$ios['item']->id}}</td>
                                     <td>{{$ios['item']->nome}}</td>
-                                    <td>{{$ios['item']->valor}}</td>
+                                    <td>{{number_format($ios['item']->valor, 2, ',', '')}}</td>
                                     <td>{{$ios['item']->qtd}}</td>
-                                    <td>{{$ios['item']->desconto}}</td>
+                                    @if($ios['item']->desconto)
+                                        <td id="descproduct{{$ios['item']->id}}">{{$ios['item']->desconto}}</td>
+                                    @else
+                                        <td id="descproduct{{$ios['item']->id}}">-</td>
+                                    @endif
                                     <td>{{($ios['item']->valor*$ios['item']->qtd)-($ios['item']->desconto)}}</td>
                                     <td>
                                         <button type="button" id="delete{{$ios['item']->id}}"
@@ -942,7 +946,7 @@
 
                                     <td>{{$ps['item']->id}}</td>
                                     <td>{{$ps['item']->nome}}</td>
-                                    <td>{{$ps['item']->valor}}</td>
+                                    <td>{{number_format($ps['item']->valor, 2, ',', '')}}</td>
                                     <td>{{$ps['qtd']}}</td>
                                     @if($ps['item']->desconto)
                                         <td id="descproduct{{$ps['item']->id}}">{{$ps['item']->desconto}}</td>
