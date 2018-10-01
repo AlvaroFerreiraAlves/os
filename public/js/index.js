@@ -1,3 +1,14 @@
+$(document).ready(function () {
+
+removeAll();
+total();
+});
+
+function removeAll(){
+    $("tr").remove(".product");
+    console.log('oi')
+}
+
 function saveCustomer() {
     var data = $('#form-customer-modal').serialize();
 
@@ -174,7 +185,7 @@ function total() {
     });
 }
 
-function totalUpdate() {
+/*function totalUpdate() {
 
     $.ajax({
         url: "../order/total-update/" + 0,
@@ -183,7 +194,7 @@ function totalUpdate() {
     }).done(function (data) {
         $("#total-update").text("Total: R$ " + data);
     });
-}
+}*/
 
 function descontoTotal() {
     var data = $('#form-desconto-total').serialize();

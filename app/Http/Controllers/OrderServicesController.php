@@ -160,32 +160,31 @@ class OrderServicesController extends Controller
         $itensOrdem = $orderService->itensOrdem;
         $items = new Item();
         $itemsOrderSession = [];
-        foreach ($itensOrdem as $io => $value) {
+        foreach ($itensOrdem as $io) {
 
+                $io->id = $io->id;
+                $io->nome = $io->nome;
+                $io->valor = $io->pivot->valor;
+                $io->qtd = $io->pivot->qtd;
+                $io->desconto = $io->pivot->desconto;
 
-
-            $items->addItem($value, null);
+            unset($io->pivot);
+            $items->addItem($io, $io->qtd);
             Session::put('items', $items);
             $itemsOrderSession = $items->getItems();
+
         }
 
-      //  return $itemsOrderSession;
+          $title = 'Editar';
+          $itens = $item->all();
+          $tipoOrdem = TypeOrderService::all();
+          $companies = Company::all();
+          $customers = Customer::all();
+          $tecnicos = UserType::find(3);
+          $tecnicos = $tecnicos->users;
+          $category = CategoryItems::all();
 
-
-
-
-
-
-        $title = 'Editar';
-        $itens = $item->all();
-        $tipoOrdem = TypeOrderService::all();
-        $companies = Company::all();
-        $customers = Customer::all();
-        $tecnicos = UserType::find(3);
-        $tecnicos = $tecnicos->users;
-        $category = CategoryItems::all();
-
-        return view('order_services.create-edit', compact('orderService', 'title', 'tipoOrdem', 'companies', 'customers', 'tecnicos', 'itens', 'item', 'itemsOrderSession','category'));
+          return view('order_services.create-edit', compact('orderService', 'title', 'tipoOrdem', 'companies', 'customers', 'tecnicos', 'itens', 'item', 'itemsOrderSession','category'));
 
     }
 
@@ -209,7 +208,7 @@ class OrderServicesController extends Controller
 
 
             $data = [];
-            $dataform = $item->getItemsUpdate();
+            $dataform = $item->getItems();
             foreach ($dataform as $d) {
                 $data[$d['item']->id] = [
                     'qtd' => $d['qtd'],
@@ -222,7 +221,7 @@ class OrderServicesController extends Controller
 
             $ordem->itensOrdem()->sync($data);
 
-            $item->emptySessionUpdate();
+            $item->emptySession();
 
             $response = [
                 'message' => 'Ordem de serviço atualizada.',
@@ -275,7 +274,7 @@ class OrderServicesController extends Controller
     public function showFormOrder(Item $item)
     {
 
-        //$item->emptySession();
+        $item->emptySession();
         $title = 'Ordem de Serviço';
         $itens = $item->all();
         $prodService = $item->getItems();
@@ -329,7 +328,7 @@ class OrderServicesController extends Controller
 
         Session::put('items', $items);
 
-        return redirect()->route('nova.ordem');
+        return $item->getItems();
 
     }
 
@@ -345,7 +344,7 @@ class OrderServicesController extends Controller
 
         Session::put('itemsUpdate', $items);
 
-        return redirect()->route('nova.ordem');
+        return $item->getItems();
 
     }
 
@@ -398,9 +397,9 @@ class OrderServicesController extends Controller
         $technician = $ordemOrcamento->technician;
 
         $itemOrdem = new ItemsOrderService();
-        $itemOrdem = $itemOrdem->where('id_ordem_servico','=',$ordemOrcamento->id)->get();
+        $itemOrdem = $itemOrdem->where('id_ordem_servico', '=', $ordemOrcamento->id)->get();
 
-        foreach ($itemOrdem as $i){
+        foreach ($itemOrdem as $i) {
             $descontoTotal = $descontoTotal + $i->desconto;
         }
 
@@ -410,7 +409,7 @@ class OrderServicesController extends Controller
         } else {
             $title = 'Detalhes da Ordem de serviço';
         }
-        return view('order_services.details', compact('title', 'ordemOrcamento', 'company', 'customer', 'items', 'technician', 'total','descontoTotal'));
+        return view('order_services.details', compact('title', 'ordemOrcamento', 'company', 'customer', 'items', 'technician', 'total', 'descontoTotal'));
 
     }
 

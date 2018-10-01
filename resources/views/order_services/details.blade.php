@@ -98,10 +98,8 @@
                           <h3 id="total">Total: R$ {{$total - $descontoTotal}}</h3>
                       </div>
 
-
                   </div>
               </div>
-
 
           </div>
 

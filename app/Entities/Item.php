@@ -105,7 +105,7 @@ class Item extends Model implements Transformable
         return $total;
     }
 
-   public function totalUpdate()
+/*   public function totalUpdate()
     {
         $total = 0;
         foreach ($this->items as $item) {
@@ -113,7 +113,7 @@ class Item extends Model implements Transformable
             $total += $subTotal;
         }
         return $total;
-    }
+    }*/
 
 
     public function emptySession()

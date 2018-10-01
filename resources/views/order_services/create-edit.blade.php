@@ -915,16 +915,16 @@
                         @if(isset($orderService))
                             <tbody id="products-list" name="products-list">
                             @foreach($itemsOrderSession as $ios)
-                                <tr id="product{{$ios['item']->id}}">
+                                <tr class="product-update" id="product{{$ios['item']->id}}">
 
                                     <td>{{$ios['item']->id}}</td>
                                     <td>{{$ios['item']->nome}}</td>
-                                    <td>{{$ios['item']->pivot->valor}}</td>
-                                    <td>{{$ios['item']->pivot->qtd}}</td>
-                                    <td>{{$ios['item']->pivot->desconto}}</td>
-                                    <td>{{($ios['item']->pivot->valor*$ios['item']->pivot->qtd)-($ios['item']->pivot->desconto)}}</td>
+                                    <td>{{$ios['item']->valor}}</td>
+                                    <td>{{$ios['item']->qtd}}</td>
+                                    <td>{{$ios['item']->desconto}}</td>
+                                    <td>{{($ios['item']->valor*$ios['item']->qtd)-($ios['item']->desconto)}}</td>
                                     <td>
-                                        <button type="button" id="delete-update{{$ios['item']->id}}"
+                                        <button type="button" id="delete{{$ios['item']->id}}"
                                                 class="btn btn-danger btn-delete delete-item"
                                                 value="{{$ios['item']->id}}">X
                                         </button>
@@ -938,7 +938,7 @@
                         @else
                             <tbody id="products-list" name="products-list">
                             @foreach($prodService as $ps)
-                                <tr id="product{{$ps['item']->id}}">
+                                <tr class="product" id="product{{$ps['item']->id}}">
 
                                     <td>{{$ps['item']->id}}</td>
                                     <td>{{$ps['item']->nome}}</td>
@@ -989,7 +989,7 @@
 
                     <div class="col-md-3" style="float: right">
                         @if(isset($orderService))
-                            <h3 id="total">Total: R$ {{$item->totalUpdate()}}</h3>
+                            <h3 id="total">Total: R$ {{$item->total()}}</h3>
                         @else
                             <h3 id="total">Total: R$ {{$item->total()}}</h3>
                         @endif
