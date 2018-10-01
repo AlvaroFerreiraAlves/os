@@ -155,17 +155,24 @@ class OrderServicesController extends Controller
      */
     public function edit(Item $item, $id)
     {
-        $item->emptySessionUpdate();
+        $item->emptySession();
         $orderService = $this->repository->find($id);
         $itensOrdem = $orderService->itensOrdem;
         $items = new Item();
         $itemsOrderSession = [];
         foreach ($itensOrdem as $io => $value) {
 
-            $items->addItemUpdate($value, $value->pivot->qtd);
-            Session::put('itemsUpdate', $items);
-            $itemsOrderSession = $items->getItemsUpdate();
+
+
+            $items->addItem($value, null);
+            Session::put('items', $items);
+            $itemsOrderSession = $items->getItems();
         }
+
+      //  return $itemsOrderSession;
+
+
+
 
 
 
@@ -268,7 +275,7 @@ class OrderServicesController extends Controller
     public function showFormOrder(Item $item)
     {
 
-        $item->emptySession();
+        //$item->emptySession();
         $title = 'Ordem de Serviço';
         $itens = $item->all();
         $prodService = $item->getItems();
@@ -309,33 +316,6 @@ class OrderServicesController extends Controller
 //        }
 
     }
-
-    public function addServiceUpdate(Request $request)
-    {
-
-
-        $id = $request->input('itens');
-        $qtd = $request->qtd;
-
-        $item = Item::find($id);
-
-        $item->valor = $request->valor;
-
-
-        if (!$item)
-            return redirect()->back();
-
-        $items = new Item();
-
-        $items->addItemUpdate($item, $qtd);
-        Session::put('itemsUpdate', $items);
-
-        $item = $items->getItemEndAddUpdate($id);
-        return $item;
-
-
-    }
-
 
     public function remove($id)
     {

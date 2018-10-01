@@ -53,7 +53,7 @@ class Item extends Model implements Transformable
         }
     }
 
-    public function addItemUpdate(Item $itemUpdate, $qtd){
+/*    public function addItemUpdate(Item $itemUpdate, $qtd){
         if(isset($this->itemsUpdate[$itemUpdate->id])){
         }else{
             $this->itemsUpdate[$itemUpdate->id] = [
@@ -61,7 +61,7 @@ class Item extends Model implements Transformable
                 'qtd'=> $qtd,
             ];
         }
-    }
+    }*/
 
     public function getItems()
     {
@@ -73,15 +73,15 @@ class Item extends Model implements Transformable
         return $this->items[$id];
     }
 
-    public function getItemEndAddUpdate($id)
+/*    public function getItemEndAddUpdate($id)
     {
         return $this->itemsUpdate[$id];
-    }
+    }*/
 
-    public function getItemsUpdate()
+/*    public function getItemsUpdate()
     {
         return $this->itemsUpdate;
-    }
+    }*/
 
     public function removeItems(Item $item)
     {
@@ -89,11 +89,11 @@ class Item extends Model implements Transformable
             unset($this->items[$item->id]);
     }
 
-    public function removeItemsUpdate(Item $itemUpdate)
+/*    public function removeItemsUpdate(Item $itemUpdate)
     {
         if( isset($this->itemsUpdate[$itemUpdate->id]) )
             unset($this->itemsUpdate[$itemUpdate->id]);
-    }
+    }*/
 
     public function total()
     {
@@ -105,11 +105,11 @@ class Item extends Model implements Transformable
         return $total;
     }
 
-    public function totalUpdate()
+   public function totalUpdate()
     {
         $total = 0;
-        foreach ($this->itemsUpdate as $item) {
-            $subTotal = ($item['item']->pivot->valor * $item['qtd']);
+        foreach ($this->items as $item) {
+            $subTotal = ($item['item']->pivot->valor *$item['item']->pivot->qtd);
             $total += $subTotal;
         }
         return $total;
@@ -121,10 +121,10 @@ class Item extends Model implements Transformable
             Session::forget('items');
     }
 
-    public function emptySessionUpdate()
+/*    public function emptySessionUpdate()
     {
         Session::forget('itemsUpdate');
-    }
+    }*/
 
 
 

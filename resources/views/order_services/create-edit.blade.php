@@ -874,7 +874,7 @@
                                     <label class="col-md-4 control-label" for="btn-add-item"></label>
                                     <div class="col-md-4">
                                         <button type="button" id="btn-add-item" name="btn-add-item" class="btn btn-primary"
-                                                onclick="addItemUpdate()">Adicionar
+                                                onclick="addItem()">Adicionar
                                         </button>
                                     </div>
                                 </div>
@@ -913,9 +913,9 @@
                         </tr>
                         </thead>
                         @if(isset($orderService))
-                            <tbody id="products-list-update" name="products-list-update">
+                            <tbody id="products-list" name="products-list">
                             @foreach($itemsOrderSession as $ios)
-                                <tr id="product-update{{$ios['item']->id}}">
+                                <tr id="product{{$ios['item']->id}}">
 
                                     <td>{{$ios['item']->id}}</td>
                                     <td>{{$ios['item']->nome}}</td>
@@ -925,7 +925,7 @@
                                     <td>{{($ios['item']->pivot->valor*$ios['item']->pivot->qtd)-($ios['item']->pivot->desconto)}}</td>
                                     <td>
                                         <button type="button" id="delete-update{{$ios['item']->id}}"
-                                                class="btn btn-danger btn-delete delete-item-update"
+                                                class="btn btn-danger btn-delete delete-item"
                                                 value="{{$ios['item']->id}}">X
                                         </button>
 
@@ -989,7 +989,7 @@
 
                     <div class="col-md-3" style="float: right">
                         @if(isset($orderService))
-                            <h3 id="total-update">Total: R$ {{$item->totalUpdate()}}</h3>
+                            <h3 id="total">Total: R$ {{$item->totalUpdate()}}</h3>
                         @else
                             <h3 id="total">Total: R$ {{$item->total()}}</h3>
                         @endif
