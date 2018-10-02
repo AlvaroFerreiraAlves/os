@@ -17,6 +17,10 @@
     background: #3c8dbc;
 }
 
+.navbar-inverse .navbar-brand {
+    color: #fff;
+}
+
 .logo{
     width: 13%;
     height: 125px;

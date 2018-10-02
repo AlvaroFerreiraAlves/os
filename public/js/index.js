@@ -6,7 +6,7 @@ $(document).ready(function () {
         data: select
     }).done(function (select) {
 
-        $("#valor").val(select);
+        $("#valor").val(parseFloat(select).toFixed(2));
         $("#qtd").val(1);
     });
     removeAll();
@@ -29,7 +29,7 @@ $(document).on('click', '#itens', function () {
     }).done(function (parametro) {
 
         console.log(parametro);
-        $("#valor").val(parametro);
+        $("#valor").val(parseFloat(parametro).toFixed(2));
         $("#qtd").val(1);
     });
 });
@@ -144,6 +144,8 @@ function hideMessage() {
     $('.print-success-msg').hide();
 }
 
+
+
 function addItem() {
     var data = $('#form-add-item').serialize();
 
@@ -160,10 +162,10 @@ function addItem() {
             desconto = data.item.desconto;
         } else {
 
-            desconto = '-';
+            desconto = 0;
         }
 
-        product = '<tr id="product' + data.item.id + '"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + data.item.valor.toString().replace(/(\d)(\d{2})$/,"$1,$2")+ '</td><td>' + data.qtd + '</td><td id="descproduct' + data.item.id + '">' + desconto + '</td><td>' + data.item.valor * data.qtd + '</td>';
+        product = '<tr id="product' + data.item.id + '"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + parseFloat(data.item.valor).toFixed(2) + '</td><td>' + data.qtd + '</td><td id="descproduct' + data.item.id + '">' + parseFloat(desconto).toFixed(2) + '</td><td>' + parseFloat(data.item.valor * data.qtd).toFixed(2) + '</td>';
         product += '<td><button type="button" id="delete' + data.item.id + '"class="btn btn-danger btn-delete delete-item" value="' + data.item.id + '">X</button></td></tr>';
 
         if (!$("#product" + data.item.id).length) {
@@ -205,7 +207,7 @@ function total() {
         method: "POST",
         data: ""
     }).done(function (data) {
-        $("#total").text("Total: R$ " + data);
+        $("#total").text("Total: R$ " + parseFloat(data).toFixed(2));
     });
 }
 
@@ -220,7 +222,7 @@ function descontoTotal() {
 
         for (var d in data) {
             console.log(data[d].item.id);
-            product = '<td id="descproduct' + data[d].item.id + '">' + data[d].item.desconto + '</td>';
+            product = '<td id="descproduct' + data[d].item.id + '">' + parseFloat(data[d].item.desconto).toFixed(2) + '</td>';
 
             if ($("#descproduct" + data[d].item.id).length) {
 

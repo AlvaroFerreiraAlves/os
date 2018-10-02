@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{route('painel')}}">SB Admin</a>
+        <a class="navbar-brand" href="{{route('painel')}}"><b>OS</b></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -26,7 +26,7 @@
             </li>
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users"></i>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i>
                    Produtos / Serviços <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{route('cadastrar.item')}}">Cadastrar Produto/Serviço </a></li>
@@ -36,7 +36,7 @@
             </li>
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users"></i>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-file"></i>
                     Ordens de Serviço / Orçamentos <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href={{route('nova.ordem')}}>Nova ordem/orçamento </a></li>
@@ -46,7 +46,7 @@
             </li>
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users"></i>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-building-o"></i>
                     Minha(s) empresa(s) <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{route('cadastrar.empresa')}}">Cadastrar empresa</a></li>
@@ -55,7 +55,7 @@
             </li>
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users"></i>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
                     Usúarios <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('cadastrar.usuario') }}">Cadastrar usuário</a></li>
@@ -65,10 +65,8 @@
 
 
 
-            <li><a href="#"><i class="fa fa-font"></i> Typography</a></li>
-            <li><a href="#"><i class="fa fa-desktop"></i> Bootstrap Elements</a></li>
             <li><a href="#"><i class="fa fa-wrench"></i> Bootstrap Grid</a></li>
-            <li><a href="#"><i class="fa fa-file"></i> Blank Page</a></li>
+
 
         </ul>
 

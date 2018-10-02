@@ -377,9 +377,9 @@ class OrderServicesController extends Controller
         $title = 'Orçamentos';
         $budgets = $orderService->all();
 
-        foreach ($budgets as $budget) {
+        /*foreach ($budgets as $budget) {
             echo $budget->technician->name;
-        }
+        }*/
 
 
         return view('order_services.list-budgets', compact('title', 'budgets'));

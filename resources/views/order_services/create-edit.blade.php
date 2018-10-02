@@ -922,11 +922,11 @@
                                     <td>{{number_format($ios['item']->valor, 2, ',', '')}}</td>
                                     <td>{{$ios['item']->qtd}}</td>
                                     @if($ios['item']->desconto)
-                                        <td id="descproduct{{$ios['item']->id}}">{{$ios['item']->desconto}}</td>
+                                        <td id="descproduct{{$ios['item']->id}}">{{number_format($ios['item']->desconto, 2, ',', '')}}</td>
                                     @else
-                                        <td id="descproduct{{$ios['item']->id}}">-</td>
+                                        <td id="descproduct{{$ios['item']->id}}">{{number_format(0, 2, ',', '')}}</td>
                                     @endif
-                                    <td>{{($ios['item']->valor*$ios['item']->qtd)-($ios['item']->desconto)}}</td>
+                                    <td>{{number_format(($ios['item']->valor*$ios['item']->qtd)-($ios['item']->desconto), 2, ',', '')}}</td>
                                     <td>
                                         <button type="button" id="delete{{$ios['item']->id}}"
                                                 class="btn btn-danger btn-delete delete-item"
@@ -949,11 +949,11 @@
                                     <td>{{number_format($ps['item']->valor, 2, ',', '')}}</td>
                                     <td>{{$ps['qtd']}}</td>
                                     @if($ps['item']->desconto)
-                                        <td id="descproduct{{$ps['item']->id}}">{{$ps['item']->desconto}}</td>
+                                        <td id="descproduct{{$ps['item']->id}}">{{number_format($ps['item']->desconto, 2, ',', '')}}</td>
                                     @else
-                                        <td id="descproduct{{$ps['item']->id}}">-</td>
+                                        <td id="descproduct{{$ps['item']->id}}">{{number_format(0, 2, ',', '')}}</td>
                                     @endif
-                                    <td>{{($ps['qtd']*$ps['item']->valor)-($ps['item']->desconto)}}</td>
+                                    <td>{{number_format(($ps['qtd']*$ps['item']->valor)-($ps['item']->desconto), 2, ',', '')}}</td>
                                     <td>
                                         <button type="button" id="delete{{$ps['item']->id}}"
                                                 class="btn btn-danger btn-delete delete-item"

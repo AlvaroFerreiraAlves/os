@@ -33,7 +33,7 @@
 
               </div>
               <div class="numero-ordem col-md-6">
-                  <h5 style="float: right">{{$ordemOrcamento->created_at}}</h5>
+                  <h5 style="float: right">{{$ordemOrcamento->created_at->format('d-m-Y | H:i:s')}}</h5>
               </div>
               <div class="cliente col-md-12">
                   <h5>Cliente: {{$customer->nome}}</h5>
@@ -93,9 +93,9 @@
                       <hr>
 
                       <div class="col-md-3" style="float: right">
-                          <h5 id="total">Subtotal: R$ {{$total}}</h5>
-                          <h5 id="total">Desconto: R$ {{$descontoTotal}}</h5>
-                          <h3 id="total">Total: R$ {{$total - $descontoTotal}}</h3>
+
+                          <h5>Desconto: R$ {{$descontoTotal}}</h5>
+                          <h3>Total: R$ {{$total - $descontoTotal}}</h3>
                       </div>
 
                   </div>
