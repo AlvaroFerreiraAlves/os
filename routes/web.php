@@ -19,7 +19,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('cadastrar-usuario', 'Auth\RegisterController@showRegistrationForm')->name('cadastrar.usuario');
+Route::get('cadastrar-usuario', 'UsersController@showRegistrationForm')->name('cadastrar.usuario')->middleware('admin');
+Route::post('user/store', 'UsersController@store')->name('inserir.usuario');
 Route::get('usuario/{id}/edit', 'UsersController@edit');
 Route::put('usuario/{id}/update', 'UsersController@update');
 Route::get('listar-usuarios', 'UsersController@showUsers')->name('listar.usuarios');
@@ -81,5 +82,7 @@ Route::post('order/addservice-update', 'OrderServicesController@addServiceUpdate
 
 Route::post('desconto-total', 'OrderServicesController@descontoTotal')->name('desconto.total');
 Route::get('remove-all', 'OrderServicesController@removeAll')->name('remove.all');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout.os');
+
 
 

@@ -2,13 +2,21 @@
 
 @section('content')
 
-
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     @if( isset($user))
         <form class="form-horizontal" method="post" action="{{ url('usuario/'.$user->id.'/update') }}">
             {!! method_field('PUT') !!}
             @else
-                <form class="form-horizontal" method="post" action="{{ route('register')}}">
+                <form class="form-horizontal" method="post" action="{{ route('inserir.usuario')}}">
                     @endif
                     {{csrf_field()}}
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">

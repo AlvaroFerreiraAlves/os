@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Entities\TypeOrderService;
 use App\Entities\UserType;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -63,17 +64,29 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(UserCreateRequest $request)
+    public function store(Request $request)
     {
 
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $user = $this->repository->create($request->all());
+            $user = $this->repository->create([
+                'name' => $request['name'],
+                'cpf' => $request['cpf'],
+                'email' => $request['email'],
+                'password' => bcrypt($request['password']),
+                'endereco' => $request['endereco'],
+                'telefone' => $request['telefone'],
+                'status' => $request['status'],
+            ]);
+            $dataform = $request['tipousuario'];
+
+            $user->tipoUsuario()->sync($dataform);
+
 
             $response = [
-                'message' => 'User created.',
+                'message' => 'Usuário cadastrado.',
                 'data'    => $user->toArray(),
             ];
 
@@ -212,5 +225,13 @@ class UsersController extends Controller
         }
 
         return redirect()->back()->with('message', 'User deleted.');
+    }
+
+    public function showRegistrationForm()
+    {
+        $title = 'Cadastro de usuário';
+        $tipoUsuario = UserType::all();
+        return view('auth.register', compact('tipoUsuario','title'));
+
     }
 }

@@ -17,6 +17,11 @@
     background: #3c8dbc;
 }
 
+.navbar-inverse {
+    background-color: #3c8dbc;
+    border-color: #3c8dbc;
+}
+
 .navbar-inverse .navbar-brand {
     color: #fff;
 }
