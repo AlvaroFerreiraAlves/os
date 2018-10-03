@@ -32,7 +32,7 @@ class UsersController extends Controller
     public function __construct(UserRepository $repository, UserValidator $validator)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
+        $this->validator = $validator;
     }
 
 
@@ -54,7 +54,7 @@ class UsersController extends Controller
             ]);
         }
 
-        return view('users.list-users',compact('title','users'));
+        return view('users.list-users', compact('title', 'users'));
     }
 
     /**
@@ -87,7 +87,7 @@ class UsersController extends Controller
 
             $response = [
                 'message' => 'Usuário cadastrado.',
-                'data'    => $user->toArray(),
+                'data' => $user->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -99,7 +99,7 @@ class UsersController extends Controller
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'error'   => true,
+                    'error' => true,
                     'message' => $e->getMessageBag()
                 ]);
             }
@@ -144,10 +144,10 @@ class UsersController extends Controller
         $title = 'Editar usuário';
         $user = $this->repository->find($id);
         $tipoUsuario = UserType::all();
-        $userTypeUser =  $user->tipoUsuario;
+        $userTypeUser = $user->tipoUsuario;
         $typeOrder = TypeOrderService::all();
 
-        return view('auth.register', compact('title','user','tipoUsuario','userTypeUser','typeOrder'));
+        return view('auth.register', compact('title', 'user', 'tipoUsuario', 'userTypeUser', 'typeOrder'));
     }
 
 
@@ -155,7 +155,7 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  UserUpdateRequest $request
-     * @param  string            $id
+     * @param  string $id
      *
      * @return Response
      */
@@ -166,9 +166,9 @@ class UsersController extends Controller
 
             $dataForm = $request->all();
 
-            if( isset($dataForm['email']) )
+            if (isset($dataForm['email']))
                 unset($dataForm['email']);
-            if( isset($dataForm['cpf']) )
+            if (isset($dataForm['cpf']))
                 unset($dataForm['cpf']);
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
@@ -181,7 +181,7 @@ class UsersController extends Controller
 
             $response = [
                 'message' => 'User updated.',
-                'data'    => $user->toArray(),
+                'data' => $user->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -195,7 +195,7 @@ class UsersController extends Controller
             if ($request->wantsJson()) {
 
                 return response()->json([
-                    'error'   => true,
+                    'error' => true,
                     'message' => $e->getMessageBag()
                 ]);
             }
@@ -231,7 +231,7 @@ class UsersController extends Controller
     {
         $title = 'Cadastro de usuário';
         $tipoUsuario = UserType::all();
-        return view('auth.register', compact('tipoUsuario','title'));
+        return view('auth.register', compact('tipoUsuario', 'title'));
 
     }
 }

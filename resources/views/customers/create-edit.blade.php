@@ -13,7 +13,7 @@
 
 
 
-    <form class="form-horizontal" id="form-customer">
+    <form class="form-horizontal" id="form-customer-modal">
         {{csrf_field()}}
         <fieldset>
 

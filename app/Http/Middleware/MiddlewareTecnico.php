@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\User;
 use Closure;
 
-class MiddlewareAdmin
+class MiddlewareTecnico
 {
     /**
      * Handle an incoming request.
@@ -21,13 +21,12 @@ class MiddlewareAdmin
         $typeUser = $user->tipoUsuario;
         foreach ($typeUser as $t){
             $typeUser =  $t->pivot->id_tipo_usuario;
-            if($typeUser == 1){
+            if($typeUser == 3 || $typeUser == 1){
                 break;
             }else{
                 return redirect('/');
             }
         }
         return $next($request);
-
     }
 }

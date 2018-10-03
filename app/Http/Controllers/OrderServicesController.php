@@ -131,10 +131,11 @@ class OrderServicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showOrderTechnician()
     {
-        $orderService = $this->repository->find($id);
 
+        $orderService = new OrderService();
+        $orderService = $orderService->where('tecnico','=', auth()->user()->id)->get();
         if (request()->wantsJson()) {
 
             return response()->json([
@@ -142,7 +143,8 @@ class OrderServicesController extends Controller
             ]);
         }
 
-        return view('orderServices.show', compact('orderService'));
+        return $orderService;
+       // return view('orderServices.show', compact('orderService'));
     }
 
 
@@ -375,12 +377,18 @@ class OrderServicesController extends Controller
     public function showBudgets(OrderService $orderService)
     {
         $title = 'Orçamentos';
-        $budgets = $orderService->all();
+        foreach (auth()->user()->tipoUsuario as $t){
+            $tipoUsuario = $t->pivot->id_tipo_usuario;
+            if ($tipoUsuario == 3 && count(auth()->user()->tipoUsuario) == 1){
+                $budgets = $orderService->where('tecnico','=',auth()->user()->id)->get();
+            }else{
+                $budgets = $orderService->all();
+            }
+        }
 
         /*foreach ($budgets as $budget) {
             echo $budget->technician->name;
         }*/
-
 
         return view('order_services.list-budgets', compact('title', 'budgets'));
 
