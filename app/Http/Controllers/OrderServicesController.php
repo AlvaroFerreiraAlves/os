@@ -394,6 +394,27 @@ class OrderServicesController extends Controller
 
     }
 
+
+    public function showOrders(OrderService $orderService)
+    {
+        $title = 'Ordens de serviço';
+        foreach (auth()->user()->tipoUsuario as $t){
+            $tipoUsuario = $t->pivot->id_tipo_usuario;
+            if ($tipoUsuario == 3 && count(auth()->user()->tipoUsuario) == 1){
+                $orders = $orderService->where('tecnico','=',auth()->user()->id)->get();
+            }else{
+                $orders = $orderService->all();
+            }
+        }
+
+        /*foreach ($budgets as $budget) {
+            echo $budget->technician->name;
+        }*/
+
+        return view('order_services.list-orders', compact('title', 'orders'));
+
+    }
+
     public function details(OrderService $orderService, $id)
     {
         $descontoTotal = 0;

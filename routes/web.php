@@ -51,6 +51,7 @@ Route::group(['middleware'=>['auth']],function (){
     Route::get('detalhes-item/{id}', 'ItemsController@details')->name('detalhes.item');
     Route::get('detalhes-empresa/{id}', 'CompaniesController@details')->name('detalhes.empresa');
     Route::get('listar-orcamentos', 'OrderServicesController@showBudgets')->name('listar.orcamentos');
+    Route::get('listar-ordens', 'OrderServicesController@showOrders')->name('listar.ordens');
     Route::get('detalhes-ordem/{id}', 'OrderServicesController@details')->name('detalhes.ordem');
     Route::post('logout', 'Auth\LoginController@logout')->name('logout.os');
     Route::get('listar-empresa', 'CompaniesController@showCustomers')->name('listar.empresa');
