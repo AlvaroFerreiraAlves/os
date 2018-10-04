@@ -29,6 +29,8 @@ Route::group(['middleware'=>['recepcionista','auth']],function (){
 
     Route::get('items/destroy/{id}', 'ItemsController@destroy')->name('excluir.item');
 
+    Route::get('order-budget/destroy/{id}', 'OrderServicesController@destroy')->name('excluir.ordem');
+
     Route::get('cadastrar-empresa', 'CompaniesController@showFormCustomer')->name('cadastrar.empresa');
     Route::post('companies/store', 'CompaniesController@store');
     Route::get('editar-empresa/{id}', 'CompaniesController@edit')->name('editar.empresa');

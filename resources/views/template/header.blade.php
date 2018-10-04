@@ -47,7 +47,6 @@
                     <ul class="dropdown-menu">
 
                         <li><a href={{route('nova.ordem')}}>Nova ordem/orçamento </a></li>
-                        <li><a href="#">Visualizar Ordens de serviço</a></li>
                         <li><a href="{{route('listar.ordens')}}">Visualizar Ordens</a></li>
                         <li><a href="{{route('listar.orcamentos')}}">Visualizar Orçamentos</a></li>
 

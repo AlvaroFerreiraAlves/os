@@ -27,26 +27,28 @@
                 <tbody id="customers-list" name="customers-list">
                 @foreach($budgets as $budget)
                     @if($budget->id_tipo_ordem_servico == 1)
-                        <tr>
+                        @if($budget->status == 1)
+                            <tr>
 
-                            <td>{{$budget->id}}</td>
+                                <td>{{$budget->id}}</td>
 
-                            <td>{{$budget->cliente->nome}}</td>
+                                <td>{{$budget->cliente->nome}}</td>
 
-                            <td>{{$budget->technician->name}}</td>
-                            <td>{{$budget->dt_prox_manut}}</td>
-
-
-
-                            <td>
-                                <a href="{{route("detalhes.ordem", $budget->id)}}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Detalhes</a>
-
-                                <a href="{{route("excluir.cliente", $budget->id)}}" class="btn btn-danger" onclick="return confirm('Confirmar exclusão de registro?');"><i class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
-
-                            </td>
+                                <td>{{$budget->technician->name}}</td>
+                                <td>{{$budget->dt_prox_manut}}</td>
 
 
-                        </tr>
+                                <td>
+                                    <a href="{{route("detalhes.ordem", $budget->id)}}" class="btn btn-primary"><i
+                                                class="fa fa-eye" aria-hidden="true"></i> Detalhes</a>
+                                    <a href="{{route("excluir.ordem", $budget->id)}}" class="btn btn-danger"
+                                       onclick="return confirm('Confirmar exclusão de registro?');"><i
+                                                class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
+                                </td>
+
+
+                            </tr>
+                        @endif
                     @endif
                 @endforeach
                 </tbody>

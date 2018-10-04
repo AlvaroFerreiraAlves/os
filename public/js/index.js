@@ -58,7 +58,7 @@ function saveCustomer() {
 
 
 function updateCustomer(id) {
-    var data = $('#form-customer').serialize();
+    var data = $('#form-customer-modal').serialize();
 
     $.ajax({
         url: "../customer/update/" + id,

@@ -258,19 +258,14 @@ class OrderServicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy(OrderService $orderService, $id)
     {
-        $deleted = $this->repository->delete();
+        $orderService = $orderService->find($id);
+        $orderService = $orderService->update(['status'=>0]);
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'message' => 'OrderService deleted.',
-                'deleted' => $deleted,
-            ]);
+        if ($orderService) {
+            return redirect()->back()->with('message', 'Ordem de serviço/Orçamento Excluído.');
         }
-
-        return redirect()->back()->with('message', 'OrderService deleted.');
     }
 
     public function showFormOrder(Item $item)
