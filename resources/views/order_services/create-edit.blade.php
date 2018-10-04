@@ -583,39 +583,26 @@
 @section('content')
 
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <div class="alert alert-danger print-error-msg-order" style="display:none">
+        <ul></ul>
+    </div>
 
-    @if(session()->has('message'))
-        <div class="alert alert-success">
-            {{ session()->get('message') }}
-        </div>
-    @endif
+    <div class="alert alert-success print-success-msg-order" style="display:none">
+        <ul></ul>
+    </div>
 
     <ul class="nav nav-tabs nav-justified">
-        <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
-        <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
+        <li class="active"><a data-toggle="pill" href="#home">Dados gerais Ordem de serviço / Orçamento</a></li>
+        <li><a data-toggle="pill" href="#menu1">Adicionar Produto / Serviço</a></li>
     </ul>
     <hr>
 
     <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
 
-            @if(isset($orderService))
 
-                <form class="form-horizontal" name="formupdate" method="post"
-                      action="{{route("atualizar.item.ordem",$orderService->id)}}">
-                    {!! method_field('PUT') !!}
-                    @else
-                        <form class="form-horizontal" method="post" action="{{route('cadastrar.ordem')}}" name="form2">
-                            @endif
+                        <form class="form-horizontal" id="form-ordens">
+
                             {{csrf_field()}}
 
 
@@ -678,17 +665,21 @@
                                             <select id="id_cliente" name="id_cliente" class="form-control">
                                                 @if(isset($orderService))
                                                     @forelse($customers as $customer)
+                                                        @if($customer->status == 1)
                                                         <option value="{{$customer->id}}"
                                                                 @if($customer->id == $orderService->id_cliente)
                                                                 selected
                                                                 @endif
                                                         >{{$customer->nome}}</option>
+                                                        @endif
                                                     @empty
                                                         não há dados
                                                     @endforelse
                                                 @else
                                                     @forelse($customers as $customer)
+                                                        @if($customer->status == 1)
                                                         <option value="{{$customer->id}}">{{$customer->nome}}</option>
+                                                        @endif
                                                     @empty
                                                         não há dados
                                                     @endforelse
@@ -707,17 +698,21 @@
                                         <select id="tecnico" name="tecnico" class="form-control">
                                             @if(isset($orderService))
                                                 @forelse($tecnicos as $tecnico)
+                                                    @if($tecnico->status == 1)
                                                     <option value="{{$tecnico->id}}"
                                                             @if($tecnico->id == $orderService->tecnico)
                                                             selected
                                                             @endif
                                                     >{{$tecnico->name}}</option>
+                                                    @endif
                                                 @empty
                                                     não há dados
                                                 @endforelse
                                             @else
                                                 @forelse($tecnicos as $tecnico)
+                                                    @if($tecnico->status == 1)
                                                     <option value="{{$tecnico->id}}">{{$tecnico->name}}</option>
+                                                    @endif
                                                 @empty
                                                     não há dados
                                                 @endforelse
@@ -837,7 +832,9 @@
                                 <div class="item input-group">
                                     <select id="itens" name="itens" class="form-control">
                                         @foreach($itens as $i)
+                                            @if($i->status  == 1)
                                             <option id="option" value="{{$i->id}}">{{$i->nome}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     <div class="input-group-btn">
@@ -915,7 +912,7 @@
                         @if(isset($orderService))
                             <tbody id="products-list" name="products-list">
                             @foreach($itemsOrderSession as $ios)
-                                <tr class="product-update" id="product{{$ios['item']->id}}">
+                                <tr class="product" id="product{{$ios['item']->id}}">
 
                                     <td>{{$ios['item']->id}}</td>
                                     <td>{{$ios['item']->nome}}</td>
@@ -1003,9 +1000,12 @@
 
             <hr>
             @if(isset($orderService))
-                <input class="btn btn-success" type="submit" value="Salvar" onClick="document.formupdate.submit()">
-            @else
-                <input class="btn btn-success" type="submit" value="Salvar" onClick="document.form2.submit()">
+                <button type="button" id="update-item" name="update-item" onclick="updateOrders({{$orderService->id}})"
+                        class="btn btn-success">Atualizar
+                </button>            @else
+                <button type="button" id="save-orders" name="save-orders" onclick="saveOrders()"
+                        class="btn btn-success">Salvar
+                </button>
             @endif
         </div>
         {{--<div id="menu2" class="tab-pane fade">

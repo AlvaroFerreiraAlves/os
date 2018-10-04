@@ -78,6 +78,59 @@ function updateCustomer(id) {
 }
 
 
+function saveOrders() {
+    var data = $('#form-ordens').serialize();
+
+    $.ajax({
+        url: "../cadastrar-ordem",
+        method: "POST",
+        data: data,
+    }).done(function (data) {
+
+        if ($.isEmptyObject(data.error_description)) {
+            printSuccessMsgOrder(data);
+            $("#form-ordens").trigger('reset');
+            $('.print-error-msg-order').hide();
+            $("tr").remove(".product");
+            total();
+            $('html, body').scrollTop(0);
+
+
+        } else {
+            printErrorMsgOrder(data.error_description);
+            $('.print-success-msg-order').hide();
+            $('html, body').scrollTop(0);
+
+        }
+    })
+}
+
+
+function updateOrders(id) {
+    var data = $('#form-ordens').serialize();
+
+    $.ajax({
+        url: "../update-item/" + id,
+        method: "PUT",
+        data: data,
+    }).done(function (data) {
+
+        if ($.isEmptyObject(data.error_description)) {
+            printSuccessMsgOrder(data);
+            $('.print-error-msg-order').hide();
+            $('html, body').scrollTop(0);
+        } else {
+            printErrorMsgOrder(data.error_description);
+            $('.print-success-msg-order').hide();
+            $('html, body').scrollTop(0);
+
+        }
+
+        console.log(data.error_description);
+    })
+}
+
+
 function saveItem() {
     var data = $('#form-item-modal').serialize();
 
@@ -145,6 +198,26 @@ function hideMessage() {
 }
 
 
+function printErrorMsgOrder(msg) {
+    $(".print-error-msg-order").find("ul").html('');
+    $(".print-error-msg-order").css('display', 'block');
+    $.each(msg, function (key, value) {
+        $(".print-error-msg-order").find("ul").append('<li>' + value + '</li>');
+    });
+}
+
+function printSuccessMsgOrder(msg) {
+    $(".print-success-msg-order").find("ul").html('');
+    $(".print-success-msg-order").css('display', 'block');
+    $(".print-success-msg-order").find("ul").append('<li>' + msg + '</li>');
+
+}
+
+function hideMessageOser() {
+    $('.print-error-msg-order').hide();
+    $('.print-success-msg-order').hide();
+}
+
 
 function addItem() {
     var data = $('#form-add-item').serialize();
@@ -165,7 +238,7 @@ function addItem() {
             desconto = 0;
         }
 
-        product = '<tr id="product' + data.item.id + '"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + parseFloat(data.item.valor).toFixed(2) + '</td><td>' + data.qtd + '</td><td id="descproduct' + data.item.id + '">' + parseFloat(desconto).toFixed(2) + '</td><td>' + parseFloat(data.item.valor * data.qtd).toFixed(2) + '</td>';
+        product = '<tr id="product'  + data.item.id + '" class="product"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + parseFloat(data.item.valor).toFixed(2) + '</td><td>' + data.qtd + '</td><td id="descproduct' + data.item.id + '">' + parseFloat(desconto).toFixed(2) + '</td><td>' + parseFloat(data.item.valor * data.qtd).toFixed(2) + '</td>';
         product += '<td><button type="button" id="delete' + data.item.id + '"class="btn btn-danger btn-delete delete-item" value="' + data.item.id + '">X</button></td></tr>';
 
         if (!$("#product" + data.item.id).length) {
@@ -228,6 +301,7 @@ function descontoTotal() {
 
                 $("#descproduct" + data[d].item.id).replaceWith(product);
                 total();
+                $("#desconto").val(0);
             }
             total();
 
