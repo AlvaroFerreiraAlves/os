@@ -10,7 +10,7 @@
         </div>
     @endif
 
-    <p><a href="{{route('register')}}" class="btn btn-success">Cadastrar usuário</a></p>
+    <p><a href="{{route('cadastrar.usuario')}}" class="btn btn-success">Cadastrar usuário</a></p>
 
     <div class="panel-body">
         <div class="table-responsive">
@@ -36,9 +36,9 @@
                             <td>{{$user->email}}</td>
                             <td>{{$user->telefone}}</td>
                             <td>
-                                <a href="{{route("detalhes.empresa", $user->id)}}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Detalhes</a>
+                                <a href="{{route("detalhes.usuario", $user->id)}}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Detalhes</a>
 
-                                <a href="{{route("excluir.cliente", $user->id)}}" class="btn btn-danger" onclick="return confirm('Confirmar exclusão de registro?');"><i class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
+                                <a href="{{route("excluir.usuario", $user->id)}}" class="btn btn-danger" onclick="return confirm('Confirmar exclusão de registro?');"><i class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
 
                             </td>
 

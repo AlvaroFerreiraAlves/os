@@ -42,7 +42,7 @@
                             <td>
                                 <a href="{{route("detalhes.empresa", $company->id)}}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Detalhes</a>
 
-                                <a href="{{route("excluir.cliente", $company->id)}}" class="btn btn-danger" onclick="return confirm('Confirmar exclusão de registro?');"><i class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
+                                <a href="{{route("excluir.empresa", $company->id)}}" class="btn btn-danger" onclick="return confirm('Confirmar exclusão de registro?');"><i class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
 
                             </td>
 

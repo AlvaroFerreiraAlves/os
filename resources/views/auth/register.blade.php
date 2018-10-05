@@ -12,6 +12,12 @@
         </div>
     @endif
 
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+
     @if( isset($user))
         <form class="form-horizontal" method="post" action="{{ url('usuario/'.$user->id.'/update') }}">
             {!! method_field('PUT') !!}

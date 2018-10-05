@@ -22,10 +22,12 @@ Route::group(['middleware'=>['recepcionista','auth']],function (){
 
     Route::get('cadastrar-usuario', 'UsersController@showRegistrationForm')->name('cadastrar.usuario');
     Route::post('user/store', 'UsersController@store')->name('inserir.usuario');
-    Route::get('usuario/{id}/edit', 'UsersController@edit');
+    Route::get('usuario/edit/{id}', 'UsersController@edit')->name('editar.usuario');
     Route::put('usuario/{id}/update', 'UsersController@update');
+    Route::get('user/destroy/{id}', 'UsersController@destroy')->name('excluir.usuario');
 
     Route::get('customer/destroy/{id}', 'CustomersController@destroy')->name('excluir.cliente');
+    Route::get('company/destroy/{id}', 'CompaniesController@destroy')->name('excluir.empresa');
 
     Route::get('items/destroy/{id}', 'ItemsController@destroy')->name('excluir.item');
 
@@ -46,6 +48,7 @@ Route::group(['middleware'=>['tecnico','auth']],function (){
 Route::group(['middleware'=>['auth']],function (){
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('listar-usuarios', 'UsersController@showUsers')->name('listar.usuarios');
+    Route::get('detalhes-usuario/{id}', 'UsersController@details')->name('detalhes.usuario');
     Route::get('listar-clientes', 'CustomersController@showCustomers')->name('listar.clientes');
     Route::get('detalhes-cliente/{id}', 'CustomersController@details')->name('detalhes.cliente');
     Route::get('listar-produtos', 'ItemsController@showProducts')->name('listar.produtos');

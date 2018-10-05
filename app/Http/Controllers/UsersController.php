@@ -180,7 +180,7 @@ class UsersController extends Controller
             $user->tipoUsuario()->sync($dataform);
 
             $response = [
-                'message' => 'User updated.',
+                'message' => 'Usuário atualizado.',
                 'data' => $user->toArray(),
             ];
 
@@ -212,19 +212,29 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User  $user, $id)
     {
-        $deleted = $this->repository->delete($id);
+        $user = $user->find($id);
+        $user = $user->update(['status'=>0]);
 
         if (request()->wantsJson()) {
 
             return response()->json([
                 'message' => 'User deleted.',
-                'deleted' => $deleted,
+               /*'deleted' => $deleted,*/
             ]);
         }
 
-        return redirect()->back()->with('message', 'User deleted.');
+        return redirect()->back()->with('message', 'Usuário excluído.');
+    }
+
+    public function details(User $user, $id)
+    {
+        $title = "Detalhes do usuário";
+        $user = $user->find($id);
+        $tipoUsuario = $user->tipoUsuario;
+
+        return view('users.details', compact('title', 'user','tipoUsuario'));
     }
 
     public function showRegistrationForm()

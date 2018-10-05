@@ -110,7 +110,7 @@ class CompaniesController extends Controller
             ]);
 
             $response = [
-                'message' => 'Company created.',
+                'message' => 'Empresa cadastrada.',
                 'data'    => $company->toArray(),
             ];
 
@@ -226,7 +226,7 @@ class CompaniesController extends Controller
                     "status" => "1",], $id);
 
             $response = [
-                'message' => 'Company updated.',
+                'message' => 'Empresa atualizada.',
                 'data'    => $company->toArray(),
             ];
 
@@ -258,19 +258,20 @@ class CompaniesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Company $company, $id)
     {
-        $deleted = $this->repository->delete($id);
+        $company = $company->find($id);
+        $company = $company->update(['status'=>0]);
 
         if (request()->wantsJson()) {
 
             return response()->json([
                 'message' => 'Company deleted.',
-                'deleted' => $deleted,
+               /* 'deleted' => $deleted,*/
             ]);
         }
 
-        return redirect()->back()->with('message', 'Company deleted.');
+        return redirect()->back()->with('message', 'Empresa exluída.');
     }
 
     public function showFormCustomer()

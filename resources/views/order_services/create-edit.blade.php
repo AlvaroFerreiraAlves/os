@@ -774,12 +774,12 @@
                                 <!-- Select Basic -->
                                 <div class="form-group">
                                     <div class="col-md-6">
-                                        <label class="col-md-12" for="situacao_atual">Situação atual</label>
-                                        <select id="situacao_atual" name="situacao_atual" class="form-control">
+                                        <label class="col-md-12" for="situacao">Situação atual</label>
+                                        <select id="situacao" name="situacao" class="form-control">
                                             <option value="1">Em aberto</option>
                                             <option value="2">Em andamento</option>
                                             <option value="3">Concluído</option>
-                                            <option value="4">cancelado</option>
+                                            <option value="4">Cancelado</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
@@ -804,7 +804,6 @@
 
                             </fieldset>
                         </form>
-                </form>
 
                 <!-- Modal Cliente-->
 

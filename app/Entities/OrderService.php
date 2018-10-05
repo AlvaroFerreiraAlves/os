@@ -13,7 +13,7 @@ class OrderService extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = [
-        'equipamento','n_serie','p_info','p_const','s_exec','dt_prox_manut',
+        'equipamento','n_serie','p_info','p_const','s_exec','situacao','dt_prox_manut',
         'status','id_tipo_ordem_servico','id_cliente','id_empresa','id_usuario','tecnico'
     ];
 
