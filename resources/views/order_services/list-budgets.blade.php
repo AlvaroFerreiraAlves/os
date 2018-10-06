@@ -35,7 +35,7 @@
                                 <td>{{$budget->cliente->nome}}</td>
 
                                 <td>{{$budget->technician->name}}</td>
-                                <td>{{$budget->dt_prox_manut}}</td>
+                                <td>{{date('d/m/Y', strtotime($budget->dt_prox_manut))}}</td>
 
 
                                 <td>

@@ -69,12 +69,13 @@ class CompaniesController extends Controller
 
             // Define o valor default para a variável que contém o nome da imagem
             $nameFile = null;
+            $company = new Company();
 
             // Verifica se informou o arquivo e se é válido
             if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
 
                 // Define um aleatório para o arquivo baseado no timestamps atual
-                $name = 'logo';
+                $name = 'logo'.$company->id;
 
                 // Recupera a extensão do arquivo
                 $extension = $request->logo->extension();

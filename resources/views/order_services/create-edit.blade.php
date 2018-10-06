@@ -641,17 +641,21 @@
                                         <select id="id_empresa" name="id_empresa" class="form-control">
                                             @if(isset($orderService))
                                                 @forelse($companies as $company)
+                                                    @if($company->status == 1)
                                                     <option value="{{$company->id}}"
                                                             @if($company->id == $orderService->id_empresa)
                                                             selected
                                                             @endif
                                                     >{{$company->razao_social}}</option>
+                                                    @endif
                                                 @empty
                                                     não há dados
                                                 @endforelse
                                             @else
                                                 @forelse($companies as $company)
+                                                    @if($company->status == 1)
                                                     <option value="{{$company->id}}">{{$company->razao_social}}</option>
+                                                    @endif
                                                 @empty
                                                     não há dados
                                                 @endforelse

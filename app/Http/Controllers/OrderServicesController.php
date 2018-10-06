@@ -462,4 +462,35 @@ class OrderServicesController extends Controller
     }
 
 
+    public function printOrder(OrderService $orderService, $id)
+    {
+        $descontoTotal = 0;
+        $ordemOrcamento = $orderService->find($id);
+        $total = $orderService->totalOrdem($ordemOrcamento);
+        $items = $ordemOrcamento->itensOrdem;
+        $company = $ordemOrcamento->empresa;
+        $customer = $ordemOrcamento->cliente;
+        $technician = $ordemOrcamento->technician;
+
+        $itemOrdem = new ItemsOrderService();
+        $itemOrdem = $itemOrdem->where('id_ordem_servico', '=', $ordemOrcamento->id)->get();
+
+        foreach ($itemOrdem as $i) {
+            $descontoTotal = $descontoTotal + $i->desconto;
+        }
+
+
+        if ($ordemOrcamento->id_tipo_ordem_servico == 1) {
+            $title = 'Detalhes do orçamento';
+        } else {
+            $title = 'Detalhes da Ordem de serviço';
+        }
+
+
+     /*   return ::loadView('order_services.report.order-budgets', compact('title', 'ordemOrcamento', 'company', 'customer', 'items', 'technician', 'total', 'descontoTotal'))
+            // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
+            ->stream('nome-arquivo-pdf-gerado.pdf');*/
+    }
+
+
 }

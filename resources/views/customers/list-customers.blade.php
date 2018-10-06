@@ -21,7 +21,7 @@
                 <tr>
                     <th>Cód. Cliente</th>
                     <th>Nome</th>
-                    <th>Tipo de Cliente</th>
+                    <th>Tipo de Pessoa</th>
                     <th>CPF/CNPJ.</th>
                     <th>Telefone</th>
                     <th>Celular</th>
@@ -37,7 +37,13 @@
 
                         <td>{{$customer->id}}</td>
                         <td>{{$customer->nome}}</td>
-                        <td>{{$customer->tipo_cliente}}</td>
+                        <td>
+                            @if($customer->tipo_cliente == 0)
+                                Física
+                                @else
+                                Jurídica
+                            @endif
+                        </td>
                         <td>{{$customer->cnpj_cpf}}</td>
                         <td>{{$customer->telefone}}</td>
                         <td>{{$customer->celular}}</td>

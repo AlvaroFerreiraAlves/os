@@ -1,3 +1,5 @@
+const baseUrl = 'http://localhost:8000';
+
 $(document).ready(function () {
     var select = $("#itens :selected").val();
     $.ajax({
@@ -9,8 +11,14 @@ $(document).ready(function () {
         $("#valor").val(parseFloat(select).toFixed(2));
         $("#qtd").val(1);
     });
-    removeAll();
+    
+    url = window.location.href;
+    if (url == baseUrl + '/nova-ordem-servico') {
+        removeAll();
+    }
+
     total();
+
 });
 
 function removeAll() {
@@ -238,7 +246,7 @@ function addItem() {
             desconto = 0;
         }
 
-        product = '<tr id="product'  + data.item.id + '" class="product"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + parseFloat(data.item.valor).toFixed(2) + '</td><td>' + data.qtd + '</td><td id="descproduct' + data.item.id + '">' + parseFloat(desconto).toFixed(2) + '</td><td>' + parseFloat(data.item.valor * data.qtd).toFixed(2) + '</td>';
+        product = '<tr id="product' + data.item.id + '" class="product"><td>' + data.item.id + '</td><td>' + data.item.nome + '</td><td>' + parseFloat(data.item.valor).toFixed(2) + '</td><td>' + data.qtd + '</td><td id="descproduct' + data.item.id + '">' + parseFloat(desconto).toFixed(2) + '</td><td>' + parseFloat(data.item.valor * data.qtd).toFixed(2) + '</td>';
         product += '<td><button type="button" id="delete' + data.item.id + '"class="btn btn-danger btn-delete delete-item" value="' + data.item.id + '">X</button></td></tr>';
 
         if (!$("#product" + data.item.id).length) {

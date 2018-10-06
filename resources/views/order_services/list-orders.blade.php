@@ -35,8 +35,7 @@
                                 <td>{{$order->cliente->nome}}</td>
 
                                 <td>{{$order->technician->name}}</td>
-                                <td>{{$order->dt_prox_manut}}</td>
-
+                                <td>{{date('d/m/Y', strtotime($order->dt_prox_manut))}}</td>
 
                                 <td>
                                     <a href="{{route("detalhes.ordem", $order->id)}}" class="btn btn-primary"><i

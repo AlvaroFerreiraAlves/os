@@ -35,7 +35,7 @@
                                 <td>{{$item->nome}}</td>
                                 <td>{{$item->descricao}}</td>
                                 <td>{{$item->category->descricao}}</td>
-                                <td>{{$item->valor}}</td>
+                                <td>{{number_format($item->valor, 2, ',', '')}}</td>
 
                                 <td>
                                     <a href="{{route("detalhes.item", $item->id)}}" class="btn btn-primary"><i

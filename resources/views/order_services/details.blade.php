@@ -8,7 +8,7 @@
 
             <a href="{{route("editar.ordem.orcamento", $ordemOrcamento->id)}}" class="btn btn-default"><i
                         class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
-            <a href="{{route("editar.ordem.orcamento", $ordemOrcamento->id)}}" class="btn btn-default"
+            <a href="{{route("emissao.ordem", $ordemOrcamento->id)}}" class="btn btn-default"
                style="float: right"><i class="fa fa-pencil" aria-hidden="true"></i> Imprimir</a>
             <hr>
         </div>
@@ -94,8 +94,8 @@
 
                             <td>{{$item->id}}</td>
                             <td>{{$item->nome}}</td>
-                            <td>{{$item->pivot->desconto}}</td>
-                            <td>{{$item->pivot->valor}}</td>
+                            <td>{{number_format($item->pivot->desconto, 2, ',', '')}}</td>
+                            <td>{{number_format($item->pivot->valor, 2, ',', '')}}</td>
                             <td>{{$item->pivot->qtd}}</td>
 
                         </tr>
@@ -107,26 +107,14 @@
 
                 <div class="col-md-3" style="float: right">
 
-                    <h5>Desconto: R$ {{$descontoTotal}}</h5>
-                    <h3>Total: R$ {{$total - $descontoTotal}}</h3>
+                    <h5>Desconto: R$ {{number_format($descontoTotal, 2, ',', '')}}</h5>
+                    <h3>Total: R$ {{number_format($total - $descontoTotal, 2, ',', '')}}</h3>
                 </div>
 
             </div>
         </div>
 
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @endsection

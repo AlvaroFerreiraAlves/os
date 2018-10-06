@@ -58,6 +58,7 @@ Route::group(['middleware'=>['auth']],function (){
     Route::get('listar-orcamentos', 'OrderServicesController@showBudgets')->name('listar.orcamentos');
     Route::get('listar-ordens', 'OrderServicesController@showOrders')->name('listar.ordens');
     Route::get('detalhes-ordem/{id}', 'OrderServicesController@details')->name('detalhes.ordem');
+    Route::get('orçamento-ordem/{id}', 'OrderServicesController@printOrder')->name('emissao.ordem');
     Route::post('logout', 'Auth\LoginController@logout')->name('logout.os');
     Route::get('listar-empresa', 'CompaniesController@showCustomers')->name('listar.empresa');
 
