@@ -10,13 +10,9 @@ use App\Entities\ItemsOrderService;
 use App\Entities\OrderService;
 use App\Entities\TypeOrderService;
 use App\Entities\UserType;
-use App\Entities\UserTypeUser;
-use App\User;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use Illuminate\Support\Facades\Session;
-use PhpParser\Node\Expr\Array_;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\OrderServiceCreateRequest;
@@ -110,7 +106,7 @@ class OrderServicesController extends Controller
                 return response()->json($response);
             }
 
-            return  response()->json($response['message']);
+            return response()->json($response['message']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -135,7 +131,7 @@ class OrderServicesController extends Controller
     {
 
         $orderService = new OrderService();
-        $orderService = $orderService->where('tecnico','=', auth()->user()->id)->get();
+        $orderService = $orderService->where('tecnico', '=', auth()->user()->id)->get();
         if (request()->wantsJson()) {
 
             return response()->json([
@@ -144,7 +140,7 @@ class OrderServicesController extends Controller
         }
 
         return $orderService;
-       // return view('orderServices.show', compact('orderService'));
+        // return view('orderServices.show', compact('orderService'));
     }
 
 
@@ -164,11 +160,11 @@ class OrderServicesController extends Controller
         $itemsOrderSession = [];
         foreach ($itensOrdem as $io) {
 
-                $io->id = $io->id;
-                $io->nome = $io->nome;
-                $io->valor = $io->pivot->valor;
-                $io->qtd = $io->pivot->qtd;
-                $io->desconto = $io->pivot->desconto;
+            $io->id = $io->id;
+            $io->nome = $io->nome;
+            $io->valor = $io->pivot->valor;
+            $io->qtd = $io->pivot->qtd;
+            $io->desconto = $io->pivot->desconto;
 
             unset($io->pivot);
             $items->addItem($io, $io->qtd);
@@ -177,16 +173,16 @@ class OrderServicesController extends Controller
 
         }
 
-          $title = 'Editar';
-          $itens = $item->all();
-          $tipoOrdem = TypeOrderService::all();
-          $companies = Company::all();
-          $customers = Customer::all();
-          $tecnicos = UserType::find(3);
-          $tecnicos = $tecnicos->users;
-          $category = CategoryItems::all();
+        $title = 'Editar';
+        $itens = $item->all();
+        $tipoOrdem = TypeOrderService::all();
+        $companies = Company::all();
+        $customers = Customer::all();
+        $tecnicos = UserType::find(3);
+        $tecnicos = $tecnicos->users;
+        $category = CategoryItems::all();
 
-          return view('order_services.create-edit', compact('orderService', 'title', 'tipoOrdem', 'companies', 'customers', 'tecnicos', 'itens', 'item', 'itemsOrderSession','category'));
+        return view('order_services.create-edit', compact('orderService', 'title', 'tipoOrdem', 'companies', 'customers', 'tecnicos', 'itens', 'item', 'itemsOrderSession', 'category'));
 
     }
 
@@ -261,7 +257,7 @@ class OrderServicesController extends Controller
     public function destroy(OrderService $orderService, $id)
     {
         $orderService = $orderService->find($id);
-        $orderService = $orderService->update(['status'=>0]);
+        $orderService = $orderService->update(['status' => 0]);
 
         if ($orderService) {
             return redirect()->back()->with('message', 'Ordem de serviço/Orçamento Excluído.');
@@ -372,11 +368,11 @@ class OrderServicesController extends Controller
     public function showBudgets(OrderService $orderService)
     {
         $title = 'Orçamentos';
-        foreach (auth()->user()->tipoUsuario as $t){
+        foreach (auth()->user()->tipoUsuario as $t) {
             $tipoUsuario = $t->pivot->id_tipo_usuario;
-            if ($tipoUsuario == 3 && count(auth()->user()->tipoUsuario) == 1){
-                $budgets = $orderService->where('tecnico','=',auth()->user()->id)->get();
-            }else{
+            if ($tipoUsuario == 3 && count(auth()->user()->tipoUsuario) == 1) {
+                $budgets = $orderService->where('tecnico', '=', auth()->user()->id)->get();
+            } else {
                 $budgets = $orderService->all();
             }
         }
@@ -393,11 +389,11 @@ class OrderServicesController extends Controller
     public function showOrders(OrderService $orderService)
     {
         $title = 'Ordens de serviço';
-        foreach (auth()->user()->tipoUsuario as $t){
+        foreach (auth()->user()->tipoUsuario as $t) {
             $tipoUsuario = $t->pivot->id_tipo_usuario;
-            if ($tipoUsuario == 3 && count(auth()->user()->tipoUsuario) == 1){
-                $orders = $orderService->where('tecnico','=',auth()->user()->id)->get();
-            }else{
+            if ($tipoUsuario == 3 && count(auth()->user()->tipoUsuario) == 1) {
+                $orders = $orderService->where('tecnico', '=', auth()->user()->id)->get();
+            } else {
                 $orders = $orderService->all();
             }
         }
@@ -480,16 +476,10 @@ class OrderServicesController extends Controller
         }
 
 
-        if ($ordemOrcamento->id_tipo_ordem_servico == 1) {
-            $title = 'Detalhes do orçamento';
-        } else {
-            $title = 'Detalhes da Ordem de serviço';
-        }
+        return \PDF::loadView('order_services.report.order-budgets',
+            compact('ordemOrcamento', 'company', 'customer', 'items', 'technician', 'total', 'descontoTotal'))
+            ->stream();
 
-
-     /*   return ::loadView('order_services.report.order-budgets', compact('title', 'ordemOrcamento', 'company', 'customer', 'items', 'technician', 'total', 'descontoTotal'))
-            // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
-            ->stream('nome-arquivo-pdf-gerado.pdf');*/
     }
 
 

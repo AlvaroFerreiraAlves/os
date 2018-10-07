@@ -13,7 +13,7 @@
             <hr>
         </div>
 
-        <div class="logo col-md-6" s>
+        <div class="logo col-md-6">
             <img src="{{url("storage/logo/{$company->logo}")}}" width="125px" height="115px">
         </div>
         <div class="empresa col-md-6">
@@ -84,7 +84,6 @@
                         <th>Desconto</th>
                         <th>Valor</th>
                         <th>Quantidade.</th>
-
 
                     </tr>
                     </thead>
