@@ -59,7 +59,7 @@
         </div>
     </a>
 
-    <a href="#">
+    <a href="{{route('nova.ordem')}}">
         <div class="col-lg-3">
             <div class="panel panel-danger">
                 <div class="panel-heading">

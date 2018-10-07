@@ -9,8 +9,11 @@
             </ul>
         </div>
     @endif
-
-    <p><a href="{{route('cadastrar.empresa')}}" class="btn btn-success">Cadastrar empresa</a></p>
+    @foreach(auth()->user()->tipoUsuario as $t)
+        @if($t->pivot->id_tipo_usuario == 1 || $t->pivot->id_tipo_usuario == 2)
+            <p><a href="{{route('cadastrar.empresa')}}" class="btn btn-success">Cadastrar empresa</a></p>
+        @endif
+    @endforeach
 
     <div class="panel-body">
         <div class="table-responsive">
@@ -40,10 +43,16 @@
                             <td>{{$company->telefone}}</td>
                             <td>{{$company->celular}}</td>
                             <td>
-                                <a href="{{route("detalhes.empresa", $company->id)}}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Detalhes</a>
+                                <a href="{{route("detalhes.empresa", $company->id)}}" class="btn btn-primary"><i
+                                            class="fa fa-eye" aria-hidden="true"></i> Detalhes</a>
 
-                                <a href="{{route("excluir.empresa", $company->id)}}" class="btn btn-danger" onclick="return confirm('Confirmar exclusão de registro?');"><i class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
-
+                                @foreach(auth()->user()->tipoUsuario as $t)
+                                    @if($t->pivot->id_tipo_usuario == 1 || $t->pivot->id_tipo_usuario == 2)
+                                        <a href="{{route("excluir.empresa", $company->id)}}" class="btn btn-danger"
+                                           onclick="return confirm('Confirmar exclusão de registro?');"><i
+                                                    class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
+                                    @endif
+                                @endforeach
                             </td>
 
 

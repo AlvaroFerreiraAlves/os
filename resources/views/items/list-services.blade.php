@@ -41,8 +41,13 @@
                                     <a href="{{route("detalhes.item", $item->id)}}" class="btn btn-primary"><i
                                                 class="fa fa-eye" aria-hidden="true"></i> Detalhes</a>
 
-                                    <a href="{{route("excluir.item", $item->id)}}" class="btn btn-danger" onclick="return confirm('Confirmar exclusão de registro?');"><i class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
-
+                                    @foreach(auth()->user()->tipoUsuario as $t)
+                                        @if($t->pivot->id_tipo_usuario == 1 || $t->pivot->id_tipo_usuario == 2)
+                                            <a href="{{route("excluir.item", $item->id)}}" class="btn btn-danger"
+                                               onclick="return confirm('Confirmar exclusão de registro?');"><i
+                                                        class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
+                                        @endif
+                                    @endforeach
 
                                 </td>
 

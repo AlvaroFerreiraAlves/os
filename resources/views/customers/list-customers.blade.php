@@ -10,7 +10,7 @@
         </div>
     @endif
 
-    
+
 
     <p><a href="{{route('cadastrar.cliente')}}" class="btn btn-success">Cadastrar cliente</a></p>
 
@@ -33,29 +33,35 @@
                 <tbody id="customers-list" name="customers-list">
                 @foreach($customers as $customer)
                     @if($customer->status == 1)
-                    <tr>
+                        <tr>
 
-                        <td>{{$customer->id}}</td>
-                        <td>{{$customer->nome}}</td>
-                        <td>
-                            @if($customer->tipo_cliente == 0)
-                                Física
+                            <td>{{$customer->id}}</td>
+                            <td>{{$customer->nome}}</td>
+                            <td>
+                                @if($customer->tipo_cliente == 0)
+                                    Física
                                 @else
-                                Jurídica
-                            @endif
-                        </td>
-                        <td>{{$customer->cnpj_cpf}}</td>
-                        <td>{{$customer->telefone}}</td>
-                        <td>{{$customer->celular}}</td>
-                        <td>
-                            <a href="{{route("detalhes.cliente", $customer->id)}}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Detalhes</a>
+                                    Jurídica
+                                @endif
+                            </td>
+                            <td>{{$customer->cnpj_cpf}}</td>
+                            <td>{{$customer->telefone}}</td>
+                            <td>{{$customer->celular}}</td>
+                            <td>
+                                <a href="{{route("detalhes.cliente", $customer->id)}}" class="btn btn-primary"><i
+                                            class="fa fa-eye" aria-hidden="true"></i> Detalhes</a>
+                                @foreach(auth()->user()->tipoUsuario as $t)
+                                    @if($t->pivot->id_tipo_usuario == 1 || $t->pivot->id_tipo_usuario == 2)
+                                        <a href="{{route("excluir.cliente", $customer->id)}}" class="btn btn-danger"
+                                           onclick="return confirm('Confirmar exclusão de registro?');"><i
+                                                    class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
 
-                            <a href="{{route("excluir.cliente", $customer->id)}}" class="btn btn-danger" onclick="return confirm('Confirmar exclusão de registro?');"><i class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
+                                    @endif
+                                @endforeach
+                            </td>
 
-                        </td>
 
-
-                    </tr>
+                        </tr>
                     @endif
                 @endforeach
                 </tbody>
