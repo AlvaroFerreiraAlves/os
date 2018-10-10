@@ -12,6 +12,7 @@
     @foreach(auth()->user()->tipoUsuario as $t)
         @if($t->pivot->id_tipo_usuario == 1 || $t->pivot->id_tipo_usuario == 2)
             <p><a href="{{route('cadastrar.usuario')}}" class="btn btn-success">Cadastrar usuário</a></p>
+            @break
         @endif
     @endforeach
 
@@ -47,6 +48,7 @@
                                         <a href="{{route("excluir.usuario", $user->id)}}" class="btn btn-danger"
                                            onclick="return confirm('Confirmar exclusão de registro?');"><i
                                                     class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
+                                        @break
                                     @endif
                                 @endforeach
                             </td>

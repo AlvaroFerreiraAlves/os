@@ -28,14 +28,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="{{asset('js/index.js')}}"></script>
 
-<!-- Page Specific Plugins -->
-{{--<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>--}}{{--
-<script src="{{url('assets/js/morris/chart-data-morris.js')}}"></script>--}}
-{{--
-<script src="{{url('assets/js/tablesorter/jquery.tablesorter.js')}}"></script>
-<script src="{{url('assets/js/tablesorter/tables.js')}}"></script>
---}}
+
 
 <div id="wrapper">
 

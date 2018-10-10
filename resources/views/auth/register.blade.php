@@ -129,7 +129,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="tipousuario">Tipo usuário</label>
                         <div class="col-md-4">
-                            <select id="tipousuario" name="tipousuario[]" class="form-control" multiple="multiple">
+                            <select id="tipousuario" name="tipousuario[]" class="form-control" multiple="multiple" required="Selecione" autofocus>
                                 @if(isset($user))
                                     @foreach($tipoUsuario as $tu)
                                         <option value="{{$tu->id}}"

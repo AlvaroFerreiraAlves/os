@@ -18,7 +18,7 @@
                 </div>
                 <div id="dados-cliente" class="panel-collapse collapse">
 
-                    <li class="list-group-item"><b>logo: </b><img src="{{url("storage/logo/{$company->logo}")}}"
+                    <li class="list-group-item"><b>logo: </b><img src="{{url("logo/{$company->logo}")}}"
                                                                   width="100px" height="100px"></li>
                     <li class="list-group-item"><b>nome: </b>{{$company->razao_social}}</li>
                     <li class="list-group-item"><b>Tipo de pessoa: </b>{{$company->cnpj}}</li>

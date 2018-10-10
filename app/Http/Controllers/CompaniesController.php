@@ -75,7 +75,7 @@ class CompaniesController extends Controller
             if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
 
                 // Define um aleatório para o arquivo baseado no timestamps atual
-                $name = 'logo'.$company->id;
+                $name = uniqid(date('HisYmd'));;
 
                 // Recupera a extensão do arquivo
                 $extension = $request->logo->extension();
@@ -84,7 +84,7 @@ class CompaniesController extends Controller
                 $nameFile = "{$name}.{$extension}";
 
                 // Faz o upload:
-                $upload = $request->logo->storeAs('logo', $nameFile);
+                $upload = $request->logo->move('logo', $nameFile);
                 // Se tiver funcionado o arquivo foi armazenado em storage/app/public/categories/nomedinamicoarquivo.extensao
 
                 // Verifica se NÃO deu certo o upload (Redireciona de volta)
@@ -188,21 +188,22 @@ class CompaniesController extends Controller
 
             // Define o valor default para a variável que contém o nome da imagem
             $nameFile = null;
+            $company = new Company();
 
             // Verifica se informou o arquivo e se é válido
             if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
 
                 // Define um aleatório para o arquivo baseado no timestamps atual
-                $name = $request->logo->getClientOriginalName();
+                $name = uniqid(date('HisYmd'));;
 
                 // Recupera a extensão do arquivo
                 $extension = $request->logo->extension();
 
                 // Define finalmente o nome
-                $nameFile = "{$name}"/*.{$extension}*/;
+                $nameFile = "{$name}.{$extension}";
 
                 // Faz o upload:
-                $upload = $request->logo->storeAs('logo', $nameFile);
+                $upload = $request->logo->move('logo', $nameFile);
                 // Se tiver funcionado o arquivo foi armazenado em storage/app/public/categories/nomedinamicoarquivo.extensao
 
                 // Verifica se NÃO deu certo o upload (Redireciona de volta)

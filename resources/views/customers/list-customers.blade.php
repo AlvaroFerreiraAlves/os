@@ -55,7 +55,7 @@
                                         <a href="{{route("excluir.cliente", $customer->id)}}" class="btn btn-danger"
                                            onclick="return confirm('Confirmar exclusão de registro?');"><i
                                                     class="fa fa-trash-o" aria-hidden="true"></i>Excluir</a>
-
+                                        @break
                                     @endif
                                 @endforeach
                             </td>

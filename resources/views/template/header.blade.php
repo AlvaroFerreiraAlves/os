@@ -62,6 +62,8 @@
                         @foreach(auth()->user()->tipoUsuario as $t)
                             @if($t->pivot->id_tipo_usuario == 1 || $t->pivot->id_tipo_usuario == 2)
                                 <li><a href="{{route('cadastrar.empresa')}}">Cadastrar empresa</a></li>
+                                <li><a href="{{route('listar.empresa')}}">Visualizar empresa</a></li>
+                                @break
                             @else
                                 <li><a href="{{route('listar.empresa')}}">Visualizar empresa</a></li>
                             @endif
@@ -79,6 +81,8 @@
                         @foreach(auth()->user()->tipoUsuario as $t)
                             @if($t->pivot->id_tipo_usuario == 1 || $t->pivot->id_tipo_usuario == 2)
                                 <li><a href="{{ route('cadastrar.usuario') }}">Cadastrar usuário</a></li>
+                                <li><a href="{{route('listar.usuarios')}}">Visualizar usuários</a></li>
+                                @break
                             @else
                                 <li><a href="{{route('listar.usuarios')}}">Visualizar usuários</a></li>
                             @endif
@@ -88,8 +92,6 @@
                     </ul>
                 </li>
 
-
-             {{--   <li><a href="#"><i class="fa fa-wrench"></i> Bootstrap Grid</a></li>--}}
 
 
             </ul>
@@ -105,8 +107,6 @@
                                     class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><i class="fa fa-user"></i> Perfil</a></li>
-                           {{-- <li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
-                            <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>--}}
                             <li class="divider"></li>
                             <li><a href="{{ route('logout.os') }}"
                                    onclick="event.preventDefault();
