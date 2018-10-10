@@ -9,9 +9,9 @@ Para utilizar o sistema basta acessar <a href="https://ordemservico-os.000webhos
 - <b>Email:</b> tecnico@tecnico.com <b>Senha:</b>123123123
 
 <b>PRINCIPAIS FUNCIONALIDADES</b>
-- Cadastrar de clientes
-- Cadastrar de produtos/serviços
-- Cadastrar de empresas
-- Cadastrar de usuários com níveis de acesso (Administradores, Recepcionistas e  técnicos)
-- Cadastrar de Orçamentos/Ordem de serviço
-- Emitir de Orçamentos/Ordem de serviço
+- Cadastrar clientes
+- Cadastrar produtos/serviços
+- Cadastrar empresas
+- Cadastrar usuários com níveis de acesso (Administradores, Recepcionistas e  técnicos)
+- Cadastrar Orçamentos/Ordem de serviço
+- Emitir Orçamentos/Ordem de serviço
