@@ -1,4 +1,4 @@
-## Sietma de Ordem de Serviço - Laravel
+## Sistema de Ordem de Serviço - Laravel
 
 SISTEMA DE CONTROLE E GERENCIAMENTO DE ORDEM DE SERVIÇO UTILIZANDO O FRAMEWORK LARAVEL E JAVASCRIPT/JQUERY.
 
